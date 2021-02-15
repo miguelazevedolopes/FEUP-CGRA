@@ -3,7 +3,7 @@
 ## Group T0xG0y
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201901010 | ...                |
-| Jane Doe         | 201901011 | ...                |
+| Marcelo Couto    | 201906086 |up201906086@fe.up.pt|
+| Miguel Loopes    | 201704590 |up201704590@fe.up.pt|
 
 ----
