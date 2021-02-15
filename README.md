@@ -1,6 +1,6 @@
 # CGRA 2020/2021
 
-## Group T0xG0y
+## Group T3xG9y
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
 | Marcelo Couto    | 201906086 |up201906086@fe.up.pt|
