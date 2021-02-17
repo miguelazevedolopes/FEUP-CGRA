@@ -23,8 +23,17 @@ export class MyInterface extends CGFinterface {
         //Checkbox for Diamond
         this.gui.add(this.scene, 'displayDiamond').name('Display Diamond');
 
-        //Checkbox for Triangle
+        //Checkbox for MyTriangle
         this.gui.add(this.scene, 'displayTriangle').name('Display Triangle');
+
+        //Chekcbox for Parallelogram
+        this.gui.add(this.scene, 'displayParallelogram').name('Display Parallelogram');
+
+        //Checkbox for TriangleBig
+        this.gui.add(this.scene, 'displayTriangleBig').name('Display Big Triangle');
+
+        //Checkbox for TriangleSmall
+        this.gui.add(this.scene, 'displayTriangleSmall').name('Display Small Triangle');
 
         //Slider element in GUI
         this.gui.add(this.scene, 'scaleFactor', 0.1, 5).name('Scale Factor');

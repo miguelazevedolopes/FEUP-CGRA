@@ -1,6 +1,9 @@
 import { CGFscene, CGFcamera, CGFaxis } from "../lib/CGF.js";
 import { MyDiamond } from "./MyDiamond.js";
+import { MyParallelogram } from "./MyParallelogram.js";
 import { MyTriangle } from "./MyTriangle.js";
+import { MyTriangleBig } from "./MyTriangleBig.js";
+import { MyTriangleSmall } from "./MyTriangleSmall.js";
 
 /**
  * MyScene
@@ -28,11 +31,17 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.diamond = new MyDiamond(this);
     this.triangle = new MyTriangle(this);
+    this.parallelogram = new MyParallelogram(this);
+    this.triangleBig = new MyTriangleBig(this);
+    this.triangleSmall = new MyTriangleSmall(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.displayTriangle = true;
     this.displayDiamond = true;
+    this.displayParallelogram = true;
+    this.displayTriangleBig = true;
+    this.displayTriangleSmall = true;
     this.scaleFactor = 1;
   }
   initLights() {
@@ -50,10 +59,34 @@ export class MyScene extends CGFscene {
       vec3.fromValues(0, 0, 0)
     );
   }
-  setDefaultAppearance() {
+  setDefaultAppearance() { //Blue objects
     this.setAmbient(0.2, 0.4, 0.8, 1.0);
     this.setDiffuse(0.2, 0.4, 0.8, 1.0);
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
+    this.setShininess(10.0);
+  }
+  setPinkAppearance() {
+    this.setAmbient(1.0, 0.4, 0.7, 1.0);
+    this.setDiffuse(1.0, 0.4, 0.7, 1.0);
+    this.setSpecular(1.0, 0.4, 0.7, 1.0);
+    this.setShininess(10.0);
+  }
+  setYellowAppearance() {
+    this.setAmbient(1.0, 1.0, 0.0, 1.0);
+    this.setDiffuse(1.0, 1.0, 0.0, 1.0);
+    this.setSpecular(1.0, 1.0, 0.0, 1.0);
+    this.setShininess(10.0);
+  }
+  setRedAppearance() {
+    this.setAmbient(1.0, 0.0, 0.0, 1.0);
+    this.setDiffuse(1.0, 0.0, 0.0, 1.0);
+    this.setSpecular(1.0, 0.0, 0.0, 1.0);
+    this.setShininess(10.0);
+  }
+  setGreenAppearance() {
+    this.setAmbient(0.0, 1.0, 0.0, 1.0);
+    this.setDiffuse(0.0, 1.0, 0.0, 1.0);
+    this.setSpecular(0.0, 1.0, 0.0, 1.0);
     this.setShininess(10.0);
   }
   display() {
@@ -69,6 +102,7 @@ export class MyScene extends CGFscene {
 
     // Draw axis
     if (this.displayAxis) this.axis.display();
+  
 
     this.setDefaultAppearance();
 
@@ -93,13 +127,19 @@ export class MyScene extends CGFscene {
 
     this.multMatrix(sca);
 
-    if (this.displayDiamond) this.diamond.display();
-    if (this.displayTriangle) this.triangle.display();
-
     // ---- BEGIN Primitive drawing section
 
-    /*this.diamond.display();
-    this.triangle.display();*/
+    this.setGreenAppearance();
+    if (this.displayDiamond) this.diamond.display();
+    this.setPinkAppearance();
+    if (this.displayTriangle) this.triangle.display();
+    this.setYellowAppearance();
+    if (this.displayParallelogram) this.parallelogram.display();
+    this.setRedAppearance();  
+    if (this.displayTriangleSmall) this.triangleSmall.display();
+    this.setDefaultAppearance(); // Blue object
+    if (this.displayTriangleBig) this.triangleBig.display();
+    
 
     // ---- END Primitive drawing section
   }
