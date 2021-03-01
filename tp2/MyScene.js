@@ -128,20 +128,6 @@ export class MyScene extends CGFscene {
       1.0,
     ];
 
-    var composedFigureRot1 = [
-      1.0, 0.0, 0.0, 0.0,
-      0.0, Math.cos(-Math.PI/2), Math.sin(-Math.PI/2), 0.0,
-      0.0, -Math.sin(-Math.PI/2), Math.cos(-Math.PI/2), 0.0,
-      0.0, 0.0, 0.0, 1.0,
-    ]
-
-    var composedFigureRot2 = [
-      Math.cos(-Math.PI/2), 0.0, -Math.sin(-Math.PI/2), 0.0,
-      0.0, 1.0, 0.0, 0.0,
-      Math.sin(-Math.PI/2), 0.0, Math.cos(-Math.PI/2), 0.0,
-      0.0, 0.0, 0.0, 1.0,
-    ]
-
     var unitCubeQuadT = [
       1.0, 0.0, 0.0, 0.0,
       0.0, 1.0, 0.0, 0.0,
@@ -169,8 +155,8 @@ export class MyScene extends CGFscene {
 
     //COMPOSED FIGURE TRANSFORMATIONS
     this.pushMatrix();
-    this.multMatrix(composedFigureRot2);
-    this.multMatrix(composedFigureRot1);
+    this.rotate(-Math.PI / 2, 0, 1, 0);
+    this.rotate(-Math.PI / 2, 1, 0, 0)
     this.multMatrix(composedFigureT1);
 
       //UNIT CUBE QUAD
