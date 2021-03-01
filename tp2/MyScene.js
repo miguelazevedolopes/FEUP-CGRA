@@ -1,7 +1,5 @@
 import { CGFscene, CGFcamera, CGFaxis } from "../lib/CGF.js";
-import { MyUnitCube } from "./MyUnitCube.js";
 import { MyTangram } from "./MyTangram.js";
-import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 
 /**
  * MyScene
@@ -27,16 +25,14 @@ export class MyScene extends CGFscene {
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
-    this.unitCube = new MyUnitCube(this);
     this.tangram = new MyTangram(this);
-    this.unitCubeQuad = new MyUnitCubeQuad(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.scaleFactor = 1;
   }
   initLights() {
-    this.lights[0].setPosition(15, 112, 5, 1);
+    this.lights[0].setPosition(0, 0, 15, 0);
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[0].enable();
     this.lights[0].update();
@@ -128,48 +124,11 @@ export class MyScene extends CGFscene {
       1.0,
     ];
 
-    var unitCubeQuadT = [
-      1.0, 0.0, 0.0, 0.0,
-      0.0, 1.0, 0.0, 0.0,
-      0.0, 0.0, 1.0, 0.0, 
-      0.2, -0.4, -0.51, 1.0,
-    ]
-
-    var unitCubeQuadS = [
-      6.0, 0.0, 0.0, 0.0,
-      0.0, 6.0, 0.0, 0.0,
-      0.0, 0.0, 1.0, 0.0,
-      0.0, 0.0, 0.0, 1.0,
-    ]
-
-    var composedFigureT1 = [
-      1.0, 0.0, 0.0, 0.0,
-      0.0, 1.0, 0.0, 0.0,
-      0.0, 0.0, 1.0, 0.0, 
-      2.8, 3.4, 0.0, 1.0,
-    ]
-
     this.multMatrix(sca);
 
     // ---- BEGIN Primitive drawing section
 
-    //COMPOSED FIGURE TRANSFORMATIONS
-    this.pushMatrix();
-    this.rotate(-Math.PI / 2, 0, 1, 0);
-    this.rotate(-Math.PI / 2, 1, 0, 0)
-    this.multMatrix(composedFigureT1);
-
-      //UNIT CUBE QUAD
-      this.pushMatrix();
-      this.multMatrix(unitCubeQuadT);
-      this.multMatrix(unitCubeQuadS);
-      this.unitCubeQuad.display();
-      this.popMatrix();
-
-      //TANGRAM
-      this.tangram.display();
-
-    this.popMatrix();
+    this.tangram.display();    
 
     // ---- END Primitive drawing section
   }
