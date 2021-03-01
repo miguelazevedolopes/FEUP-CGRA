@@ -133,27 +133,27 @@ export class MyScene extends CGFscene {
     ];
     this.multMatrix(sca);
 
-/*     this.tangram.display();
+/*      this.tangram.display();
     this.pushMatrix();
     this.setWhiteAppearance();
     this.scale(7,7,7)
     this.translate(0,0,-0.6)
     this.cube.display();
-    this.popMatrix(); */
+    this.popMatrix();  */
 
-    /* this.pushMatrix()
-    this.translate(-3,0,4);
-    this.rotate(-Math.PI/2,0,0,1);
-    this.rotate(-Math.PI/2,0,1,0);
+     this.pushMatrix()
+    this.translate(4,0,3.5);
+    this.rotate(-Math.PI/2,1,0,0);
     this.tangram.display();
     this.popMatrix();
+    
     this.pushMatrix()
     this.scale(7,7,7);
-    this.translate(-0.5,-0.51,0.5);//-0.51 pq facilita a visualização(mas para estarem sobrepostos seria -0.5)
+    this.translate(0.5,-0.51,0.5);//-0.51 pq facilita a visualização(mas para estarem sobrepostos seria -0.5)
     this.setWhiteAppearance();
-    this.cube.display(); */
+    this.cube.display(); 
 
-    this.pushMatrix();
+/*     this.pushMatrix();
     this.translate(0,0,0.5);
     this.quad.display();
     this.popMatrix();
@@ -177,7 +177,7 @@ export class MyScene extends CGFscene {
     this.quad.display();
     this.translate(0,0,-1);
     this.quad.display();
-    this.popMatrix();
+    this.popMatrix(); */
 
     // ---- END Primitive drawing section
   }
