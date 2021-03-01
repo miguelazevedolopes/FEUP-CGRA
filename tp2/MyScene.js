@@ -1,5 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis } from "../lib/CGF.js";
+import { MyQuad } from "./MyQuad.js";
 import { MyTangram } from "./MyTangram.js";
+import { MyUnitCube } from "./MyUnitCube.js";
 
 /**
  * MyScene
@@ -26,6 +28,8 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.tangram = new MyTangram(this);
+    this.cube=new MyUnitCube(this);
+    this.quad=new MyQuad(this);
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.scaleFactor = 1;
@@ -75,6 +79,24 @@ export class MyScene extends CGFscene {
     this.setSpecular(0.0, 1.0, 0.0, 1.0);
     this.setShininess(10.0);
   }
+  setOrangeAppearance() {
+    this.setAmbient(255/256, 165/256, 0.02, 1.0);
+    this.setDiffuse(255/256, 165/256, 0.02, 1.0);
+    this.setSpecular(255/256, 165/256, 0.02, 1.0);
+    this.setShininess(10.0);
+  }
+  setPurpleAppearance() {
+    this.setAmbient(0.4,0, 0.4, 1.0);
+    this.setDiffuse(0.4,0, 0.4, 1.0);
+    this.setSpecular(0.4,0, 0.4, 1.0);
+    this.setShininess(10.0);
+  }
+  setWhiteAppearance() {
+    this.setAmbient(0.8,0.8, 0.8, 1);
+    this.setDiffuse(0.8,0.8, 0.8, 1);
+    this.setSpecular(0.8,0.8, 0.8,1);
+    this.setShininess(10.0);
+  }
   display() {
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
@@ -109,11 +131,53 @@ export class MyScene extends CGFscene {
       0.0,
       1.0,
     ];
-
-
     this.multMatrix(sca);
+
+/*     this.tangram.display();
+    this.pushMatrix();
+    this.setWhiteAppearance();
+    this.scale(7,7,7)
+    this.translate(0,0,-0.6)
+    this.cube.display();
+    this.popMatrix(); */
+
+    /* this.pushMatrix()
+    this.translate(-3,0,4);
+    this.rotate(-Math.PI/2,0,0,1);
+    this.rotate(-Math.PI/2,0,1,0);
     this.tangram.display();
-    
+    this.popMatrix();
+    this.pushMatrix()
+    this.scale(7,7,7);
+    this.translate(-0.5,-0.51,0.5);//-0.51 pq facilita a visualização(mas para estarem sobrepostos seria -0.5)
+    this.setWhiteAppearance();
+    this.cube.display(); */
+
+    this.pushMatrix();
+    this.translate(0,0,0.5);
+    this.quad.display();
+    this.popMatrix();
+
+    this.pushMatrix();
+    this.translate(0,0,-0.5);
+    this.quad.display();
+    this.popMatrix();
+
+    this.pushMatrix();
+    this.rotate(Math.PI/2,1,0,0)
+    this.translate(0,0,0.5);
+    this.quad.display();
+    this.translate(0,0,-1);
+    this.quad.display();
+    this.popMatrix();
+
+    this.pushMatrix();
+    this.rotate(Math.PI/2,0,1,0)
+    this.translate(0,0,0.5);
+    this.quad.display();
+    this.translate(0,0,-1);
+    this.quad.display();
+    this.popMatrix();
 
     // ---- END Primitive drawing section
   }
