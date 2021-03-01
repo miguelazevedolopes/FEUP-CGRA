@@ -70,7 +70,7 @@ export class MyTangram extends CGFobject {
         this.scene.translate(-2,-Math.sqrt(8)+1,0);
         this.scene.rotate(-Math.PI/2,0,0,1);
         this.scene.setRedAppearance();
-        if(this.displayPurple) this.smallTriangle.display()
+        if(this.displayRed) this.smallTriangle.display()
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
