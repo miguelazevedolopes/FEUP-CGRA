@@ -131,9 +131,9 @@ export class MyScene extends CGFscene {
 
         //Wood like material
         this.materialWood = new CGFappearance(this);
-        this.materialWood.setAmbient(0.5, 0.1, 0.05, 1.0);
-        this.materialWood.setDiffuse(1.0, 0.5, 0.25, 1.0);
-        this.materialWood.setSpecular(0.1, 0.05, 0.25, 1.0);
+        this.materialWood.setAmbient(0.6, 0.3, 0.0, 1.0);
+        this.materialWood.setDiffuse(0.6, 0.3, 0.0, 1.0);
+        this.materialWood.setSpecular(0.06, 0.03, 0.0, 1.0);
         this.materialWood.setShininess(10.0);
 
         // Custom material (can be changed in the interface)
@@ -175,17 +175,20 @@ export class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
+        //MATERIALS
         this.materials[this.selectedMaterial].apply();
 
         this.pushMatrix();
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         
+        //OBJECTS
         if (this.displayNormals)
             this.objects[this.selectedObject].enableNormalViz();
         else
             this.objects[this.selectedObject].disableNormalViz();
         
         this.objects[this.selectedObject].display();
+        
         this.popMatrix();
         // ---- END Primitive drawing section
     }
