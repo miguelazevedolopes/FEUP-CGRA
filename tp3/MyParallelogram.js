@@ -11,11 +11,32 @@ export class MyParallelogram extends CGFobject {
             1, 0, 0, //1
             3, 0, 0, //2
             2, 1, 0, //3
+
+            0, 1, 0, //0
+            1, 0, 0, //1
+            3, 0, 0, //2
+            2, 1, 0, //3
         ]
 
         this.indices = [
             0, 1, 3,
             3, 1, 2,
+
+            7, 5, 4,
+            6, 5, 7,
+        ]
+
+        this.normals=[
+            
+            0,0,1,
+			0,0,1,
+			0,0,1,
+            0,0,1,
+			0,0,-1,
+            0,0,-1,
+			0,0,-1,
+            0,0,-1,
+            
         ]
 
         this.primitiveType = this.scene.gl.TRIANGLES;
