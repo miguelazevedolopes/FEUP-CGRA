@@ -86,6 +86,7 @@ export class MyTangram extends CGFobject {
         0.0, 0.0, 1.0, 0.0, 
         -1.0, 0.0, 0.0, 1.0,
         ];    
+        
 
         //DIAMOND
         this.scene.pushMatrix();
