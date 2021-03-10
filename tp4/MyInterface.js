@@ -44,11 +44,14 @@ export class MyInterface extends CGFinterface {
         f3.add(this.scene.texCoords, '3', -5.0, 5.0, 0.1).name('T Coord').onChange(this.scene.updateTexCoords.bind(this.scene)).step(0.001);
 
         var f4 = this.gui.addFolder('Objects');
-        f4.add(this.scene, 'displayMyQuad').name('Display MyQuad');
+        f4.add(this.scene, 'displayMyQuad').name('Display Quad');
         f4.add(this.scene, 'displayTangram').name('Display Tangram');
+        f4.add(this.scene, 'displayMyUnitCubeQuad').name('Display UnitCubeQuad')
 
         var f5 = this.gui.addFolder('Materials');
         f5.add(this.scene, 'useQuadMaterial').name('Quad material');
+
+        this.gui.add(this.scene, 'enableLinearFiltering').name('Enable Linear Filtering');
 
         return true;
     }
