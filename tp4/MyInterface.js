@@ -51,7 +51,7 @@ export class MyInterface extends CGFinterface {
         var f5 = this.gui.addFolder('Materials');
         f5.add(this.scene, 'useQuadMaterial').name('Quad material');
 
-        this.gui.add(this.scene, 'enableLinearFiltering').name('Enable Linear Filtering');
+        this.gui.add(this.scene.unitCubeQuad, 'enableLinearFiltering').name('Enable Linear Filtering');
 
         return true;
     }

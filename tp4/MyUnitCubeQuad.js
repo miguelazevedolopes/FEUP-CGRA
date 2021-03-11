@@ -10,6 +10,7 @@ export class MyUnitCubeQuad extends CGFobject {
         this.Ymenos = new CGFtexture(this.scene, Ymenos);
         this.Zmenos = new CGFtexture(this.scene, Zmenos);
         this.Xmenos = new CGFtexture(this.scene, Xmenos);
+        this.enableLinearFiltering = false;
         this.initBuffers();
     }
     initBuffers() {
@@ -23,13 +24,19 @@ export class MyUnitCubeQuad extends CGFobject {
         this.mat.setShininess(10.0);
 
     }
+    changeFiltering() {
+        if (this.enableLinearFiltering)
+            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        else {
+            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
+        }
+    }
     display() {
 
         //TOP
         this.scene.pushMatrix();
         this.scene.translate(0.0, 0.0, 0.5);
-        if (this.scene.enableLinearFiltering)
-            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        this.changeFiltering();
         this.mat.setTexture(this.Zmais);
         this.mat.apply()
         this.scene.quad.display();
@@ -39,8 +46,7 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0.0, 0.0, -0.5);
         this.scene.rotate(Math.PI, 0, 1, 0);
-        if (this.scene.enableLinearFiltering)
-            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        this.changeFiltering();
         this.mat.setTexture(this.Zmenos);
         this.mat.apply()
         this.scene.quad.display();
@@ -51,8 +57,7 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.scene.translate(0.5, 0.0, 0.0);
         this.scene.rotate(Math.PI/2, 0, 1, 0);
-        if (this.scene.enableLinearFiltering)
-            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        this.changeFiltering();
         this.mat.setTexture(this.Xmais);
         this.mat.apply()
         this.scene.quad.display();
@@ -63,8 +68,7 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.scene.translate(-0.5, 0.0, 0.0);
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
-        if (this.scene.enableLinearFiltering)
-            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        this.changeFiltering();
         this.mat.setTexture(this.Xmenos);
         this.mat.apply()
         this.scene.quad.display();
@@ -76,8 +80,7 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.translate(0.0, 0.5, 0.0);
         this.scene.rotate(-Math.PI/2, 0, 0, 1);
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
-        if (this.scene.enableLinearFiltering)
-            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        this.changeFiltering();
         this.mat.setTexture(this.Ymais);
         this.mat.apply()
         this.scene.quad.display();
@@ -89,8 +92,7 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.translate(0.0, -0.5, 0.0);
         this.scene.rotate(-Math.PI/2, 0, 0, 1);
         this.scene.rotate(Math.PI/2, 0, 1, 0);
-        if (this.scene.enableLinearFiltering)
-            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        this.changeFiltering();
         this.mat.setTexture(this.Ymenos);
         this.mat.apply()
         this.scene.quad.display();

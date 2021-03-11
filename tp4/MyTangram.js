@@ -28,66 +28,65 @@ export class MyTangram extends CGFobject {
         //MATERIALS
 
         //RED
-        this.scene.materialRed = new CGFappearance(this.scene);
-        this.scene.materialRed.setAmbient(0.2, 0.0, 0.0, 1.0);
-        this.scene.materialRed.setDiffuse(0.1, 0.0, 0.0, 1.0);
-        this.scene.materialRed.setSpecular(1.0, 0.0, 0.0, 1.0);
-        this.scene.materialRed.setShininess(10.0);
+        this.materialRed = new CGFappearance(this.scene);
+        this.materialRed.setAmbient(0.2, 0.0, 0.0, 1.0);
+        this.materialRed.setDiffuse(0.1, 0.0, 0.0, 1.0);
+        this.materialRed.setSpecular(1.0, 0.0, 0.0, 1.0);
+        this.materialRed.setShininess(10.0);
 
         //GREEN
-        this.scene.materialGreen = new CGFappearance(this.scene);
-        this.scene.materialGreen.setAmbient(0.0, 0.2, 0.0, 1.0);
-        this.scene.materialGreen.setDiffuse(0.0, 0.1, 0.0, 1.0);
-        this.scene.materialGreen.setSpecular(0.0, 1.0, 0.0, 1.0);
-        this.scene.materialGreen.setShininess(10.0);
+        this.materialGreen = new CGFappearance(this.scene);
+        this.materialGreen.setAmbient(0.0, 0.2, 0.0, 1.0);
+        this.materialGreen.setDiffuse(0.0, 0.1, 0.0, 1.0);
+        this.materialGreen.setSpecular(0.0, 1.0, 0.0, 1.0);
+        this.materialGreen.setShininess(10.0);
 
         //ORANGE
-        this.scene.materialOrange = new CGFappearance(this.scene);
-        this.scene.materialOrange.setAmbient(0.2, 0.1, 0.0, 1.0);
-        this.scene.materialOrange.setDiffuse(0.1, 0.05, 0.0, 1.0);
-        this.scene.materialOrange.setSpecular(1.0, 0.5, 0.0, 1.0);
-        this.scene.materialOrange.setShininess(10.0);
+        this.materialOrange = new CGFappearance(this.scene);
+        this.materialOrange.setAmbient(0.2, 0.1, 0.0, 1.0);
+        this.materialOrange.setDiffuse(0.1, 0.05, 0.0, 1.0);
+        this.materialOrange.setSpecular(1.0, 0.5, 0.0, 1.0);
+        this.materialOrange.setShininess(10.0);
 
         //YELLOW
-        this.scene.materialYellow = new CGFappearance(this.scene);
-        this.scene.materialYellow.setAmbient(0.2, 0.2, 0.0, 1.0);
-        this.scene.materialYellow.setDiffuse(0.1, 0.1, 0.0, 1.0);
-        this.scene.materialYellow.setSpecular(1.0, 1.0, 0.0, 1.0);
-        this.scene.materialYellow.setShininess(10.0);
+        this.materialYellow = new CGFappearance(this.scene);
+        this.materialYellow.setAmbient(0.2, 0.2, 0.0, 1.0);
+        this.materialYellow.setDiffuse(0.1, 0.1, 0.0, 1.0);
+        this.materialYellow.setSpecular(1.0, 1.0, 0.0, 1.0);
+        this.materialYellow.setShininess(10.0);
 
         //PINK
-        this.scene.materialPink = new CGFappearance(this.scene);
-        this.scene.materialPink.setAmbient(0.2, 0.08, 0.14, 1.0);
-        this.scene.materialPink.setDiffuse(0.1, 0.04, 0.07, 1.0);
-        this.scene.materialPink.setSpecular(1.0, 0.4, 0.7, 1.0);
-        this.scene.materialPink.setShininess(10.0);
+        this.materialPink = new CGFappearance(this.scene);
+        this.materialPink.setAmbient(0.2, 0.08, 0.14, 1.0);
+        this.materialPink.setDiffuse(0.1, 0.04, 0.07, 1.0);
+        this.materialPink.setSpecular(1.0, 0.4, 0.7, 1.0);
+        this.materialPink.setShininess(10.0);
 
         //PURPLE
-        this.scene.materialPurple = new CGFappearance(this.scene);
-        this.scene.materialPurple.setAmbient(0.14, 0.02, 0.2, 1.0);
-        this.scene.materialPurple.setDiffuse(0.07, 0.01, 0.1, 1.0);
-        this.scene.materialPurple.setSpecular(0.7, 0.1, 1.0, 1.0);
-        this.scene.materialPurple.setShininess(10.0);
+        this.materialPurple = new CGFappearance(this.scene);
+        this.materialPurple.setAmbient(0.14, 0.02, 0.2, 1.0);
+        this.materialPurple.setDiffuse(0.07, 0.01, 0.1, 1.0);
+        this.materialPurple.setSpecular(0.7, 0.1, 1.0, 1.0);
+        this.materialPurple.setShininess(10.0);
 
         //BLUE
-        this.scene.materialBlue = new CGFappearance(this.scene);
-        this.scene.materialBlue.setAmbient(0.04, 0.08, 0.16, 1.0);
-        this.scene.materialBlue.setDiffuse(0.02, 0.04, 0.08, 1.0);
-        this.scene.materialBlue.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.scene.materialBlue.setShininess(10.0);
+        this.materialBlue = new CGFappearance(this.scene);
+        this.materialBlue.setAmbient(0.04, 0.08, 0.16, 1.0);
+        this.materialBlue.setDiffuse(0.02, 0.04, 0.08, 1.0);
+        this.materialBlue.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.materialBlue.setShininess(10.0);
 
         //TEXTURE MATERIAL
-        this.scene.materialTangramPNG = new CGFappearance(this.scene);
-        this.scene.materialTangramPNG.setAmbient(0.1, 0.1, 0.1, 1.0);
-        this.scene.materialTangramPNG.setDiffuse(0.9, 0.9, 0.9, 1.0);
-        this.scene.materialTangramPNG.setSpecular(0.1, 0.1, 0.1, 1.0);
-        this.scene.materialTangramPNG.setShininess(10.0);
-        this.scene.materialTangramPNG.loadTexture('images/tangram.png');
-        //this.scene.materialTangramPNG.setTextureWrap('REPEAT', 'REPEAT');
+        this.materialTangramPNG = new CGFappearance(this.scene);
+        this.materialTangramPNG.setAmbient(0.1, 0.1, 0.1, 1.0);
+        this.materialTangramPNG.setDiffuse(0.9, 0.9, 0.9, 1.0);
+        this.materialTangramPNG.setSpecular(0.1, 0.1, 0.1, 1.0);
+        this.materialTangramPNG.setShininess(10.0);
+        this.materialTangramPNG.loadTexture('images/tangram.png');
 
 
-        this.materials = [this.scene.materialGreen, this.scene.materialPink, this.scene.materialYellow, this.scene.materialPurple,
-            this.scene.materialRed, this.scene.materialBlue, this.scene.materialOrange, this.scene.materialTangramPNG];
+        this.materials = [this.materialGreen, this.materialPink, this.materialYellow, this.materialPurple,
+            this.materialRed, this.materialBlue, this.materialOrange, this.materialTangramPNG];
 
     }
     display() {

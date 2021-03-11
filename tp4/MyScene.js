@@ -68,7 +68,6 @@ export class MyScene extends CGFscene {
         this.displayTangram = false;
         this.useQuadMaterial = false;
         this.displayMyUnitCubeQuad = true;
-        this.enableLinearFiltering = false;
 
       }
 
