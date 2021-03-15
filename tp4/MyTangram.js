@@ -94,11 +94,11 @@ export class MyTangram extends CGFobject {
         -1.0, 0.0, 0.0, 1.0,
         ];    
         
+        this.materials[7].apply();
 
         //DIAMOND
         this.scene.pushMatrix();
         this.scene.multMatrix(diamondT);
-        this.materials[7].apply();
         this.scene.diamond.display();
         this.scene.popMatrix();
 
@@ -107,7 +107,6 @@ export class MyTangram extends CGFobject {
         this.scene.translate(-1.0, -1.0, 0.0);
         this.scene.rotate(3 * Math.PI / 4, 0, 0, 1);
         this.scene.translate(1.0, 1.0, 0.0);
-        this.materials[1].apply();
         this.scene.triangle.display();
         this.scene.popMatrix();
 
@@ -115,7 +114,6 @@ export class MyTangram extends CGFobject {
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 0, 0, 1);
         this.scene.translate(0.0, -1.0, 0.0);
-        this.materials[2].apply();
         this.scene.parallelogram.display();
         this.scene.popMatrix();
 
@@ -123,14 +121,32 @@ export class MyTangram extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0.0, 1.0, 0.0);
         this.scene.rotate(Math.PI / 2, 0, 0, 1);
-        this.materials[3].apply();  
+        this.smallTriangleTextCoords1=[
+            0.25,0.75,
+            0.5,0.5,
+            0.75,0.75,
+
+            0.25,0.75,
+            0.5,0.5,
+            0.75,0.75
+        ];
+        this.scene.triangleSmall.updateTexCoords(this.smallTriangleTextCoords1);
         this.scene.triangleSmall.display();
         this.scene.popMatrix();
 
         //SMALL TRIANGLE RED
         this.scene.pushMatrix();
         this.scene.translate(1.85, -2.0, 0.0)
-        this.materials[4].apply();
+        this.smallTriangleTextCoords2=[
+            0,0,
+            0,0.5,
+            0.25,0.25,
+
+            0,0,
+            0,0.5,
+            0.25,0.25
+        ];
+        this.scene.triangleSmall.updateTexCoords(this.smallTriangleTextCoords2);
         this.scene.triangleSmall.display();
         this.scene.popMatrix();
 
@@ -138,7 +154,16 @@ export class MyTangram extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(Math.sqrt(8) ,0.0, 0.0);
         this.scene.rotate(Math.PI / 2, 0, 0, 1);
-        this.materials[5].apply();
+        this.bigTriangleTextCoords1=[
+            1,0,
+            0,0,
+            0.5,0.5,
+
+            1,0,
+            0,0,
+            0.5,0.5
+        ];
+        this.scene.triangleBig.updateTexCoords(this.bigTriangleTextCoords1);
         this.scene.triangleBig.display();
         this.scene.popMatrix();
 
@@ -147,7 +172,16 @@ export class MyTangram extends CGFobject {
         this.scene.translate(0.0, 2.0, 0.0);
         this.scene.rotate(Math.PI/4, 0, 0, 1);
         this.scene.translate(0.0, -2.0, 0.0);
-        this.materials[6].apply();
+        this.bigTriangleTextCoords2=[
+            1,1,
+            1,0,
+            0.5,0.5,
+
+            1,1,
+            1,0,
+            0.5,0.5
+        ];
+        this.scene.triangleBig.updateTexCoords(this.bigTriangleTextCoords2);
         this.scene.triangleBig.display();
         this.scene.popMatrix();
     }
