@@ -27,7 +27,7 @@ export class MyUnitCubeQuad extends CGFobject {
         this.customMaterial.setShininess(10.0);
     }
     changeFiltering() {
-        if (this.enableLinearFiltering)
+        if (this.scene.enableLinearFiltering)
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         else {
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
@@ -36,21 +36,22 @@ export class MyUnitCubeQuad extends CGFobject {
 
     display() {
 
+        //FRONT
+        this.customMaterial.setTexture(this.frontTexture);
+        this.customMaterial.apply()
         this.scene.pushMatrix();
         this.scene.translate(0.0, 0.0, 0.5);
         this.changeFiltering();
-        this.customMaterial.setTexture(this.frontTexture);
-        this.customMaterial.apply()
         this.scene.quad.display();
         this.scene.popMatrix();
         
-        //BOTTOM
+        //BACK
+        this.customMaterial.setTexture(this.frontTexture);
+        this.customMaterial.apply()
         this.scene.pushMatrix();
         this.scene.translate(0.0, 0.0, -0.5);
         this.scene.rotate(Math.PI, 0, 1, 0);
         this.changeFiltering();
-        this.customMaterial.setTexture(this.backTexture);
-        this.customMaterial.apply()
         this.scene.quad.display();
         this.scene.popMatrix();
 
@@ -60,7 +61,8 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.translate(0.5, 0.0, 0.0);
         this.scene.rotate(Math.PI/2, 0, 1, 0);
         this.changeFiltering();
-        this.customMaterial.setTexture(this.rightTexture);
+        this.scene.rotate(-Math.PI/2, 0, 0, 1);
+        this.customMaterial.setTexture(this.frontTexture);
         this.customMaterial.apply()
         this.scene.quad.display();
         this.scene.popMatrix();
@@ -71,32 +73,33 @@ export class MyUnitCubeQuad extends CGFobject {
         this.scene.translate(-0.5, 0.0, 0.0);
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.changeFiltering();
-        this.customMaterial.setTexture(this.leftTexture);
+        this.scene.rotate(Math.PI/2, 0, 0, 1);
+        this.customMaterial.setTexture(this.frontTexture);
         this.customMaterial.apply()
         this.scene.quad.display();
         this.scene.popMatrix();
 
-        //RIGHT
+        //TOP
+        this.customMaterial.setTexture(this.topTexture);
+        this.customMaterial.apply()
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.translate(0.0, 0.5, 0.0);
         this.scene.rotate(-Math.PI/2, 0, 0, 1);
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.changeFiltering();
-        this.customMaterial.setTexture(this.topTexture);
-        this.customMaterial.apply()
         this.scene.quad.display();
         this.scene.popMatrix();
 
-        //LEFT
+        //BOTTOM
+        this.customMaterial.setTexture(this.bottomTexture);
+        this.customMaterial.apply()
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.translate(0.0, -0.5, 0.0);
         this.scene.rotate(-Math.PI/2, 0, 0, 1);
         this.scene.rotate(Math.PI/2, 0, 1, 0);
         this.changeFiltering();
-        this.customMaterial.setTexture(this.bottomTexture);
-        this.customMaterial.apply()
         this.scene.quad.display();
         this.scene.popMatrix();
 

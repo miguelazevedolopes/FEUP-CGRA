@@ -25,6 +25,7 @@ export class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
+        this.enableLinearFiltering = true;
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
