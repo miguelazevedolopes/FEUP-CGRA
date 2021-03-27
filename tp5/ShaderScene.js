@@ -76,6 +76,7 @@ export class ShaderScene extends CGFscene {
 		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
 		this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
+		this.water= new CGFtexture(this,"textures/waterTex");
 
 		// shaders initialization
 
@@ -90,13 +91,16 @@ export class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/sepia.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
 			new CGFshader(this.gl, "shaders/yellowBlue.vert", "shaders/yellowBlue.frag"),
-			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/grayscale.frag")
+			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/grayscale.frag"),
+			new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag")
 		];
 
 		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
 		this.testShaders[4].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[5].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ uSampler2: 1 });
+		this.testShaders[11].setUniformsValues({ uSamplerWater: 2 });
+		this.testShaders[11].setUniformsValues({ uSamplerWaterMap: 3 });
 		this.testShaders[6].setUniformsValues({ timeFactor: 0 });
 
 
@@ -114,7 +118,8 @@ export class ShaderScene extends CGFscene {
 			'Sepia': 7,
 			'Convolution': 8,
 			'Yellow and Blue': 9,
-			'Gray': 10
+			'Gray': 10,
+			'Water':11
 		};
 
 		// shader code panels references
@@ -231,7 +236,7 @@ export class ShaderScene extends CGFscene {
 
 		// bind additional texture to texture unit 1
 		this.texture2.bind(1);
-
+		this.water.bind(2);
 		if (this.selectedObject==0) {
 			// teapot (scaled and rotated to conform to our axis)
 
@@ -245,11 +250,12 @@ export class ShaderScene extends CGFscene {
 			this.popMatrix();
 		}
 		else {
+			
+			this.water.bind(1);
 			this.pushMatrix();
 			
 			this.scale(25, 25, 25);
 			this.objects[1].display();
-			
 			this.popMatrix();
 		}
 
