@@ -62,6 +62,28 @@ export class MyScene extends CGFscene {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
 
+    checkKeys()  {
+        //Needs change
+
+        var text = "Keys pressed: ";
+        var keysPressed = false;
+
+        // Check for key codes e.g. in https://keycode.info/
+        if (this.gui.isKeyPressed("KeyW")) {
+                text += " W ";
+                keysPressed=true;
+        }
+
+        if (this.gui.isKeyPressed("KeyS"))        {
+                text += " S ";
+                keysPressed=true;
+        }
+
+        if (keysPressed)
+                console.log(text);
+
+  }
+
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -72,7 +94,7 @@ export class MyScene extends CGFscene {
 
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
-        //To be done...
+        this.checkKeys();
     }
 
     display() {

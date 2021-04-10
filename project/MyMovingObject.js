@@ -11,6 +11,12 @@ export class MyMovingObject extends CGFobject {
         super(scene);
         this.slices = slices;
         this.stacks = stacks;
+
+        //Movement variables
+        this.orientationAngle = 0;
+        this.speed = 0;
+        this.coordinates = [0, 0, 0];
+
         this.initBuffers();
         this.createMaterial();
     }
@@ -27,17 +33,17 @@ export class MyMovingObject extends CGFobject {
             // even if they are shared with others, as the normals 
             // in each face will be different
 
-            var sa=Math.sin(ang);
-            var saa=Math.sin(ang+alphaAng);
-            var ca=Math.cos(ang);
-            var caa=Math.cos(ang+alphaAng);
+            var sa = Math.sin(ang);
+            var saa = Math.sin(ang+alphaAng);
+            var ca = Math.cos(ang);
+            var caa = Math.cos(ang+alphaAng);
 
             this.vertices.push(0,2,0);
             this.vertices.push(ca, 0, -sa);
             this.vertices.push(caa, 0, -saa);
 
             // triangle normal computed by cross product of two edges
-            var normal= [
+            var normal = [
                 saa-sa,
                 ca*saa-sa*caa,
                 caa-ca
@@ -86,9 +92,27 @@ export class MyMovingObject extends CGFobject {
         this.MaterialBlue.setShininess(10.0);
     }
     display() {
+        //Initial Position and Coloring
         this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.MaterialBlue.apply();
+
+        //Rotates and travels depending on its orientation and position
+        this.scene.rotate(this.orientationAngle, 0, 1, 0);
+        this.scene.translate(this.coordinates[0], this.coordinates[1], this.coordinates[2]);
+
         super.display();
+    }
+    update() {
+        //Update position with terms to speed and orientation
+    }
+    turn() {
+        //Changes orientation
+    }
+    accelerate() {
+        //Increases speed
+    }
+    reset() {
+        //Resets initial position
     }
 }
 
