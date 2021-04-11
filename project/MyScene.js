@@ -63,25 +63,23 @@ export class MyScene extends CGFscene {
     }
 
     checkKeys()  {
-        //Needs change
-
-        var text = "Keys pressed: ";
-        var keysPressed = false;
 
         // Check for key codes e.g. in https://keycode.info/
-        if (this.gui.isKeyPressed("KeyW")) {
-                text += " W ";
-                keysPressed=true;
-        }
+        if (this.gui.isKeyPressed("KeyW"))  //Speed up
+            this.movingObject.accelerate(0.01);
 
-        if (this.gui.isKeyPressed("KeyS"))        {
-                text += " S ";
-                keysPressed=true;
-        }
+        if (this.gui.isKeyPressed("KeyS"))  //Speed down
+            this.movingObject.accelerate(-0.01);
 
-        if (keysPressed)
-                console.log(text);
+        if (this.gui.isKeyPressed("KeyA"))  //Left seen from the back of the pyramid 
+            this.movingObject.turn(Math.PI/16);
 
+        if (this.gui.isKeyPressed("KeyD"))  //Right seen from the back of the pyramid 
+            this.movingObject.turn(-Math.PI/16);
+
+        if (this.gui.isKeyPressed("KeyR"))  //Reset speed, orientation and position
+            this.movingObject.reset();
+    
   }
 
     setDefaultAppearance() {

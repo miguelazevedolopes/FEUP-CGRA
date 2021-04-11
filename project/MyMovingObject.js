@@ -13,9 +13,9 @@ export class MyMovingObject extends CGFobject {
         this.stacks = stacks;
 
         //Movement variables
-        this.orientationAngle = 0;
-        this.speed = 0;
-        this.coordinates = [0, 0, 0];
+        this.orientationAngle = 0.0;
+        this.speed = 0.0;
+        this.coordinates = [0.0, 0.0, 0.0];
 
         this.initBuffers();
         this.createMaterial();
@@ -76,13 +76,14 @@ export class MyMovingObject extends CGFobject {
      * Called when user interacts with GUI to change object's complexity.
      * @param {integer} complexity - changes number of slices
      */
+    /*
     updateBuffers(complexity){
         this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
 
         // reinitialize buffers
         this.initBuffers();
         this.initNormalVizBuffers();
-    }
+    }*/
     createMaterial() {
         //BLUE
         this.MaterialBlue = new CGFappearance(this.scene);
@@ -92,27 +93,37 @@ export class MyMovingObject extends CGFobject {
         this.MaterialBlue.setShininess(10.0);
     }
     display() {
+        this.update();
+
+        //Rotates and travels depending on its orientation and position
+        this.scene.translate(this.coordinates[0], this.coordinates[1], this.coordinates[2]);
+        this.scene.rotate(this.orientationAngle, 0, 1, 0);
+
         //Initial Position and Coloring
         this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.MaterialBlue.apply();
-
-        //Rotates and travels depending on its orientation and position
-        this.scene.rotate(this.orientationAngle, 0, 1, 0);
-        this.scene.translate(this.coordinates[0], this.coordinates[1], this.coordinates[2]);
 
         super.display();
     }
     update() {
         //Update position with terms to speed and orientation
+        this.coordinates[0] += this.speed*Math.sin(this.orientationAngle);
+        this.coordinates[2] += this.speed*Math.cos(this.orientationAngle);
     }
-    turn() {
+    turn(val) {
         //Changes orientation
+        this.orientationAngle += val;
+        this.orientationAngle %= 2*Math.PI;
     }
-    accelerate() {
+    accelerate(val) {
         //Increases speed
+        this.speed += val;
     }
     reset() {
         //Resets initial position
+        this.speed = 0.0;
+        this.orientationAngle = 0.0;
+        this.coordinates = [0.0, 0.0, 0.0];
     }
 }
 
