@@ -34,9 +34,9 @@ export class MyMovingObject extends CGFobject {
             // in each face will be different
 
             var sa = Math.sin(ang);
-            var saa = Math.sin(ang+alphaAng);
+            var saa = Math.sin(ang + alphaAng);
             var ca = Math.cos(ang);
-            var caa = Math.cos(ang+alphaAng);
+            var caa = Math.cos(ang + alphaAng);
 
             this.vertices.push(0,2,0);
             this.vertices.push(ca, 0, -sa);
@@ -44,46 +44,35 @@ export class MyMovingObject extends CGFobject {
 
             // triangle normal computed by cross product of two edges
             var normal = [
-                saa-sa,
-                ca*saa-sa*caa,
-                caa-ca
+                saa - sa,
+                ca*saa - sa*caa,
+                caa - ca
             ];
 
             // normalization
-            var nsize=Math.sqrt(
+            var nsize = Math.sqrt(
                 normal[0]*normal[0]+
                 normal[1]*normal[1]+
                 normal[2]*normal[2]
                 );
-            normal[0]/=nsize;
-            normal[1]/=nsize;
-            normal[2]/=nsize;
+            normal[0] /= nsize;
+            normal[1] /= nsize;
+            normal[2] /= nsize;
 
             // push normal once for each vertex of this triangle
             this.normals.push(...normal);
             this.normals.push(...normal);
             this.normals.push(...normal);
 
-            this.indices.push(3*i, (3*i+1) , (3*i+2) );
+            this.indices.push(3*i, (3*i + 1) , (3*i + 2));
+            this.indices.push((3*i + 2), (3*i + 1), 3*i);
 
-            ang+=alphaAng;
+            ang += alphaAng;
         }
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
-    /**
-     * Called when user interacts with GUI to change object's complexity.
-     * @param {integer} complexity - changes number of slices
-     */
-    /*
-    updateBuffers(complexity){
-        this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
-
-        // reinitialize buffers
-        this.initBuffers();
-        this.initNormalVizBuffers();
-    }*/
     createMaterial() {
         //BLUE
         this.MaterialBlue = new CGFappearance(this.scene);
@@ -96,14 +85,17 @@ export class MyMovingObject extends CGFobject {
         this.update();
 
         //Rotates and travels depending on its orientation and position
+        this.scene.pushMatrix();
         this.scene.translate(this.coordinates[0], this.coordinates[1], this.coordinates[2]);
         this.scene.rotate(this.orientationAngle, 0, 1, 0);
-
-        //Initial Position and Coloring
         this.scene.rotate(Math.PI/2, 1, 0, 0);
+
+        //Coloring
         this.MaterialBlue.apply();
 
         super.display();
+
+        this.scene.popMatrix();
     }
     update() {
         //Update position with terms to speed and orientation
