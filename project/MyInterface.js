@@ -26,6 +26,7 @@ export class MyInterface extends CGFinterface {
         objectsFolder.add(this.scene, 'displayMovingObject').name('Display Moving Object');
         objectsFolder.add(this.scene, 'displaySphere').name('Display Sphere');
         objectsFolder.add(this.scene, 'displayCubeMap').name('Display Cube Map');
+        objectsFolder.add(this.scene, 'displayCylinder').name('Display Cylinder');
 
         this.initKeys();
 
