@@ -1,4 +1,4 @@
-import {CGFobject} from '../lib/CGF.js';
+import {CGFobject, CGFappearance, CGFtexture} from '../lib/CGF.js';
 
 export class MySphere extends CGFobject {
   /**
@@ -7,14 +7,22 @@ export class MySphere extends CGFobject {
    * @param  {integer} slices - number of slices around Y axis
    * @param  {integer} stacks - number of stacks along Y axis, from the center to the poles (half of sphere)
    */
-  constructor(scene, slices, stacks) {
+  constructor(scene, slices, stacks, texture) {
     super(scene);
     this.latDivs = stacks * 2;
     this.longDivs = slices;
-
+    this.texture = new CGFtexture(this.scene, texture);
+    this.createMaterial();
     this.initBuffers();
   }
-
+  createMaterial() {
+    this.Material = new CGFappearance(this.scene);
+    this.Material.setAmbient(0.0, 0.0, 0.0, 0.0);
+    this.Material.setDiffuse(0.0, 0.0, 0.0, 0.0);
+    this.Material.setSpecular(0.0, 0.0, 0.0, 0.0);
+    this.Material.setEmission(1.0, 1.0, 1.0, 1.0);
+    this.Material.setShininess(10.0);
+  }
   /**
    * @method initBuffers
    * Initializes the sphere buffers
@@ -69,6 +77,7 @@ export class MySphere extends CGFobject {
         //--- Texture Coordinates
         // To be done... 
         // May need some additional code also in the beginning of the function.
+        this.texCoords.push(longitude/this.longDivs, latitude/this.latDivs)
         
       }
       phi += phiInc;
@@ -77,5 +86,10 @@ export class MySphere extends CGFobject {
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
+  }
+  display() {
+    this.Material.setTexture(this.texture);
+    this.Material.apply();
+    super.display();
   }
 }

@@ -30,11 +30,11 @@ export class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.incompleteSphere = new MySphere(this, 16, 8);
+        this.incompleteSphere = new MySphere(this, 16, 10, 'images/earth.jpg');
         this.movingObject = new MyMovingObject(this, 4, 1);
         this.cubeMap = new MyCubeMap(this, 'images/demo_cubemap/top.png', 'images/demo_cubemap/front.png',
          'images/demo_cubemap/right.png', 'images/demo_cubemap/bottom.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/left.png');
-        this.cylinder = new MyCylinder(this, 10, 'images/FEUP.jpg');
+        this.cylinder = new MyCylinder(this, 16, 'images/FEUP.jpg');
 
         //Initialize appearances
         this.defaultAppearance = new CGFappearance(this);
@@ -53,9 +53,9 @@ export class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.displayMovingObject = false;
-        this.displaySphere = false;
+        this.displaySphere = true;
         this.displayCubeMap = true;
-        this.displayCylinder = true;
+        this.displayCylinder = false;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);

@@ -63,14 +63,14 @@ export class MyCylinder extends CGFobject {
             this.normals.push(0.0, 1.0, 0.0);
 
             //Texture Coords
-            this.texCoords.push(1.0 - 1.0*(i)/this.slices, 1.0);
-            this.texCoords.push(1.0 - 1.0*(i + 1)/this.slices, 1.0);
-            this.texCoords.push(1.0 - 1.0*(i)/this.slices, 0.0);
-            this.texCoords.push(1.0 - 1.0*(i + 1)/this.slices, 0.0);
-            this.texCoords.push(1.0 - 1.0*(i)/this.slices, 1.0);
-            this.texCoords.push(1.0 - 1.0*(i + 1)/this.slices, 1.0);
-            this.texCoords.push(1.0 - 1.0*(i)/this.slices, 0.0);
-            this.texCoords.push(1.0 - 1.0*(i + 1)/this.slices, 0.0);
+            this.texCoords.push(1.0 - (i)/this.slices, 1.0);
+            this.texCoords.push(1.0 - (i + 1)/this.slices, 1.0);
+            this.texCoords.push(1.0 - (i)/this.slices, 0.0);
+            this.texCoords.push(1.0 - (i + 1)/this.slices, 0.0);
+            this.texCoords.push(1.0 - (i)/this.slices, 1.0);
+            this.texCoords.push(1.0 - (i + 1)/this.slices, 1.0);
+            this.texCoords.push(1.0 - (i)/this.slices, 0.0);
+            this.texCoords.push(1.0 - (i + 1)/this.slices, 0.0);
 
             ang += alphaAng;
         }
