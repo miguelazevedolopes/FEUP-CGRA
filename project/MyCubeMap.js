@@ -4,20 +4,23 @@ import { MyQuad } from "./MyQuad.js";
 export class MyCubeMap extends CGFobject {
     constructor(scene, Ymais, Zmais, Xmais, Ymenos, Zmenos, Xmenos) {
         super(scene);
+
+        //Textures to use in each face
         this.Ymais = new CGFtexture(this.scene, Ymais);
         this.Zmais = new CGFtexture(this.scene, Zmais);
         this.Xmais = new CGFtexture(this.scene, Xmais);
         this.Ymenos = new CGFtexture(this.scene, Ymenos);
         this.Zmenos = new CGFtexture(this.scene, Zmenos);
         this.Xmenos = new CGFtexture(this.scene, Xmenos);
-        this.initBuffers();
+
         this.createMaterial();
+        this.initBuffers();
     }
     initBuffers() {
         this.quad = new MyQuad(this.scene);
     }
     createMaterial() {
-        //Material
+        //Material to use texture with
         this.Material = new CGFappearance(this.scene);
         this.Material.setAmbient(0.0, 0.0, 0.0, 0.0);
         this.Material.setDiffuse(0.0, 0.0, 0.0, 0.0);
@@ -27,7 +30,7 @@ export class MyCubeMap extends CGFobject {
     }
     display() {
 
-        //Expand
+        //Expand and translate
         this.scene.pushMatrix();
         this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2]);
         this.scene.scale(500, 500, 500);
@@ -89,7 +92,7 @@ export class MyCubeMap extends CGFobject {
         this.quad.display();
         this.scene.popMatrix();
 
-        this.scene.popMatrix();
+        this.scene.popMatrix(); //From global scaling and translate
         
     }
 }

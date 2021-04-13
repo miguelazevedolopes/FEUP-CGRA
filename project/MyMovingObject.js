@@ -65,7 +65,7 @@ export class MyMovingObject extends CGFobject {
             this.normals.push(...normal);
 
             this.indices.push(3*i, 3*i + 1, 3*i + 2);
-            this.indices.push(3*i + 2, 3*i + 1, 1);
+            this.indices.push(3*i + 2, 3*i + 1, 3*i); //So that it can be seen from behind
 
             ang += alphaAng;
         }
@@ -82,12 +82,14 @@ export class MyMovingObject extends CGFobject {
         this.MaterialBlue.setShininess(10.0);
     }
     display() {
-        this.update();
+        this.update(); //Update position
 
         //Rotates and travels depending on its orientation and position
         this.scene.pushMatrix();
         this.scene.translate(this.coordinates[0], this.coordinates[1], this.coordinates[2]);
         this.scene.rotate(this.orientationAngle, 0, 1, 0);
+
+        //Initial rotate
         this.scene.rotate(Math.PI/2, 1, 0, 0);
 
         //Coloring

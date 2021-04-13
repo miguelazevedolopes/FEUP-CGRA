@@ -4,17 +4,19 @@ export class MyCylinder extends CGFobject {
     constructor(scene, slices, texture) {
         super(scene);
         this.slices = slices;
-        this.texture = new CGFtexture(this.scene, texture);
+        this.texture = new CGFtexture(this.scene, texture); //Texture to use
         this.createMaterial();
         this.initBuffers();
     }
     createMaterial() {
+        //Material to use the texture with
         this.Material = new CGFappearance(this.scene);
         this.Material.setAmbient(0.0, 0.0, 0.0, 0.0);
         this.Material.setDiffuse(0.0, 0.0, 0.0, 0.0);
         this.Material.setSpecular(0.0, 0.0, 0.0, 0.0);
         this.Material.setEmission(1.0, 1.0, 1.0, 1.0);
         this.Material.setShininess(10.0);
+        this.Material.setTexture(this.texture);
     }
     initBuffers() {
         this.vertices = [];
@@ -72,14 +74,13 @@ export class MyCylinder extends CGFobject {
             this.texCoords.push(1.0 - (i)/this.slices, 0.0);
             this.texCoords.push(1.0 - (i + 1)/this.slices, 0.0);
 
-            ang += alphaAng;
+            ang += alphaAng;//Increment current degree(ang), going arround
         }
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
     display() {
-        this.Material.setTexture(this.texture);
         this.Material.apply();
         super.display();
     }
