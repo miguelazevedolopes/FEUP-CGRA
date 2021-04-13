@@ -52,10 +52,18 @@ export class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
-        this.displayMovingObject = false;
-        this.displaySphere = true;
+        this.displayMovingObject = true;
+        this.displaySphere = false;
         this.displayCubeMap = true;
         this.displayCylinder = false;
+
+        this.scaleFactor = 1.0;
+        this.speedFactor = 1.0;
+
+        this.selectedTexture = -1;
+        this.textureIds = { 'View': 0, 'Test': 1 };
+
+
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -65,6 +73,23 @@ export class MyScene extends CGFscene {
     }
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+    }
+
+    updateAppliedTexture() {
+        if (this.selectedTexture == 0) {
+            this.cubeMap.updateTextures('images/demo_cubemap/top.png', 'images/demo_cubemap/front.png',
+                'images/demo_cubemap/right.png', 'images/demo_cubemap/bottom.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/left.png');
+        }
+        else if (this.selectedTexture == 1) {
+            this.cubeMap.updateTextures('images/test_cubemap/py.png', 'images/test_cubemap/pz.png',
+                'images/test_cubemap/px.png', 'images/test_cubemap/ny.png', 'images/test_cubemap/nz.png', 'images/test_cubemap/nx.png');
+        }
+    }
+    updateMovingObjectScale() {
+        this.movingObject.updateScaleFactor(this.scaleFactor);
+    }
+    updateSpeedFactor() {
+        this.movingObject.updateSpeedFactor(this.speedFactor);
     }
 
     checkKeys()  {
@@ -85,7 +110,7 @@ export class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR"))  //Reset speed, orientation and position
             this.movingObject.reset();
     
-  }
+    }
 
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -121,7 +146,6 @@ export class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         //Sphere
-        //This sphere does not have defined texture coordinates
         if (this.displaySphere)
             this.incompleteSphere.display();
 
@@ -136,6 +160,8 @@ export class MyScene extends CGFscene {
         //Cylinder
         if (this.displayCylinder)
             this.cylinder.display();
+
+        this.defaultAppearance.apply();
 
         // ---- END Primitive drawing section
     }

@@ -5,7 +5,7 @@ export class MyCubeMap extends CGFobject {
     constructor(scene, Ymais, Zmais, Xmais, Ymenos, Zmenos, Xmenos) {
         super(scene);
 
-        //Textures to use in each face
+        //Textures to use in each surface
         this.Ymais = new CGFtexture(this.scene, Ymais);
         this.Zmais = new CGFtexture(this.scene, Zmais);
         this.Xmais = new CGFtexture(this.scene, Xmais);
@@ -37,6 +37,7 @@ export class MyCubeMap extends CGFobject {
         
         //FRONT
         this.scene.pushMatrix();
+        this.scene.rotate(Math.PI, 1, 0, 0);
         this.scene.translate(0.0, 0.0, 0.5);
         this.Material.setTexture(this.Zmais);
         this.Material.apply();
@@ -45,6 +46,7 @@ export class MyCubeMap extends CGFobject {
 
         //BACK
         this.scene.pushMatrix();
+        this.scene.rotate(Math.PI, 1, 0, 0);
         this.scene.translate(0.0, 0.0, -0.5);
         this.scene.rotate(Math.PI, 0, 1, 0);
         this.Material.setTexture(this.Zmenos);
@@ -54,6 +56,7 @@ export class MyCubeMap extends CGFobject {
 
         //RIGHT
         this.scene.pushMatrix();
+        this.scene.rotate(Math.PI, 1, 0, 0);
         this.scene.translate(0.5, 0.0, 0.0);
         this.scene.rotate(Math.PI/2, 0, 1, 0);
         this.Material.setTexture(this.Xmais);
@@ -63,6 +66,7 @@ export class MyCubeMap extends CGFobject {
 
         //LEFT
         this.scene.pushMatrix();
+        this.scene.rotate(Math.PI, 1, 0, 0);
         this.scene.translate(-0.5, 0.0, 0.0);
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.Material.setTexture(this.Xmenos);
@@ -94,5 +98,14 @@ export class MyCubeMap extends CGFobject {
 
         this.scene.popMatrix(); //From global scaling and translate
         
+    }
+    updateTextures(Ymais, Zmais, Xmais, Ymenos, Zmenos, Xmenos) {
+        //Textures to use in each face
+        this.Ymais = new CGFtexture(this.scene, Ymais);
+        this.Zmais = new CGFtexture(this.scene, Zmais);
+        this.Xmais = new CGFtexture(this.scene, Xmais);
+        this.Ymenos = new CGFtexture(this.scene, Ymenos);
+        this.Zmenos = new CGFtexture(this.scene, Zmenos);
+        this.Xmenos = new CGFtexture(this.scene, Xmenos);
     }
 }

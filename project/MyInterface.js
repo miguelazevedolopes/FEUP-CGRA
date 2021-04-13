@@ -28,6 +28,16 @@ export class MyInterface extends CGFinterface {
         objectsFolder.add(this.scene, 'displayCubeMap').name('Display Cube Map');
         objectsFolder.add(this.scene, 'displayCylinder').name('Display Cylinder');
 
+        //Textures
+        this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
+   
+        //Scaling of the moving object
+        this.gui.add(this.scene, 'scaleFactor', 0.5, 3).name('Scale Factor').onChange(this.scene.updateMovingObjectScale.bind(this.scene));
+
+        //Speed Factor 
+        this.gui.add(this.scene, 'speedFactor', 0.5, 3).name('Speed Factor').onChange(this.scene.updateSpeedFactor.bind(this.scene));
+
+        //Initiate reading keyboard
         this.initKeys();
 
         return true;
