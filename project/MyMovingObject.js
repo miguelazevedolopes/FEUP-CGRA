@@ -1,4 +1,4 @@
-import {CGFobject} from '../lib/CGF.js';
+import {CGFobject, CGFappearance} from '../lib/CGF.js';
 /**
 * MyMovingObject
 * @constructor
@@ -11,7 +11,12 @@ export class MyMovingObject extends CGFobject {
         super(scene);
         this.slices = slices;
         this.stacks = stacks;
+        this.velocity=0.0;
+        this.orientation=0.0;
+        this.position=[0.0,0.0,0.0];
+        
         this.initBuffers();
+        this.createMaterial();  
     }
     initBuffers() {
         this.vertices = [];
@@ -65,17 +70,56 @@ export class MyMovingObject extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
-    /**
-     * Called when user interacts with GUI to change object's complexity.
-     * @param {integer} complexity - changes number of slices
-     */
-    updateBuffers(complexity){
-        this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
-
-        // reinitialize buffers
-        this.initBuffers();
-        this.initNormalVizBuffers();
+    createMaterial() {
+        //BLUE
+        this.MaterialBlue = new CGFappearance(this.scene);
+        this.MaterialBlue.setAmbient(0.2, 0.2, 0.9, 1.0);
+        this.MaterialBlue.setDiffuse(0.2, 0.2, 0.9, 1.0);
+        this.MaterialBlue.setSpecular(0.2, 0.2, 0.9, 1.0);
+        this.MaterialBlue.setShininess(10.0);
     }
+
+    display() {
+        this.update(); //Update position
+
+        this.scene.pushMatrix();
+
+        //Rotates and travels depending on its orientation and position
+        this.scene.translate(this.position[0], this.position[1], this.position[2]);
+        this.scene.rotate(this.orientation, 0, 1, 0);
+
+        //Interface Scale Factor
+        this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+
+        //Initial rotate
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+
+        this.MaterialBlue.apply();
+
+        super.display();
+
+        this.scene.popMatrix();
+    }
+    update(){
+        this.position[0] += this.velocity*Math.sin(this.orientation);
+        this.position[2] += this.speed*Math.cos(this.orientation);
+        
+    }
+    accelerate(val) {
+        //Increases speed
+        this.speed += val;
+    }
+    turn(val) {
+        //Changes orientation
+        this.orientation += val;
+        this.orientation %= 2*Math.PI;
+    }
+    reset(){
+        this.velocity=0;
+        this.orientation=0;
+        this.position=[0,0,0];
+    }
+
 }
 
 
