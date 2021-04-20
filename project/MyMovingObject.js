@@ -17,12 +17,6 @@ export class MyMovingObject extends CGFobject {
         this.speed = 0.0;
         this.coordinates = [0.0, 0.0, 0.0];
 
-        //For the interface scale
-        this.scaleFactor = 1;
-
-        //For the interface speed
-        this.speedFactor = 1;
-
         this.initBuffers();
     }
     initBuffers() {
@@ -43,11 +37,10 @@ export class MyMovingObject extends CGFobject {
             var ca = Math.cos(ang);
             var caa = Math.cos(ang + alphaAng);
 
-            this.vertices.push(0,2,0);
+            this.vertices.push(0,1,0);
             this.vertices.push(ca, 0, -sa);
             this.vertices.push(caa, 0, -saa);
-            this.vertices.push(ca, 0, -sa);
-            this.vertices.push(caa, 0, -saa);
+
 
             // triangle normal computed by cross product of two edges
             var normal = [
@@ -70,11 +63,9 @@ export class MyMovingObject extends CGFobject {
             this.normals.push(...normal);
             this.normals.push(...normal);
             this.normals.push(...normal);
-            this.normals.push(0.0, -1.0, 0.0);
-            this.normals.push(0.0, -1.0, 0.0);
 
-            this.indices.push(5*i, 5*i + 1, 5*i + 2);
-            this.indices.push(1, 5*i + 2, 5*i + 1); //So that it can be seen from behind
+            this.indices.push(3*i, 3*i + 1, 3*i + 2);
+            this.indices.push(1, 3*i + 2, 3*i + 1); //So that it can be seen from behind
 
             ang += alphaAng;
         }
@@ -92,9 +83,6 @@ export class MyMovingObject extends CGFobject {
         this.scene.translate(this.coordinates[0], this.coordinates[1], this.coordinates[2]);
         this.scene.rotate(this.orientationAngle, 0, 1, 0);
 
-        //Interface Scale Factor
-        this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-
         //Initial rotate
         this.scene.rotate(Math.PI/2, 1, 0, 0);
 
@@ -105,8 +93,8 @@ export class MyMovingObject extends CGFobject {
     }
     update() {
         //Update position with terms to speed and orientation
-        this.coordinates[0] += this.speed*this.speedFactor*Math.sin(this.orientationAngle);
-        this.coordinates[2] += this.speed*this.speedFactor*Math.cos(this.orientationAngle);
+        this.coordinates[0] += this.speed*Math.sin(this.orientationAngle);
+        this.coordinates[2] += this.speed*Math.cos(this.orientationAngle);
     }
     turn(val) {
         //Changes orientation

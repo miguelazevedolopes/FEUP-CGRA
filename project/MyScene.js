@@ -1,6 +1,7 @@
-import { CGFscene, CGFcamera, CGFaxis, CGFappearance } from "../lib/CGF.js";
+import { CGFscene, CGFcamera, CGFaxis, CGFappearance,CGFtexture } from "../lib/CGF.js";
 import { MySphere } from "./MySphere.js";
 import { MyMovingObject } from "./MyMovingObject.js";
+import { MyCubeMap} from "./MyCubeMap.js";
 /**
 * MyScene
 * @constructor
@@ -30,6 +31,8 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.movingPyramid= new MyMovingObject(this,10,1);
+        this.cube = new MyCubeMap(this, 'images/demo_cubemap/top.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/right.png', 
+            'images/demo_cubemap/bottom.png', 'images/demo_cubemap/front.png', 'images/demo_cubemap/left.png');
 
         this.defaultAppearance = new CGFappearance(this);
 		this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -77,6 +80,12 @@ export class MyScene extends CGFscene {
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
+
+        this.lights[1].setPosition(-15,-2, -5, -1);
+        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].enable();
+        this.lights[1].update();
+        
     }
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
@@ -124,6 +133,7 @@ export class MyScene extends CGFscene {
         if(this.displayMoving){
             this.movingPyramid.display();
         }
+        this.cube.display();
         // ---- END Primitive drawing section
     }
 }
