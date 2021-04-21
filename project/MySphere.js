@@ -11,7 +11,6 @@ export class MySphere extends CGFobject {
     super(scene);
     this.latDivs = stacks * 2;
     this.longDivs = slices;
-    this.material = new CGFappearance(this.scene);
     this.material = material;
     this.initBuffers();
   }

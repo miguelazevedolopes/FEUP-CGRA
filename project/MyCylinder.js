@@ -1,22 +1,11 @@
 import { CGFobject, CGFappearance, CGFtexture } from '../lib/CGF.js';
 
 export class MyCylinder extends CGFobject {
-    constructor(scene, slices, texture) {
+    constructor(scene, slices, material) {
         super(scene);
         this.slices = slices;
-        this.texture = new CGFtexture(this.scene, texture); //Texture to use
-        this.createMaterial();
+        this.material = material;
         this.initBuffers();
-    }
-    createMaterial() {
-        //Material to use the texture with
-        this.Material = new CGFappearance(this.scene);
-        this.Material.setAmbient(0.0, 0.0, 0.0, 0.0);
-        this.Material.setDiffuse(0.0, 0.0, 0.0, 0.0);
-        this.Material.setSpecular(0.0, 0.0, 0.0, 0.0);
-        this.Material.setEmission(1.0, 1.0, 1.0, 1.0);
-        this.Material.setShininess(10.0);
-        this.Material.setTexture(this.texture);
     }
     initBuffers() {
         this.vertices = [];
@@ -81,7 +70,7 @@ export class MyCylinder extends CGFobject {
         this.initGLBuffers();
     }
     display() {
-        this.Material.apply();
+        this.material.apply();
         super.display();
     }
 }

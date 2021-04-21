@@ -30,7 +30,7 @@ export class MyScene extends CGFscene {
         this.enableTextures(true);
         
         //Materials
-        //Material to use the texture with
+        //Sphere
         this.sphereMaterial = new CGFappearance(this);
         this.sphereMaterial.setAmbient(0.0, 0.0, 0.0, 0.0);
         this.sphereMaterial.setDiffuse(0.0, 0.0, 0.0, 0.0);
@@ -39,13 +39,22 @@ export class MyScene extends CGFscene {
         this.sphereMaterial.setShininess(10.0);
         this.sphereMaterial.loadTexture('images/earth.jpg');
 
+        //Cylinder
+        this.cylinderMaterial = new CGFappearance(this);
+        this.cylinderMaterial.setAmbient(0.0, 0.0, 0.0, 0.0);
+        this.cylinderMaterial.setDiffuse(0.0, 0.0, 0.0, 0.0);
+        this.cylinderMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
+        this.cylinderMaterial.setEmission(1.0, 1.0, 1.0, 1.0);
+        this.cylinderMaterial.setShininess(10.0);
+        this.cylinderMaterial.loadTexture('images/FEUP.jpg');
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 10, this.sphereMaterial );
         this.movingObject = new MyMovingObject(this, 4, 1);
         this.cubeMap = new MyCubeMap(this, 'images/demo_cubemap/top.png', 'images/demo_cubemap/front.png',
          'images/demo_cubemap/right.png', 'images/demo_cubemap/bottom.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/left.png');
-        this.cylinder = new MyCylinder(this, 16, 'images/FEUP.jpg');
+        this.cylinder = new MyCylinder(this, 16, this.cylinderMaterial);
         this.mainFish = new MyFish(this);
 
         //Initialize appearances
