@@ -4,7 +4,7 @@ import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
 import { MyFish } from "./MyFish.js";
- 
+import { MyPyramid } from "./MyPyramid.js";
 /**
 * MyScene
 * @constructor
@@ -51,11 +51,11 @@ export class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 10, this.sphereMaterial );
-        this.movingObject = new MyMovingObject(this, 4, 1);
+        this.movingObject = new MyMovingObject(this,new MyPyramid(this, 4, 1));
         this.cubeMap = new MyCubeMap(this, 'images/demo_cubemap/top.png', 'images/demo_cubemap/front.png',
          'images/demo_cubemap/right.png', 'images/demo_cubemap/bottom.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/left.png');
         this.cylinder = new MyCylinder(this, 16, this.cylinderMaterial);
-        this.mainFish = new MyFish(this);
+        this.mainFish = new MyMovingObject(this,new MyFish(this));
 
         //Initialize appearances
         this.defaultAppearance = new CGFappearance(this);
@@ -73,10 +73,14 @@ export class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        //Part A
+        this.displayPartA=false;
         this.displayMovingObject = false;
         this.displaySphere = false;
-        this.displayCubeMap = true;
+        this.displayCubeMap = false;
         this.displayCylinder = false;
+        //Part B
+        this.displayPartB=true;
         this.displayMainFish = true;
 
         this.scaleFactor = 1.0;
@@ -113,24 +117,65 @@ export class MyScene extends CGFscene {
     updateSpeedFactor() {
         this.movingObject.updateSpeedFactor(this.speedFactor);
     }
+    updateInterfaceA(){
+        if(!this.displayPartA){
+            this.displayMovingObject = false;
+            this.displaySphere = false;
+            this.displayCubeMap = false;
+            this.displayCylinder = false;
+            this.displayMainFish = false;
+        }
+        if(this.displayPartA){
+            this.displayPartB=false;
+            this.displayMovingObject = true;
+            this.displaySphere = false;
+            this.displayCubeMap = true;
+            this.displayCylinder = false;
+            this.displayMainFish = false;
+        }
+    }
+    updateInterfaceB(){
+        if(!this.displayPartB){
+            this.displayMovingObject = false;
+            this.displaySphere = false;
+            this.displayCubeMap = false;
+            this.displayCylinder = false;
+            this.displayMainFish = false;
+        }
+        if(this.displayPartB){
+            this.displayPartA=false;
+            this.displayMovingObject = false;
+            this.displaySphere = false;
+            this.displayCubeMap = false;
+            this.displayCylinder = false;
+            this.displayMainFish = true;
+        }
+    }
 
     checkKeys()  {
 
         // Check for key codes e.g. in https://keycode.info/
-        if (this.gui.isKeyPressed("KeyW"))  //Speed up
+        if (this.gui.isKeyPressed("KeyW")){ //Speed up
             this.movingObject.accelerate(0.01);
+            this.mainFish.accelerate(0.01);
+        }
 
-        if (this.gui.isKeyPressed("KeyS"))  //Speed down
+        if (this.gui.isKeyPressed("KeyS")){ //Speed down
             this.movingObject.accelerate(-0.01);
-
-        if (this.gui.isKeyPressed("KeyA"))  //Left seen from the back of the pyramid 
+            this.mainFish.accelerate(-0.01);
+        }
+        if (this.gui.isKeyPressed("KeyA")){ //Left seen from the back of the pyramid 
             this.movingObject.turn(Math.PI/16);
-
-        if (this.gui.isKeyPressed("KeyD"))  //Right seen from the back of the pyramid 
+            this.mainFish.turn(Math.PI/16);
+        }
+        if (this.gui.isKeyPressed("KeyD")){//Right seen from the back of the pyramid 
             this.movingObject.turn(-Math.PI/16);
-
-        if (this.gui.isKeyPressed("KeyR"))  //Reset speed, orientation and position
+            this.mainFish.turn(-Math.PI/16);
+        }
+        if (this.gui.isKeyPressed("KeyR")){  //Reset speed, orientation and position
             this.movingObject.reset();
+            this.mainFish.reset();
+        }
     
     }
 
@@ -159,7 +204,7 @@ export class MyScene extends CGFscene {
         this.applyViewMatrix();
         
         this.defaultAppearance.apply();
-
+        
         // Draw axis
         if (this.displayAxis)
             this.axis.display();

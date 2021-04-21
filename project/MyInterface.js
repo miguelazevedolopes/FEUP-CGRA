@@ -15,29 +15,37 @@ export class MyInterface extends CGFinterface {
         // init GUI. For more information on the methods, check:
         // http://workshop.chromeexperiments.com/examples/gui
         this.gui = new dat.GUI();
+
         
-        var obj = this;
 
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
 
-        //Objects
-        var objectsFolder = this.gui.addFolder('Objects');
-        objectsFolder.add(this.scene, 'displayMovingObject').name('Display Moving Object');
-        objectsFolder.add(this.scene, 'displaySphere').name('Display Sphere');
-        objectsFolder.add(this.scene, 'displayCubeMap').name('Display Cube Map');
-        objectsFolder.add(this.scene, 'displayCylinder').name('Display Cylinder');
-        objectsFolder.add(this.scene, 'displayMainFish').name('Display Main Fish');
+        this.gui.add(this.scene, 'displayPartA').name('Part A').onChange(this.scene.updateInterfaceA.bind(this.scene));;
 
+        //Objects
+        var objectsFolderA = this.gui.addFolder('Objects - Part A');
+        objectsFolderA.add(this.scene, 'displayMovingObject').name('Display Moving Object');
+        objectsFolderA.add(this.scene, 'displaySphere').name('Display Sphere');
+        objectsFolderA.add(this.scene, 'displayCubeMap').name('Display Cube Map');
+        objectsFolderA.add(this.scene, 'displayCylinder').name('Display Cylinder');
+
+        this.gui.add(this.scene, 'displayPartB').name('Part B').onChange(this.scene.updateInterfaceB.bind(this.scene));
+
+        var objectsFolderB = this.gui.addFolder('Objects - Part B');
+        objectsFolderB.add(this.scene, 'displayMainFish').name('Display Main Fish');
+
+        
         //Textures
         this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
-   
+        
         //Scaling of the moving object
         this.gui.add(this.scene, 'scaleFactor', 0.5, 3).name('Scale Factor').onChange(this.scene.updateMovingObjectScale.bind(this.scene));
 
         //Speed Factor 
         this.gui.add(this.scene, 'speedFactor', 0.5, 3).name('Speed Factor').onChange(this.scene.updateSpeedFactor.bind(this.scene));
 
+        
         //Initiate reading keyboard
         this.initKeys();
 

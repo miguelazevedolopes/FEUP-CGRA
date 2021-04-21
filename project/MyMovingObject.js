@@ -1,5 +1,4 @@
 import {CGFobject, CGFappearance} from '../lib/CGF.js';
-import { MyPyramid } from './MyPyramid.js';
 /**
 * MyMovingObject
 * @constructor
@@ -8,9 +7,9 @@ import { MyPyramid } from './MyPyramid.js';
  * @param stacks - number of divisions along the Y axis
 */
 export class MyMovingObject extends CGFobject {
-    constructor(scene, slices, stacks) {
+    constructor(scene, object) {
         super(scene);
-        this.pyramid = new MyPyramid(this.scene, slices, stacks);
+        this.object=object;
 
         //Movement variables
         this.orientationAngle = 0.0;
@@ -27,7 +26,7 @@ export class MyMovingObject extends CGFobject {
         this.createMaterial();
     }
     initBuffers() {
-        this.pyramid.initBuffers();
+        this.object.initBuffers();
     }
     createMaterial() {
         //BLUE
@@ -55,7 +54,7 @@ export class MyMovingObject extends CGFobject {
         //Coloring
         this.MaterialBlue.apply();
 
-        this.pyramid.display();
+        this.object.display();
 
         this.scene.popMatrix();
     }
