@@ -3,6 +3,7 @@ import { MySphere } from "./MySphere.js";
 import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
+import { MyFish } from "./MyFish.js";
  
 /**
 * MyScene
@@ -27,14 +28,25 @@ export class MyScene extends CGFscene {
         this.setUpdatePeriod(50);
         
         this.enableTextures(true);
+        
+        //Materials
+        //Material to use the texture with
+        this.sphereMaterial = new CGFappearance(this);
+        this.sphereMaterial.setAmbient(0.0, 0.0, 0.0, 0.0);
+        this.sphereMaterial.setDiffuse(0.0, 0.0, 0.0, 0.0);
+        this.sphereMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
+        this.sphereMaterial.setEmission(1.0, 1.0, 1.0, 1.0);
+        this.sphereMaterial.setShininess(10.0);
+        this.sphereMaterial.loadTexture('images/earth.jpg');
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.incompleteSphere = new MySphere(this, 16, 10, 'images/earth.jpg');
+        this.incompleteSphere = new MySphere(this, 16, 10, this.sphereMaterial );
         this.movingObject = new MyMovingObject(this, 4, 1);
         this.cubeMap = new MyCubeMap(this, 'images/demo_cubemap/top.png', 'images/demo_cubemap/front.png',
          'images/demo_cubemap/right.png', 'images/demo_cubemap/bottom.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/left.png');
         this.cylinder = new MyCylinder(this, 16, 'images/FEUP.jpg');
+        this.mainFish = new MyFish(this);
 
         //Initialize appearances
         this.defaultAppearance = new CGFappearance(this);
@@ -52,10 +64,11 @@ export class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
-        this.displayMovingObject = true;
+        this.displayMovingObject = false;
         this.displaySphere = false;
         this.displayCubeMap = true;
         this.displayCylinder = false;
+        this.displayMainFish = true;
 
         this.scaleFactor = 1.0;
         this.speedFactor = 1.0;
@@ -160,6 +173,10 @@ export class MyScene extends CGFscene {
         //Cylinder
         if (this.displayCylinder)
             this.cylinder.display();
+
+        //Fish
+        if (this.displayMainFish)
+            this.mainFish.display();
 
         this.defaultAppearance.apply();
 

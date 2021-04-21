@@ -7,28 +7,17 @@ export class MySphere extends CGFobject {
    * @param  {integer} slices - number of slices around Y axis
    * @param  {integer} stacks - number of stacks along Y axis, from the center to the poles (half of sphere)
    */
-  constructor(scene, slices, stacks, texture) {
+  constructor(scene, slices, stacks, material) {
     super(scene);
     this.latDivs = stacks * 2;
     this.longDivs = slices;
-    this.texture = new CGFtexture(this.scene, texture); //Texture to use
-    this.createMaterial();
+    this.material = new CGFappearance(this.scene);
+    this.material = material;
     this.initBuffers();
-  }
-  createMaterial() {
-    //Material to use the texture with
-    this.Material = new CGFappearance(this.scene);
-    this.Material.setAmbient(0.0, 0.0, 0.0, 0.0);
-    this.Material.setDiffuse(0.0, 0.0, 0.0, 0.0);
-    this.Material.setSpecular(0.0, 0.0, 0.0, 0.0);
-    this.Material.setEmission(1.0, 1.0, 1.0, 1.0);
-    this.Material.setShininess(10.0);
-    this.Material.setTexture(this.texture);
   }
   /**
    * @method initBuffers
    * Initializes the sphere buffers
-   * TODO: DEFINE TEXTURE COORDINATES
    */
   initBuffers() {
     this.vertices = [];
@@ -90,7 +79,7 @@ export class MySphere extends CGFobject {
     this.initGLBuffers();
   }
   display() {
-    this.Material.apply();
+    this.material.apply();
     super.display();
   }
 }

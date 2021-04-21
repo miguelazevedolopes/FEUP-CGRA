@@ -27,6 +27,7 @@ export class MyInterface extends CGFinterface {
         objectsFolder.add(this.scene, 'displaySphere').name('Display Sphere');
         objectsFolder.add(this.scene, 'displayCubeMap').name('Display Cube Map');
         objectsFolder.add(this.scene, 'displayCylinder').name('Display Cylinder');
+        objectsFolder.add(this.scene, 'displayMainFish').name('Display Main Fish');
 
         //Textures
         this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
