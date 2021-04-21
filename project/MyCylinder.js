@@ -1,12 +1,6 @@
-import {CGFobject, CGFappearance} from '../lib/CGF.js';
-/**
-* MyMovingObject
-* @constructor
- * @param scene - Reference to MyScene object
- * @param slices - number of divisions around the Y axis
- * @param stacks - number of divisions along the Y axis
-*/
-export class MyMovingObject extends CGFobject {
+import { CGFobject, CGFappearance, CGFtexture } from '../lib/CGF.js';
+
+export class MyCylinder extends CGFobject {
     constructor(scene, slices) {
         super(scene);
         this.slices = slices;
@@ -17,6 +11,16 @@ export class MyMovingObject extends CGFobject {
         this.coordinates = [0.0, 0.0, 0.0];
 
         this.initBuffers();
+    }
+    createMaterial() {
+        //Material to use the texture with
+        this.Material = new CGFappearance(this.scene);
+        this.Material.setAmbient(0.0, 0.0, 0.0, 0.0);
+        this.Material.setDiffuse(0.0, 0.0, 0.0, 0.0);
+        this.Material.setSpecular(0.0, 0.0, 0.0, 0.0);
+        this.Material.setEmission(1.0, 1.0, 1.0, 1.0);
+        this.Material.setShininess(10.0);
+        this.Material.setTexture(this.texture);
     }
     initBuffers() {
         this.vertices = [];
@@ -36,10 +40,11 @@ export class MyMovingObject extends CGFobject {
             var ca = Math.cos(ang);
             var caa = Math.cos(ang + alphaAng);
 
-            this.vertices.push(0,1,0);
+            
             this.vertices.push(ca, 0, -sa);
             this.vertices.push(caa, 0, -saa);
-
+            this.vertices.push(-sa, 1, ca);
+            this.vertices.push(-saa, 1, caa);
 
             // triangle normal computed by cross product of two edges
             var normal = [
@@ -72,43 +77,5 @@ export class MyMovingObject extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
-
-    display() {
-        this.update(); //Update position
-
-        this.scene.pushMatrix();
-
-        //Rotates and travels depending on its orientation and position
-        this.scene.translate(this.coordinates[0], this.coordinates[1], this.coordinates[2]);
-        this.scene.rotate(this.orientationAngle, 0, 1, 0);
-
-        //Initial rotate
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-
-
-        super.display();
-
-        this.scene.popMatrix();
-    }
-    update() {
-        //Update position with terms to speed and orientation
-        this.coordinates[0] += this.speed*Math.sin(this.orientationAngle);
-        this.coordinates[2] += this.speed*Math.cos(this.orientationAngle);
-    }
-    turn(val) {
-        //Changes orientation
-        this.orientationAngle += val;
-        this.orientationAngle %= 2*Math.PI;
-    }
-    accelerate(val) {
-        //Increases speed
-        this.speed += val;
-    }
-    reset() {
-        //Resets initial position
-        this.speed = 0.0;
-        this.orientationAngle = 0.0;
-        this.coordinates = [0.0, 0.0, 0.0];
-    }
-
+    
 }

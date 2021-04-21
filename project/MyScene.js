@@ -2,6 +2,7 @@ import { CGFscene, CGFcamera, CGFaxis, CGFappearance,CGFtexture } from "../lib/C
 import { MySphere } from "./MySphere.js";
 import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap} from "./MyCubeMap.js";
+import { MyCylinder } from "./MyCylinder.js";
 /**
 * MyScene
 * @constructor
@@ -30,10 +31,10 @@ export class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 8);
-        this.movingPyramid= new MyMovingObject(this,10,1);
+        this.movingPyramid= new MyMovingObject(this,10);
         this.cube = new MyCubeMap(this, 'images/demo_cubemap/top.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/right.png', 
             'images/demo_cubemap/bottom.png', 'images/demo_cubemap/front.png', 'images/demo_cubemap/left.png');
-
+        this.cylinder = new MyCylinder(this,10)
         this.defaultAppearance = new CGFappearance(this);
 		this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -50,8 +51,10 @@ export class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
-        this.displayMoving=true;
+        this.displayMoving=false;
         this.displaySphere=false;
+        this.displayCubeMap=true;
+        this.displayCylinder=true;
     }
     checkKeys(){
         // Check for key codes e.g. in https://keycode.info/
@@ -133,7 +136,13 @@ export class MyScene extends CGFscene {
         if(this.displayMoving){
             this.movingPyramid.display();
         }
-        this.cube.display();
+        if(this.displayCubeMap){
+            this.cube.display();
+        }
+        if(this.displayCylinder){
+            this.cylinder.display();
+        }
+
         // ---- END Primitive drawing section
     }
 }

@@ -22,6 +22,8 @@ export class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
         this.gui.add(this.scene, 'displaySphere').name('Sphere');
         this.gui.add(this.scene, 'displayMoving').name('Moving Object');
+        this.gui.add(this.scene, 'displayCubeMap').name('Cube Map');
+        this.gui.add(this.scene, 'displayCylinder').name('Cylinder');
         this.initKeys();
         return true;
     }
@@ -74,7 +76,7 @@ export class MyInterface extends CGFinterface {
                 return true;
 
         }  
-
+        
         return this.activeKeys[keyCode] || false;
 
     };
