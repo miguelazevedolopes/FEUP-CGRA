@@ -34,7 +34,7 @@ export class MyScene extends CGFscene {
         this.movingPyramid= new MyMovingObject(this,10);
         this.cube = new MyCubeMap(this, 'images/demo_cubemap/top.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/right.png', 
             'images/demo_cubemap/bottom.png', 'images/demo_cubemap/front.png', 'images/demo_cubemap/left.png');
-        this.cylinder = new MyCylinder(this,10)
+        this.cylinder = new MyCylinder(this,6)
         this.defaultAppearance = new CGFappearance(this);
 		this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);

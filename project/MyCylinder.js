@@ -1,14 +1,9 @@
 import { CGFobject, CGFappearance, CGFtexture } from '../lib/CGF.js';
 
 export class MyCylinder extends CGFobject {
-    constructor(scene, slices) {
+    constructor(scene, slices,texture) {
         super(scene);
         this.slices = slices;
-
-        //Movement variables
-        this.orientationAngle = 0.0;
-        this.speed = 0.0;
-        this.coordinates = [0.0, 0.0, 0.0];
 
         this.initBuffers();
     }
@@ -23,55 +18,49 @@ export class MyCylinder extends CGFobject {
         this.Material.setTexture(this.texture);
     }
     initBuffers() {
+    
         this.vertices = [];
         this.indices = [];
         this.normals = [];
+        this.texCoords = [];
 
         var ang = 0;
-        var alphaAng = 2*Math.PI/this.slices;
+        var deltaAng = 2 * Math.PI / this.slices; 
 
-        for(var i = 0; i < this.slices; i++){
-            // All vertices have to be declared for a given face
-            // even if they are shared with others, as the normals 
-            // in each face will be different
+        var faceWidth = 1 / this.slices;
 
-            var sa = Math.sin(ang);
-            var saa = Math.sin(ang + alphaAng);
-            var ca = Math.cos(ang);
-            var caa = Math.cos(ang + alphaAng);
+        for(var i = 0; i <= this.slices; i++) {
 
-            
-            this.vertices.push(ca, 0, -sa);
-            this.vertices.push(caa, 0, -saa);
-            this.vertices.push(-sa, 1, ca);
-            this.vertices.push(-saa, 1, caa);
+            var cos = Math.cos(ang);
+            var sin = Math.sin(ang);
 
-            // triangle normal computed by cross product of two edges
-            var normal = [
-                saa - sa,
-                ca*saa - sa*caa,
-                caa - ca
+            this.vertices.push(cos, 0, sin);
+            this.vertices.push(cos, 1, sin);
+
+            //add normals for the newly created vertices
+            var normal = [cos, 0, sin];
+            var normalSize = Math.sqrt(normal[0] * normal[0] + normal[1] * normal[1] + normal[2] * normal[2]);
+            normal[0] /= normalSize;
+            normal[1] /= normalSize;
+            normal[2] /= normalSize;
+            this.normals.push(...normal);
+            this.normals.push(...normal);
+
+
+            // only once for each pair of vertices (final pair only used for proper texturing)
+            if (i < this.slices) {
+                // define a face 
+                this.indices.push(2*i, (2*i+1), (2*i+3));
+                this.indices.push(2*i, (2*i+3), (2*i+2));
+            }
+
+            var currentCoord = [
+                1 - (i * faceWidth), 1,
+                1 - (i * faceWidth), 0
             ];
 
-            // normalization
-            var nsize = Math.sqrt(
-                normal[0]*normal[0]+
-                normal[1]*normal[1]+
-                normal[2]*normal[2]
-                );
-            normal[0] /= nsize;
-            normal[1] /= nsize;
-            normal[2] /= nsize;
-
-            // push normal once for each vertex of this triangle
-            this.normals.push(...normal);
-            this.normals.push(...normal);
-            this.normals.push(...normal);
-
-            this.indices.push(3*i, 3*i + 1, 3*i + 2);
-            this.indices.push(1, 3*i + 2, 3*i + 1); //So that it can be seen from behind
-
-            ang += alphaAng;
+            this.texCoords.push(...currentCoord);
+            ang += deltaAng
         }
 
         this.primitiveType = this.scene.gl.TRIANGLES;
