@@ -1,4 +1,4 @@
-import { CGFscene, CGFcamera, CGFaxis, CGFappearance } from "../lib/CGF.js";
+import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader } from "../lib/CGF.js";
 import { MySphere } from "./MySphere.js";
 import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap } from "./MyCubeMap.js";
@@ -48,6 +48,26 @@ export class MyScene extends CGFscene {
         this.cylinderMaterial.setShininess(10.0);
         this.cylinderMaterial.loadTexture('images/FEUP.jpg');
 
+        //Default
+        this.defaultAppearance = new CGFappearance(this);
+		this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.defaultAppearance.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.defaultAppearance.setEmission(0,0,0,1);
+		this.defaultAppearance.setShininess(120);
+
+        //Sphere previous
+		this.sphereAppearance = new CGFappearance(this);
+		this.sphereAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+		this.sphereAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
+		this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
+		this.sphereAppearance.setShininess(120);
+
+        //Fish
+        
+
+
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 10, this.sphereMaterial );
@@ -57,38 +77,33 @@ export class MyScene extends CGFscene {
         this.cylinder = new MyCylinder(this, 16, this.cylinderMaterial);
         this.mainFish = new MyMovingObject(this,new MyFish(this));
 
-        //Initialize appearances
-        this.defaultAppearance = new CGFappearance(this);
-		this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
-        this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
-        this.defaultAppearance.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.defaultAppearance.setEmission(0,0,0,1);
-		this.defaultAppearance.setShininess(120);
 
-		this.sphereAppearance = new CGFappearance(this);
-		this.sphereAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-		this.sphereAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
-		this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
-		this.sphereAppearance.setShininess(120);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+
         //Part A
-        this.displayPartA=false;
+        this.displayPartA = false;
         this.displayMovingObject = false;
         this.displaySphere = false;
         this.displayCubeMap = false;
         this.displayCylinder = false;
+
         //Part B
         this.displayPartB=true;
         this.displayMainFish = true;
-
         this.scaleFactor = 1.0;
         this.speedFactor = 1.0;
-
         this.selectedTexture = -1;
         this.textureIds = { 'View': 0, 'Test': 1 };
 
+
+
+        //Shaders
+        this.fishBodyShader = new CGFshader(this.gl, "./Shaders/FishBodyPart.vert", "./Shaders/FishBodyPart.frag");
+
+
+        this.fishBodyShader.setUniformsValues({ scalesSampler : 10})
 
     }
     initLights() {
@@ -117,7 +132,7 @@ export class MyScene extends CGFscene {
     updateSpeedFactor() {
         this.movingObject.updateSpeedFactor(this.speedFactor);
     }
-    updateInterfaceA(){
+    updateInterfaceA() { //What is this for?
         if(!this.displayPartA){
             this.displayMovingObject = false;
             this.displaySphere = false;
@@ -143,7 +158,7 @@ export class MyScene extends CGFscene {
             this.displayMainFish = false;
         }
         if(this.displayPartB){
-            this.displayPartA=false;
+            this.displayPartA = false;
             this.displayMovingObject = false;
             this.displaySphere = false;
             this.displayCubeMap = false;
@@ -229,8 +244,10 @@ export class MyScene extends CGFscene {
             this.cylinder.display();
 
         //Fish
-        if (this.displayMainFish)
+        if (this.displayMainFish) {
+            this.setActiveShader(this.fishBodyShader);
             this.mainFish.display();
+        }
 
         this.defaultAppearance.apply();
 
