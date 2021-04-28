@@ -16,12 +16,11 @@ export class MyInterface extends CGFinterface {
         // http://workshop.chromeexperiments.com/examples/gui
         this.gui = new dat.GUI();
 
-        
+        //Parts
+        this.gui.add(this.scene, 'selectedPart', this.scene.parts).name('Selected Part').onChange(this.scene.updatePart.bind(this.scene));
 
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
-
-        this.gui.add(this.scene, 'displayPartA').name('Part A').onChange(this.scene.updateInterfaceA.bind(this.scene));;
 
         // Part A
         var objectsFolderA = this.gui.addFolder('Objects - Part A');
@@ -31,7 +30,6 @@ export class MyInterface extends CGFinterface {
         objectsFolderA.add(this.scene, 'displayCylinder').name('Display Cylinder');
  
         // Part B
-        this.gui.add(this.scene, 'displayPartB').name('Part B').onChange(this.scene.updateInterfaceB.bind(this.scene));
         var objectsFolderB = this.gui.addFolder('Objects - Part B');
         objectsFolderB.add(this.scene, 'displayMainFish').name('Display Main Fish');
 
@@ -40,16 +38,18 @@ export class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
         
         //Scaling of the moving object
-        this.gui.add(this.scene, 'scaleFactor', 0.5, 3).name('Scale Factor').onChange(this.scene.updateMovingObjectScale.bind(this.scene));
+        this.gui.add(this.scene, 'movScaleFactor', 0.5, 3).name('Moving O. Scale Factor');
 
         //Speed Factor 
-        this.gui.add(this.scene, 'speedFactor', 0.5, 3).name('Speed Factor').onChange(this.scene.updateSpeedFactor.bind(this.scene));
+        this.gui.add(this.scene, 'movSpeedFactor', 0.5, 3).name('Moving O. Speed Factor');
 
         //Initiate reading keyboard
         this.initKeys();
 
         return true;
     }
+
+
     initKeys() {
         // create reference from the scene to the GUI
         this.scene.gui = this;

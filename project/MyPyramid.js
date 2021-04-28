@@ -1,4 +1,4 @@
-import {CGFobject} from '../lib/CGF.js';
+import {CGFobject, CGFappearance} from '../lib/CGF.js';
 /**
 * MyPyramid
 * @constructor
@@ -11,7 +11,16 @@ export class MyPyramid extends CGFobject {
         super(scene);
         this.slices = slices;
         this.stacks = stacks;
+        this.createMaterial();
         this.initBuffers();
+    }
+    createMaterial() {
+        //BLUE
+        this.MaterialBlue = new CGFappearance(this.scene);
+        this.MaterialBlue.setAmbient(0.2, 0.2, 0.9, 1.0);
+        this.MaterialBlue.setDiffuse(0.2, 0.2, 0.9, 1.0);
+        this.MaterialBlue.setSpecular(0.2, 0.2, 0.9, 1.0);
+        this.MaterialBlue.setShininess(10.0);
     }
     initBuffers() {
         this.vertices = [];
@@ -69,6 +78,14 @@ export class MyPyramid extends CGFobject {
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
+    }
+    display() {
+        //Initial rotate
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+
+        //Coloring
+        this.MaterialBlue.apply();
+        super.display();
     }
 }
 

@@ -1,4 +1,4 @@
-import { CGFobject, CGFappearance } from '../lib/CGF.js';
+import { CGFobject, CGFappearance, CGFtexture, CGFshader } from '../lib/CGF.js';
 import { MyElipseSphere } from './MyElipseSphere.js';
 import { MyTriangle } from './MyTriangle.js';
 
@@ -7,14 +7,23 @@ export class MyFish extends CGFobject {
         super(scene);
         this.createMaterials();
         this.createPieces();
+        this.createShaders();
     }
     createMaterials() {
-        this.redMaterial = new CGFappearance(this.scene);
-        this.redMaterial.setAmbient(1.0, 0.2, 0.0, 1.0);
-        this.redMaterial.setDiffuse(1.0, 0.2, 0.0, 1.0);
-        this.redMaterial.setSpecular(1.0, 0.2, 0.0, 1.0);
-        this.redMaterial.setShininess(10.0);
 
+        //Textures
+        this.fishBodyTex = new CGFtexture(this.scene ,'./images/fish-scales-pattern-purple2.jpg');
+        this.fishBodyTex.bind(0);
+
+        //Fins (and Body)
+        this.finMaterial = new CGFappearance(this.scene);
+        this.finMaterial.setAmbient(1.0, 0.0, 1.0, 1.0);
+        this.finMaterial.setDiffuse(1.0, 0.0, 1.0, 1.0);
+        this.finMaterial.setSpecular(1.0, 0.0, 1.0, 1.0);
+        this.finMaterial.setShininess(10.0);
+        this.finMaterial.setTexture(this.fishBodyTex);
+        
+        //Eyes
         this.whiteMaterial = new CGFappearance(this.scene);
         this.whiteMaterial.setAmbient(1.0, 1.0, 1.0, 1.0);
         this.whiteMaterial.setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -28,11 +37,24 @@ export class MyFish extends CGFobject {
         this.blackMaterial.setShininess(10.0);
 
     }
+    createShaders() {
+        //Body
+        this.fishBodyShader = new CGFshader(this.scene.gl, "./Shaders/FishBodyPart.vert", "./Shaders/FishBodyPart.frag");
+        this.fishBodyShader.setUniformsValues({ scalesSampler : 0})
+
+        //Side fin
+        this.sideFinShader = new CGFshader(this.scene.gl, "./Shaders/SideFin.vert", "./Shaders/SideFin.frag");
+        this.sideFinShader.setUniformsValues( { timeFactor: 0.0 })
+
+        //Tail
+        this.tailShader = new CGFshader(this.scene.gl, "./Shaders/Tail.vert", "./Shaders/Tail.frag");
+        this.tailShader.setUniformsValues( { timeFactor: 0.0 })
+    }
     createPieces() {
-        this.body = new MyElipseSphere(this.scene, 16, 10, this.redMaterial,0.9,1.3,1.0);
+        this.body = new MyElipseSphere(this.scene, 16, 10, this.finMaterial,0.9,1.3,1.0);
         this.eye = new MyElipseSphere(this.scene,16,10,this.whiteMaterial,1,1,1);
         this.eyeBlackPart = new MyElipseSphere(this.scene,16,10,this.blackMaterial,1,1,1);
-        this.fin = new MyTriangle(this.scene,this.redMaterial);
+        this.fin = new MyTriangle(this.scene,this.finMaterial);
     }
     initBuffers() {
         this.body.initBuffers();
@@ -41,9 +63,20 @@ export class MyFish extends CGFobject {
         this.fin.initBuffers();
     }
     display() {
-        //Body
-        this.body.display();
 
+        //Uptade animation shaders
+        this.sideFinShader.setUniformsValues( { timeFactor: this.scene.time / 100 % 10000})
+        this.tailShader.setUniformsValues( { timeFactor: this.scene.time / 100 % 10000})
+
+        this.scene.pushMatrix();
+        this.scene.scale(0.5/0.9, 0.5/0.9, 0.5/0.9);
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+
+        
+        //Body
+        this.scene.setActiveShader(this.fishBodyShader);
+        this.body.display();
+        this.scene.setActiveShader(this.scene.defaultShader);
 
         //Eyes
         this.scene.pushMatrix();
@@ -72,6 +105,7 @@ export class MyFish extends CGFobject {
 
 
         //Tail
+        this.scene.setActiveShader(this.tailShader);
         this.scene.pushMatrix();
         this.scene.scale(0.8,0.8,0.8)
         this.scene.translate(0,-3.0,0)
@@ -80,12 +114,13 @@ export class MyFish extends CGFobject {
         this.scene.rotate(-Math.PI/4,0,0,1);
         this.fin.display();
         this.scene.popMatrix();
+        this.scene.setActiveShader(this.scene.defaultShader);
 
 
         //Top Fin
         this.scene.pushMatrix();
         this.scene.scale(0.6,0.6,0.6)
-        this.scene.translate(0,-0.25,-1.25)
+        this.scene.translate(0,-0.5,-1.25)
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.rotate(-Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/4,0,0,1);
@@ -94,6 +129,7 @@ export class MyFish extends CGFobject {
 
 
         //Bottom Fins
+        this.scene.setActiveShader(this.sideFinShader);
         this.scene.pushMatrix();
         this.scene.scale(0.3,0.3,0.3)
         this.scene.translate(3.2,0.3,2)
@@ -105,13 +141,28 @@ export class MyFish extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.scale(0.3,0.3,0.3)
-        this.scene.translate(-3.2,0.3,2)
+        this.scene.scale(-0.3,0.3,0.3)
+        this.scene.translate(3.2,0.3,2)
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.rotate(-Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/2,0,0,1);
-        this.scene.rotate(Math.PI/4,1,1,0);
+        this.scene.rotate(-Math.PI/4,1,1,0);
         this.fin.display();
         this.scene.popMatrix();
+        this.scene.setActiveShader(this.scene.defaultShader);
+
+        this.scene.popMatrix();
+    }
+    enableNormalViz() {
+        this.body.enableNormalViz();
+        this.eye.enableNormalViz(); 
+        this.eyeBlackPart.enableNormalViz();
+        this.fin.enableNormalViz();
+    }
+    disableNormalViz() {
+        this.body.disableNormalViz();
+        this.eye.disableNormalViz(); 
+        this.eyeBlackPart.disableNormalViz();
+        this.fin.disableNormalViz();
     }
 }

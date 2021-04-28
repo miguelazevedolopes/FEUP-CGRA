@@ -1,4 +1,4 @@
-import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader } from "../lib/CGF.js";
+import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MySphere } from "./MySphere.js";
 import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap } from "./MyCubeMap.js";
@@ -25,7 +25,7 @@ export class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-        this.setUpdatePeriod(50);
+        this.setUpdatePeriod(20);
         
         this.enableTextures(true);
         
@@ -63,9 +63,6 @@ export class MyScene extends CGFscene {
 		this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.sphereAppearance.setShininess(120);
 
-        //Fish
-        
-
 
 
         //Initialize scene objects
@@ -81,6 +78,12 @@ export class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.movScaleFactor = 1.0;
+        this.movSpeedFactor = 1.0;
+        this.selectedTexture = -1;
+        this.selectedPart = 1;
+        this.textureIds = { 'View': 0, 'Test': 1 };
+        this.parts = { 'Part A': 0, 'Part B': 1 };
 
         //Part A
         this.displayPartA = false;
@@ -92,23 +95,14 @@ export class MyScene extends CGFscene {
         //Part B
         this.displayPartB=true;
         this.displayMainFish = true;
-        this.scaleFactor = 1.0;
-        this.speedFactor = 1.0;
-        this.selectedTexture = -1;
-        this.textureIds = { 'View': 0, 'Test': 1 };
 
 
-
-        //Shaders
-        this.fishBodyShader = new CGFshader(this.gl, "./Shaders/FishBodyPart.vert", "./Shaders/FishBodyPart.frag");
-
-
-        this.fishBodyShader.setUniformsValues({ scalesSampler : 10})
 
     }
     initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
+        this.lights[0].setPosition(15, 0, 0, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setAmbient(0.2, 0.2, 0.2, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
     }
@@ -126,44 +120,20 @@ export class MyScene extends CGFscene {
                 'images/test_cubemap/px.png', 'images/test_cubemap/ny.png', 'images/test_cubemap/nz.png', 'images/test_cubemap/nx.png');
         }
     }
-    updateMovingObjectScale() {
-        this.movingObject.updateScaleFactor(this.scaleFactor);
-    }
-    updateSpeedFactor() {
-        this.movingObject.updateSpeedFactor(this.speedFactor);
-    }
-    updateInterfaceA() { //What is this for?
-        if(!this.displayPartA){
+    updatePart() {
+        if (this.selectedPart == 1) {
+            this.displayMainFish = true;
             this.displayMovingObject = false;
             this.displaySphere = false;
             this.displayCubeMap = false;
             this.displayCylinder = false;
-            this.displayMainFish = false;
-        }
-        if(this.displayPartA){
-            this.displayPartB=false;
+        } 
+        else if (this.selectedPart == 0) {
             this.displayMovingObject = true;
             this.displaySphere = false;
             this.displayCubeMap = true;
             this.displayCylinder = false;
             this.displayMainFish = false;
-        }
-    }
-    updateInterfaceB(){
-        if(!this.displayPartB){
-            this.displayMovingObject = false;
-            this.displaySphere = false;
-            this.displayCubeMap = false;
-            this.displayCylinder = false;
-            this.displayMainFish = false;
-        }
-        if(this.displayPartB){
-            this.displayPartA = false;
-            this.displayMovingObject = false;
-            this.displaySphere = false;
-            this.displayCubeMap = false;
-            this.displayCylinder = false;
-            this.displayMainFish = true;
         }
     }
 
@@ -205,6 +175,7 @@ export class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
         this.checkKeys();
+        this.time = t; //For animations
     }
 
     display() {
@@ -227,27 +198,27 @@ export class MyScene extends CGFscene {
         this.sphereAppearance.apply();
         // ---- BEGIN Primitive drawing section
 
-        //Sphere
+        //this.mainFish.enableNormalViz();
+
+        // Sphere
         if (this.displaySphere)
             this.incompleteSphere.display();
 
-        //Moving Object
+        // Moving Object
         if (this.displayMovingObject)
             this.movingObject.display();
 
-        //Cube Map
+        // Cube Map
         if (this.displayCubeMap)
             this.cubeMap.display();
 
-        //Cylinder
+        // Cylinder
         if (this.displayCylinder)
             this.cylinder.display();
 
-        //Fish
-        if (this.displayMainFish) {
-            this.setActiveShader(this.fishBodyShader);
+        // Fish
+        if (this.displayMainFish) 
             this.mainFish.display();
-        }
 
         this.defaultAppearance.apply();
 

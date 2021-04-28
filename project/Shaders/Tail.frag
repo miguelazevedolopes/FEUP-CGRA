@@ -18,14 +18,8 @@ struct lightProperties {
 };
 
 uniform sampler2D scalesSampler;
-uniform lightProperties uLight[8];
-
-varying vec2 vTextureCoord;
+uniform lightProperties uLight[1];
 
 void main() {
-    vec4 color = texture2D(scalesSampler, vTextureCoord) * uLight[0].diffuse;
-    if (vTextureCoord.y > 0.42)
-        gl_FragColor = color;
-    else
-        gl_FragColor = vec4(0.3, 0.5, 0.3, 1.0) * uLight[0].diffuse + vec4(0.3, 0.5, 0.3, 1.0) * uLight[0].ambient;
+    gl_FragColor = vec4(0.6, 0.0, 0.6, 1.0) * uLight[0].diffuse + vec4(0.6, 0.0, 0.6, 1.0) * uLight[0].ambient;
 }
