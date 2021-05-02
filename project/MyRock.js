@@ -42,7 +42,7 @@ export class MyRock extends CGFobject {
 		this.scene.setActiveShader(this.rockShader);
 		this.rockTex.bind(11);
 		this.rockMap.bind(12);
-        this.scene.translate(5,0.5,0)
+        this.scene.translate(5,-0.5,0)
         this.scene.scale(2,2,2)
 		this.sphere.display();
 		this.scene.popMatrix();

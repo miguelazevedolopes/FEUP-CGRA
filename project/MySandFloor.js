@@ -42,9 +42,7 @@ export class MySandFloor extends CGFobject {
 		this.scene.setActiveShader(this.sandFloorShader);
 		this.sandTex.bind(8);
 		this.sandTexMap.bind(9);
-		this.scene.scale(50,1,50);
-		this.scene.rotate(Math.PI,0,1,1)
-		
+		this.scene.scale(50,1,50);		
 		this.plane.display();
 		this.scene.popMatrix();
 	}

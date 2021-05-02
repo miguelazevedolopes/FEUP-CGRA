@@ -29,16 +29,16 @@ export class MyPlane extends CGFobject {
 		this.vertices = [];
 		this.normals = [];
 		this.texCoords = [];
-		var yCoord =0.5;
+		var zCoord =-0.5;
 		for (var j = 0; j <= this.nrDivs; j++) {
 			var xCoord = -0.5;
 			for (var i = 0; i <= this.nrDivs; i++) {
-				this.vertices.push(xCoord, yCoord, 0);
+				this.vertices.push(xCoord, 0,zCoord);
 				this.normals.push(0, 0, 1);
 				this.texCoords.push(this.minS + i * this.q, this.minT + j * this.w);
 				xCoord += this.patchLength;
 			}
-			yCoord -= this.patchLength;
+			zCoord += this.patchLength;
 		}
 		// Generating indices
 		this.indices = [];
