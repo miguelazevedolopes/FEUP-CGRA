@@ -1,5 +1,5 @@
 import {CGFobject,CGFtexture,CGFshader,CGFappearance} from '../lib/CGF.js';
-import {MyPlane} from './MyPlane.js'
+import {MyElipseSphere} from './MyElipseSphere.js'
 /**
 * MySandFloor
 * @constructor
@@ -10,7 +10,7 @@ import {MyPlane} from './MyPlane.js'
  * @param minT - minimum texture coordinate in T
  * @param maxT - maximum texture coordinate in T
 */
-export class MySandFloor extends CGFobject {
+export class MyRock extends CGFobject {
 	constructor(scene) {
 		super(scene);
 		this.createMaterials()
@@ -24,28 +24,27 @@ export class MySandFloor extends CGFobject {
         this.sandMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
         this.sandMaterial.setEmission(1.0, 1.0, 1.0, 1.0);
         this.sandMaterial.setShininess(10.0);
-		this.sandMaterial.loadTexture("./images/sand.png");
+        this.sandMaterial.loadTexture("./images/rock.png")
 		
 		
-		this.sandTex = new CGFtexture(this.scene,"./images/sand.png");
-        this.sandTexMap = new CGFtexture(this.scene,"./images/sandMap.png");
-		this.sandFloorShader= new CGFshader(this.scene.gl,"./Shaders/SandFloor.vert","./Shaders/SandFloor.frag");
-		this.sandFloorShader.setUniformsValues({ uSamplerSand : 8 });
-		this.sandFloorShader.setUniformsValues({ uSamplerSandMap : 9 });
+		this.rockTex = new CGFtexture(this.scene,"./images/rock.png");
+        this.rockMap = new CGFtexture(this.scene,"./images/rock.png");
+		this.rockShader= new CGFshader(this.scene.gl,"./Shaders/rock.vert","./Shaders/rock.frag");
+		this.rockShader.setUniformsValues({ uSamplerRock : 11 });
+		this.rockShader.setUniformsValues({ uSamplerRockMap : 12 });
 	}
 	start(){
-		this.plane=new MyPlane(this.scene,16);
+		this.sphere=new MyElipseSphere(this.scene, 16, 10, this.sandMaterial,0.5,0.4,1.0);
 	}
 	display(){
 		this.scene.pushMatrix();	
 		this.sandMaterial.apply();
-		this.scene.setActiveShader(this.sandFloorShader);
-		this.sandTex.bind(8);
-		this.sandTexMap.bind(9);
-		this.scene.scale(50,1,50);
-		this.scene.rotate(Math.PI,0,1,1)
-		
-		this.plane.display();
+		this.scene.setActiveShader(this.rockShader);
+		this.rockTex.bind(11);
+		this.rockMap.bind(12);
+        this.scene.translate(5,0.5,0)
+        this.scene.scale(2,2,2)
+		this.sphere.display();
 		this.scene.popMatrix();
 	}
 }

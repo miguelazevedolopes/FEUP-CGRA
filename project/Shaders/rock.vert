@@ -8,13 +8,13 @@ uniform mat4 uNMatrix;
 
 varying vec2 vTextureCoord;
 varying float verticalOffset;
-uniform sampler2D uSamplerSandMap;	
+uniform sampler2D uSamplerRockMap;	
 
 
 void main() {
-	vec4 map = texture2D(uSamplerSandMap, aTextureCoord);
-    verticalOffset = map.b/7.0;
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition.xy, aVertexPosition.z + verticalOffset, 1.0);
+	vec4 map = texture2D(uSamplerRockMap, aTextureCoord);
+    verticalOffset = map.b/4.0;
+	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition.xy+verticalOffset, aVertexPosition.z + verticalOffset, 1.0 + verticalOffset);
 
 	vTextureCoord = aTextureCoord;
 }

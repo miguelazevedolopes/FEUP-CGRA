@@ -6,6 +6,7 @@ import { MyCylinder } from "./MyCylinder.js";
 import { MyFish } from "./MyFish.js";
 import { MyPyramid } from "./MyPyramid.js";
 import { MySandFloor } from "./MySandFloor.js";
+import { MyRock } from "./MyRock.js"
 /**
 * MyScene
 * @constructor
@@ -78,6 +79,7 @@ export class MyScene extends CGFscene {
         this.mainFish = new MyMovingObject(this,new MyFish(this));
         
         this.sandFloor = new MySandFloor(this);
+        this.rock= new MyRock(this);
         
 
         //Objects connected to MyInterface
@@ -116,7 +118,7 @@ export class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(1.0, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
 
     updateAppliedTexture() {
@@ -219,7 +221,7 @@ export class MyScene extends CGFscene {
             this.mainFish.display();
         }
         this.sandFloor.display();
-        
+        this.rock.display();
         this.setActiveShader(this.defaultShader);
         this.defaultAppearance.apply();
         
