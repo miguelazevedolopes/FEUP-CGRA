@@ -225,8 +225,14 @@ export class MyScene extends CGFscene {
            // this.setActiveShader(this.fishBodyShader);
             this.mainFish.display();
         }
+
+        //Sanfloor
         this.sandFloor.display();
+
+        //Rock
         this.rock.display();
+
+        
         this.setActiveShader(this.defaultShader);
         this.defaultAppearance.apply();
         
