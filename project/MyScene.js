@@ -5,6 +5,8 @@ import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
 import { MyFish } from "./MyFish.js";
 import { MyPyramid } from "./MyPyramid.js";
+import { MySandFloor } from "./MySandFloor.js";
+import { MyRock } from "./MyRock.js"
 /**
 * MyScene
 * @constructor
@@ -19,7 +21,7 @@ export class MyScene extends CGFscene {
         this.initLights();
 
         //Background color
-        this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        this.gl.clearColor(1.0, 1.0, 1.0, 1.0);
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
@@ -73,8 +75,10 @@ export class MyScene extends CGFscene {
          'images/demo_cubemap/right.png', 'images/demo_cubemap/bottom.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/left.png');
         this.cylinder = new MyCylinder(this, 16, this.cylinderMaterial);
         this.mainFish = new MyMovingObject(this,new MyFish(this));
-
-
+        
+        this.sandFloor = new MySandFloor(this);
+        this.rock= new MyRock(this);
+        
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -100,14 +104,15 @@ export class MyScene extends CGFscene {
 
     }
     initLights() {
-        this.lights[0].setPosition(15, 0, 0, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].setAmbient(0.2, 0.2, 0.2, 1.0);
+        this.lights[0].setPosition(0, 0, 10, 1);
+        this.lights[0].setAmbient(0.2, 0.2, 0.2, 1);
+        this.lights[0].setDiffuse(0.9, 0.9, 1.0, 1);
+        this.lights[0].setSpecular(0, 0, 0, 1);
         this.lights[0].enable();
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(1.0, 0.1, 500, vec3.fromValues(14, 14, 14), vec3.fromValues(0, 2, 0));
     }
 
     updateAppliedTexture() {
@@ -195,16 +200,15 @@ export class MyScene extends CGFscene {
         if (this.displayAxis)
             this.axis.display();
 
-        this.sphereAppearance.apply();
+        
         // ---- BEGIN Primitive drawing section
 
-        //this.mainFish.enableNormalViz();
-
-        // Sphere
-        if (this.displaySphere)
+        //Sphere
+        if (this.displaySphere){
+            this.sphereAppearance.apply();
             this.incompleteSphere.display();
-
-        // Moving Object
+        }
+        //Moving Object
         if (this.displayMovingObject)
             this.movingObject.display();
 
@@ -216,12 +220,16 @@ export class MyScene extends CGFscene {
         if (this.displayCylinder)
             this.cylinder.display();
 
-        // Fish
-        if (this.displayMainFish) 
+        //Fish
+        if (this.displayMainFish) {
+           // this.setActiveShader(this.fishBodyShader);
             this.mainFish.display();
-
+        }
+        this.sandFloor.display();
+        this.rock.display();
+        this.setActiveShader(this.defaultShader);
         this.defaultAppearance.apply();
-
+        
         // ---- END Primitive drawing section
     }
 }

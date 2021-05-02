@@ -21,7 +21,6 @@ export class MyInterface extends CGFinterface {
 
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
-
         // Part A
         var objectsFolderA = this.gui.addFolder('Objects - Part A');
         objectsFolderA.add(this.scene, 'displayMovingObject').name('Display Moving Object');
