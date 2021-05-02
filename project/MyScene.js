@@ -1,10 +1,11 @@
-import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader } from "../lib/CGF.js";
+import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MySphere } from "./MySphere.js";
 import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
 import { MyFish } from "./MyFish.js";
 import { MyPyramid } from "./MyPyramid.js";
+import { MySandFloor } from "./MySandFloor.js";
 /**
 * MyScene
 * @constructor
@@ -19,7 +20,7 @@ export class MyScene extends CGFscene {
         this.initLights();
 
         //Background color
-        this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        this.gl.clearColor(1.0, 1.0, 1.0, 1.0);
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
@@ -63,7 +64,6 @@ export class MyScene extends CGFscene {
 		this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.sphereAppearance.setShininess(120);
 
-        //Fish
         
 
 
@@ -76,8 +76,9 @@ export class MyScene extends CGFscene {
          'images/demo_cubemap/right.png', 'images/demo_cubemap/bottom.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/left.png');
         this.cylinder = new MyCylinder(this, 16, this.cylinderMaterial);
         this.mainFish = new MyMovingObject(this,new MyFish(this));
-
-
+        
+        this.sandFloor = new MySandFloor(this);
+        
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -91,7 +92,7 @@ export class MyScene extends CGFscene {
 
         //Part B
         this.displayPartB=true;
-        this.displayMainFish = true;
+        this.displayMainFish = false;
         this.scaleFactor = 1.0;
         this.speedFactor = 1.0;
         this.selectedTexture = -1;
@@ -100,15 +101,17 @@ export class MyScene extends CGFscene {
 
 
         //Shaders
-        this.fishBodyShader = new CGFshader(this.gl, "./Shaders/FishBodyPart.vert", "./Shaders/FishBodyPart.frag");
+        //this.fishBodyShader = new CGFshader(this.gl, "./Shaders/FishBodyPart.vert", "./Shaders/FishBodyPart.frag");
+      
+        //this.fishBodyShader.setUniformsValues({ scalesSampler : 10})
 
-
-        this.fishBodyShader.setUniformsValues({ scalesSampler : 10})
 
     }
     initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setPosition(0, 0, 10, 1);
+        this.lights[0].setAmbient(0.2, 0.2, 0.2, 1);
+        this.lights[0].setDiffuse(0.9, 0.9, 1.0, 1);
+        this.lights[0].setSpecular(0, 0, 0, 1);
         this.lights[0].enable();
         this.lights[0].update();
     }
@@ -132,41 +135,7 @@ export class MyScene extends CGFscene {
     updateSpeedFactor() {
         this.movingObject.updateSpeedFactor(this.speedFactor);
     }
-    updateInterfaceA() { //What is this for?
-        if(!this.displayPartA){
-            this.displayMovingObject = false;
-            this.displaySphere = false;
-            this.displayCubeMap = false;
-            this.displayCylinder = false;
-            this.displayMainFish = false;
-        }
-        if(this.displayPartA){
-            this.displayPartB=false;
-            this.displayMovingObject = true;
-            this.displaySphere = false;
-            this.displayCubeMap = true;
-            this.displayCylinder = false;
-            this.displayMainFish = false;
-        }
-    }
-    updateInterfaceB(){
-        if(!this.displayPartB){
-            this.displayMovingObject = false;
-            this.displaySphere = false;
-            this.displayCubeMap = false;
-            this.displayCylinder = false;
-            this.displayMainFish = false;
-        }
-        if(this.displayPartB){
-            this.displayPartA = false;
-            this.displayMovingObject = false;
-            this.displaySphere = false;
-            this.displayCubeMap = false;
-            this.displayCylinder = false;
-            this.displayMainFish = true;
-        }
-    }
-
+    
     checkKeys()  {
 
         // Check for key codes e.g. in https://keycode.info/
@@ -224,13 +193,14 @@ export class MyScene extends CGFscene {
         if (this.displayAxis)
             this.axis.display();
 
-        this.sphereAppearance.apply();
+        
         // ---- BEGIN Primitive drawing section
 
         //Sphere
-        if (this.displaySphere)
+        if (this.displaySphere){
+            this.sphereAppearance.apply();
             this.incompleteSphere.display();
-
+        }
         //Moving Object
         if (this.displayMovingObject)
             this.movingObject.display();
@@ -245,12 +215,14 @@ export class MyScene extends CGFscene {
 
         //Fish
         if (this.displayMainFish) {
-            this.setActiveShader(this.fishBodyShader);
+           // this.setActiveShader(this.fishBodyShader);
             this.mainFish.display();
         }
-
+        this.sandFloor.display();
+        
+        this.setActiveShader(this.defaultShader);
         this.defaultAppearance.apply();
-
+        
         // ---- END Primitive drawing section
     }
 }

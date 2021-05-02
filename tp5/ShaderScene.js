@@ -238,7 +238,7 @@ export class ShaderScene extends CGFscene {
 		this.pushMatrix();
 
 		// bind additional texture to texture unit 1
-		this.texture2.bind(1);
+		//this.texture2.bind(1);
 		
 		this.water.bind(2);
 		this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);

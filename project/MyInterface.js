@@ -20,9 +20,6 @@ export class MyInterface extends CGFinterface {
 
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
-
-        this.gui.add(this.scene, 'displayPartA').name('Part A').onChange(this.scene.updateInterfaceA.bind(this.scene));;
-
         // Part A
         var objectsFolderA = this.gui.addFolder('Objects - Part A');
         objectsFolderA.add(this.scene, 'displayMovingObject').name('Display Moving Object');
@@ -31,7 +28,6 @@ export class MyInterface extends CGFinterface {
         objectsFolderA.add(this.scene, 'displayCylinder').name('Display Cylinder');
  
         // Part B
-        this.gui.add(this.scene, 'displayPartB').name('Part B').onChange(this.scene.updateInterfaceB.bind(this.scene));
         var objectsFolderB = this.gui.addFolder('Objects - Part B');
         objectsFolderB.add(this.scene, 'displayMainFish').name('Display Main Fish');
 
