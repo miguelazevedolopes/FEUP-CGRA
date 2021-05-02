@@ -29,7 +29,7 @@ export class MyPlane extends CGFobject {
 		this.vertices = [];
 		this.normals = [];
 		this.texCoords = [];
-		var yCoord = 0.5;
+		var yCoord =0.5;
 		for (var j = 0; j <= this.nrDivs; j++) {
 			var xCoord = -0.5;
 			for (var i = 0; i <= this.nrDivs; i++) {

@@ -34,15 +34,18 @@ export class MySandFloor extends CGFobject {
 		this.sandFloorShader.setUniformsValues({ uSamplerSandMap : 9 });
 	}
 	start(){
-		this.plane=new MyPlane(this.scene);
+		this.plane=new MyPlane(this.scene,16);
 	}
 	display(){
 		this.scene.pushMatrix();	
-		//this.sandMaterial.apply();
+		this.sandMaterial.apply();
 		this.scene.setActiveShader(this.sandFloorShader);
 		this.sandTex.bind(8);
 		this.sandTexMap.bind(9);
-		this.scene.scale(3,3,3);
+		this.scene.scale(10,10,10);
+		
+		this.scene.rotate(Math.PI,0,1,1)
+		
 		this.plane.display();
 		this.scene.popMatrix();
 	}
