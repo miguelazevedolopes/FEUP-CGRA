@@ -24,14 +24,13 @@ export class MySandFloor extends CGFobject {
         this.sandMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
         this.sandMaterial.setEmission(1.0, 1.0, 1.0, 1.0);
         this.sandMaterial.setShininess(10.0);
-		this.sandMaterial.loadTexture("./images/sand.png");
 		
 		
 		this.sandTex = new CGFtexture(this.scene,"./images/sand.png");
         this.sandTexMap = new CGFtexture(this.scene,"./images/sandMap.png");
 		this.sandFloorShader= new CGFshader(this.scene.gl,"./Shaders/SandFloor.vert","./Shaders/SandFloor.frag");
-		this.sandFloorShader.setUniformsValues({ uSamplerSand : 8 });
-		this.sandFloorShader.setUniformsValues({ uSamplerSandMap : 9 });
+		this.sandFloorShader.setUniformsValues({ uSamplerSand : 0 });
+		this.sandFloorShader.setUniformsValues({ uSamplerSandMap : 1 });
 	}
 	start(){
 		this.plane=new MyPlane(this.scene,16);
@@ -40,9 +39,9 @@ export class MySandFloor extends CGFobject {
 		this.scene.pushMatrix();	
 		this.sandMaterial.apply();
 		this.scene.setActiveShader(this.sandFloorShader);
-		this.sandTex.bind(8);
-		this.sandTexMap.bind(9);
-		this.scene.scale(50,1,50);		
+		this.scene.scale(50,1,50);	
+		this.sandTex.bind(0);
+		this.sandTexMap.bind(1);	
 		this.plane.display();
 		this.scene.popMatrix();
 	}
