@@ -24,7 +24,7 @@ export class MyWaterSurface extends CGFobject {
         this.distortionTex.bind(1);
         this.scene.pushMatrix();
         this.scene.setActiveShader(this.waterSurfaceShader);
-        this.scene.translate(0, 6, 0);
+        this.scene.translate(0, 10, 0);
         this.scene.scale(10, 10, 10);
         //this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.rotate(Math.PI, 1, 0, 0);

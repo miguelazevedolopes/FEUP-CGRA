@@ -9,19 +9,23 @@ export class MyRockSet {
     }
     createRocks() {
         this.rockSet = [];
+        this.rockPos = [];
+        this.rockDeform = [];
 
         for (let i = 0; i < this.numberRocks; i++) {
             this.rockSet.push(new MyRock(this.scene, 16, 10));
+            this.rockPos.push((Math.floor(Math.random() * 101) - 50) / 10.0, 0.0, (Math.floor(Math.random() * 101) - 50) / 10.0);
+            this.rockDeform.push(Math.floor((Math.random() * 61) + 40) / 100, Math.floor((Math.random() * 41) + 20) / 100, Math.floor((Math.random() * 61) + 40)/ 100);
         }
     }
     display() {
 
         for (let i = 0; i < this.numberRocks; i++) {
             this.scene.pushMatrix();
-            this.scene.translate(i, 0.0, 0.0);
+            this.scene.translate(this.rockPos[i * 3], this.rockPos[i * 3 + 1], this.rockPos[i * 3 + 2]);
+            this.scene.scale(this.rockDeform[i * 3], this.rockDeform[i * 3 + 1], this.rockDeform[i * 3 + 2]);
             this.scene.scale(0.1, 0.1, 0.1);
             this.rockSet[i].display();
-            this.scene.scale(10.0, 10.0, 10.0);
             this.scene.popMatrix();
         }
         

@@ -43,7 +43,7 @@ export class MyRock extends CGFobject {
             var y = cosPhi;
             var z = Math.sin(-theta) * sinPhi;
 
-            var randomModifier = Math.floor(Math.random() * 6);
+            var randomModifier = Math.floor(Math.random() * 3);
             this.vertices.push(x - randomModifier / 25.0, y - randomModifier / 25.0, z - randomModifier / 25.0);
 
             //--- Indices

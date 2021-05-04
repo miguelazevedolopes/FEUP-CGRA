@@ -3,7 +3,7 @@ import { MySphere } from "./MySphere.js";
 import { MyMovingObject } from "./MyMovingObject.js";
 import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
-import { MyFish } from "./MyFish.js";
+import { MyMovingFish } from "./MyMovingFish.js";
 import { MyPyramid } from "./MyPyramid.js";
 import { MySandFloor } from "./MySandFloor.js";
 import { MyNest } from "./MyNest.js";
@@ -80,7 +80,7 @@ export class MyScene extends CGFscene {
         this.cylinder = new MyCylinder(this, 16, this.cylinderMaterial);
 
         // Part B
-        this.mainFish = new MyMovingObject(this,new MyFish(this));
+        this.mainFish = new MyMovingFish(this);
         this.sandFloor = new MySandFloor(this);
         this.nest = new MyNest(this);
         this.waterSurface = new MyWaterSurface(this);
@@ -163,7 +163,6 @@ export class MyScene extends CGFscene {
             this.movingObject.accelerate(0.01);
             this.mainFish.accelerate(0.01);
         }
-
         if (this.gui.isKeyPressed("KeyS")){ //Speed down
             this.movingObject.accelerate(-0.01);
             this.mainFish.accelerate(-0.01);
@@ -172,13 +171,27 @@ export class MyScene extends CGFscene {
             this.movingObject.turn(Math.PI/16);
             this.mainFish.turn(Math.PI/16);
         }
-        if (this.gui.isKeyPressed("KeyD")){//Right seen from the back of the pyramid 
+        if (this.gui.isKeyPressed("KeyD")){ //Right seen from the back of the pyramid 
             this.movingObject.turn(-Math.PI/16);
             this.mainFish.turn(-Math.PI/16);
         }
-        if (this.gui.isKeyPressed("KeyR")){  //Reset speed, orientation and position
+        if (this.gui.isKeyPressed("KeyR")){ //Reset speed, orientation and position
             this.movingObject.reset();
             this.mainFish.reset();
+        }
+        if (this.gui.isKeyPressed("KeyS")){ //Speed down
+            this.movingObject.accelerate(-0.01);
+            this.mainFish.accelerate(-0.01);
+        }
+        if (this.gui.isKeyPressed("KeyA")){ //Left seen from the back of the pyramid 
+            this.movingObject.turn(Math.PI/16);
+            this.mainFish.turn(Math.PI/16);
+        }
+        if (this.gui.isKeyPressed("KeyP")){ //Up
+            this.mainFish.up();
+        }
+        if (this.gui.isKeyPressed("KeyL")){ //Down
+            this.mainFish.down();
         }
     
     }
