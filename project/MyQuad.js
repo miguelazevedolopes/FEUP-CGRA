@@ -6,11 +6,10 @@ import {CGFobject} from '../lib/CGF.js';
  * @param {Array} coords - Array of texture coordinates (optional)
  */
 export class MyQuad extends CGFobject {
-	constructor(scene, coords) {
+	constructor(scene) {
 		super(scene);
 		this.initBuffers();
 	}
-	
 	initBuffers() {
 		this.vertices = [
 			-0.5, -0.5, 0,	//0

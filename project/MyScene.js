@@ -6,7 +6,9 @@ import { MyCylinder } from "./MyCylinder.js";
 import { MyFish } from "./MyFish.js";
 import { MyPyramid } from "./MyPyramid.js";
 import { MySandFloor } from "./MySandFloor.js";
-import { MyRock } from "./MyRock.js"
+import { MyRock } from "./MyRock.js";
+import { MyQuad } from "./MyQuad.js";
+import { MyWaterSurface } from "./MyWaterSurface.js";
 /**
 * MyScene
 * @constructor
@@ -81,6 +83,7 @@ export class MyScene extends CGFscene {
         this.mainFish = new MyMovingObject(this,new MyFish(this));
         this.sandFloor = new MySandFloor(this);
         this.rock = new MyRock(this);
+        this.waterSurface = new MyWaterSurface(this);
         
 
         //Objects connected to MyInterface
@@ -104,6 +107,7 @@ export class MyScene extends CGFscene {
         this.displayMainFish = true;
         this.displayNest = true;
         this.displayFloor = true;
+        this.displayWaterSurface = true;
 
 
 
@@ -240,6 +244,10 @@ export class MyScene extends CGFscene {
         //Rock
         if (this.displayNest)
             this.rock.display();
+
+        // Water surface
+        if (this.displayWaterSurface) 
+            this.waterSurface.display();
 
         
         this.setActiveShader(this.defaultShader);

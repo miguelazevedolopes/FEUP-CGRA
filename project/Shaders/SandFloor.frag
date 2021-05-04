@@ -10,6 +10,6 @@ varying float verticalOffset;
 
 void main() {
 	vec4 color = texture2D(uSamplerSand, vTextureCoord);
-    	color.rgb /= 1.3 * verticalOffset  ;
+    color.rgb /= 1.3 * verticalOffset  ;
 	gl_FragColor = color;
 }

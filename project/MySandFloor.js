@@ -13,34 +13,25 @@ import {MyPlane} from './MyPlane.js'
 export class MySandFloor extends CGFobject {
 	constructor(scene) {
 		super(scene);
-		this.createMaterials()
 		this.plane = new MyPlane(this.scene,16);
+		this.createShaders();
 	}
-	createMaterials(){
-		//Sand material
-		this.sandMaterial = new CGFappearance(this.scene);
-        this.sandMaterial.setAmbient(0.0, 0.0, 0.0, 0.0);
-        this.sandMaterial.setDiffuse(0.0, 0.0, 0.0, 0.0);
-        this.sandMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
-        this.sandMaterial.setEmission(1.0, 1.0, 1.0, 1.0);
-        this.sandMaterial.setShininess(10.0);
-
-		this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);	
-		
+	createShaders() {
 		this.sandTex = new CGFtexture(this.scene,"./images/sand.png");
         this.sandTexMap = new CGFtexture(this.scene,"./images/sandMap.png");
-		this.sandFloorShader= new CGFshader(this.scene.gl,"./Shaders/SandFloor.vert","./Shaders/SandFloor.frag");
+		this.sandFloorShader = new CGFshader(this.scene.gl,"./Shaders/SandFloor.vert","./Shaders/SandFloor.frag");
 		this.sandFloorShader.setUniformsValues({ uSamplerSand : 0 });
 		this.sandFloorShader.setUniformsValues({ uSamplerSandMap : 1 });
 	}
 	display(){
-		this.scene.pushMatrix();
-		this.sandMaterial.apply();
-		this.scene.setActiveShader(this.sandFloorShader);
-		this.scene.scale(50,1,50);	
 		this.sandTex.bind(0);
 		this.sandTexMap.bind(1);	
+		this.scene.pushMatrix();
+		this.scene.setActiveShader(this.sandFloorShader);
+		this.scene.scale(50,1,50);	
 		this.plane.display();
 		this.scene.popMatrix();
+		this.scene.setActiveShader(this.scene.defaultShader);
+		this.scene.defaultAppearance.apply();
 	}
 }

@@ -13,38 +13,39 @@ import {MyElipseSphere} from './MyElipseSphere.js'
 export class MyRock extends CGFobject {
 	constructor(scene) {
 		super(scene);
-		this.createMaterials()
-		this.start()
-	}
-	createMaterials(){
-		//Sand material
-		this.sandMaterial = new CGFappearance(this.scene);
-        this.sandMaterial.setAmbient(0.0, 0.0, 0.0, 0.0);
-        this.sandMaterial.setDiffuse(0.0, 0.0, 0.0, 0.0);
-        this.sandMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
-        this.sandMaterial.setEmission(1.0, 1.0, 1.0, 1.0);
-        this.sandMaterial.setShininess(10.0);
-        this.sandMaterial.loadTexture("./images/rock.png")
+		this.createMaterials();
+		this.createShaders();
+		this.sphere = new MyElipseSphere(this.scene, 16, 10, this.rockMaterial,0.5,0.4,1.0);;
 		
+	}
+	createMaterials() {
+		//Sand material
+		this.rockMaterial = new CGFappearance(this.scene);
+        this.rockMaterial.setAmbient(0.0, 0.0, 0.0, 0.0);
+        this.rockMaterial.setDiffuse(0.0, 0.0, 0.0, 0.0);
+        this.rockMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
+        this.rockMaterial.setEmission(1.0, 1.0, 1.0, 1.0);
+        this.rockMaterial.setShininess(10.0);
+        this.rockMaterial.loadTexture("./images/rock.png")
 		
 		this.rockTex = new CGFtexture(this.scene,"./images/rock.png");
         this.rockMap = new CGFtexture(this.scene,"./images/rock.png");
+	}
+	createShaders() {
 		this.rockShader= new CGFshader(this.scene.gl,"./Shaders/rock.vert","./Shaders/rock.frag");
 		this.rockShader.setUniformsValues({ uSamplerRock : 11 });
 		this.rockShader.setUniformsValues({ uSamplerRockMap : 12 });
 	}
-	start(){
-		this.sphere=new MyElipseSphere(this.scene, 16, 10, this.sandMaterial,0.5,0.4,1.0);
-	}
-	display(){
-		this.scene.pushMatrix();	
-		this.sandMaterial.apply();
-		this.scene.setActiveShader(this.rockShader);
+	display() {
 		this.rockTex.bind(11);
 		this.rockMap.bind(12);
+		this.scene.pushMatrix();	
+		this.scene.setActiveShader(this.rockShader);
         this.scene.translate(5,-0.5,0)
         this.scene.scale(2,2,2)
 		this.sphere.display();
 		this.scene.popMatrix();
+		this.scene.setActiveShader(this.scene.defaultShader);
+		this.scene.defaultAppearance.apply();
 	}
 }
