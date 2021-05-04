@@ -14,7 +14,7 @@ export class MySandFloor extends CGFobject {
 	constructor(scene) {
 		super(scene);
 		this.createMaterials()
-		this.start()
+		this.plane = new MyPlane(this.scene,16);
 	}
 	createMaterials(){
 		//Sand material
@@ -24,7 +24,8 @@ export class MySandFloor extends CGFobject {
         this.sandMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
         this.sandMaterial.setEmission(1.0, 1.0, 1.0, 1.0);
         this.sandMaterial.setShininess(10.0);
-		
+
+		this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);	
 		
 		this.sandTex = new CGFtexture(this.scene,"./images/sand.png");
         this.sandTexMap = new CGFtexture(this.scene,"./images/sandMap.png");
@@ -32,11 +33,8 @@ export class MySandFloor extends CGFobject {
 		this.sandFloorShader.setUniformsValues({ uSamplerSand : 0 });
 		this.sandFloorShader.setUniformsValues({ uSamplerSandMap : 1 });
 	}
-	start(){
-		this.plane=new MyPlane(this.scene,16);
-	}
 	display(){
-		this.scene.pushMatrix();	
+		this.scene.pushMatrix();
 		this.sandMaterial.apply();
 		this.scene.setActiveShader(this.sandFloorShader);
 		this.scene.scale(50,1,50);	

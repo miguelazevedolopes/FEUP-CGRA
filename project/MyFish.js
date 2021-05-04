@@ -13,7 +13,6 @@ export class MyFish extends CGFobject {
 
         //Textures
         this.fishBodyTex = new CGFtexture(this.scene ,'./images/fish-scales-pattern-purple2.jpg');
-        this.fishBodyTex.bind(0);
 
         //Fins (and Body)
         this.finMaterial = new CGFappearance(this.scene);
@@ -56,11 +55,12 @@ export class MyFish extends CGFobject {
     }
     display() {
 
+        this.fishBodyTex.bind(0);
+
         // Whole fish
         this.scene.pushMatrix();
         this.scene.scale(0.5/0.9, 0.5/0.9, 0.5/0.9);
         this.scene.rotate(Math.PI/2, 1, 0, 0);
-
         
         // Body
         this.scene.setActiveShader(this.fishBodyShader);
@@ -101,8 +101,8 @@ export class MyFish extends CGFobject {
         this.scene.rotate(-Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/4,0,0,1);
         this.scene.translate(-1.0, -1.0, 0.0);
-        this.scene.rotate(Math.sin(this.scene.time / 100 % 100) / 4.0, 1, 0, 0);
-        this.scene.rotate(-Math.sin(this.scene.time / 100 % 100) / 4.0, 0, 1, 0);
+        this.scene.rotate(Math.sin(this.scene.time / 100 % 100) / 4.0, 1, 0, 0); // Animation
+        this.scene.rotate(-Math.sin(this.scene.time / 100 % 100) / 4.0, 0, 1, 0); // Animation
         this.scene.translate(1.0, 1.0, 0.0);
         this.fin.display();
         this.scene.popMatrix();
@@ -122,26 +122,26 @@ export class MyFish extends CGFobject {
         // Bottom Fins
         this.scene.pushMatrix();
         this.scene.scale(0.3,0.3,0.3)
-        this.scene.translate(3.2,0.3,2)
+        this.scene.translate(3.5,0.3,2)
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.rotate(-Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/2,0,0,1);
         this.scene.rotate(-Math.PI/4,1,1,0);
         this.scene.translate(1.0, 0.0, 0.0);
-        this.scene.rotate(Math.sin(this.scene.time / 250 % 100) / 2.0, 0, 1, 0);
+        this.scene.rotate(Math.sin(this.scene.time / 250 % 100) / 2.0, 0, 1, 0); // Animation
         this.scene.translate(-1.0, 0.0, 0.0);
         this.fin.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.scale(-0.3,0.3,0.3)
-        this.scene.translate(3.2,0.3,2)
+        this.scene.translate(3.5,0.3,2)
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.rotate(-Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/2,0,0,1);
         this.scene.rotate(-Math.PI/4,1,1,0);
         this.scene.translate(1.0, 0.0, 0.0);
-        this.scene.rotate(Math.sin(this.scene.time / 250 % 100) / 2.0, 0, 1, 0);
+        this.scene.rotate(Math.sin(this.scene.time / 250 % 100) / 2.0, 0, 1, 0); // Animation
         this.scene.translate(-1.0, 0.0, 0.0);
         this.fin.display();
         this.scene.popMatrix();

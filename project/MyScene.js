@@ -67,17 +67,20 @@ export class MyScene extends CGFscene {
 
 
 
-        //Initialize scene objects
+        // Initialize scene objects
+
+        // Part A
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 10, this.sphereMaterial );
         this.movingObject = new MyMovingObject(this,new MyPyramid(this, 4, 1));
         this.cubeMap = new MyCubeMap(this, 'images/demo_cubemap/top.png', 'images/demo_cubemap/front.png',
          'images/demo_cubemap/right.png', 'images/demo_cubemap/bottom.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/left.png');
         this.cylinder = new MyCylinder(this, 16, this.cylinderMaterial);
+
+        // Part B
         this.mainFish = new MyMovingObject(this,new MyFish(this));
-        
         this.sandFloor = new MySandFloor(this);
-        this.rock= new MyRock(this);
+        this.rock = new MyRock(this);
         
 
         //Objects connected to MyInterface
