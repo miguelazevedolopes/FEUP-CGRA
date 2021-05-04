@@ -5,7 +5,6 @@ precision highp float;
 varying vec2 vTextureCoord;
 
 uniform sampler2D uSamplerRock;
-uniform sampler2D uSamplerRockMap;
 varying float verticalOffset;
 
 void main() {
