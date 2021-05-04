@@ -100,8 +100,10 @@ export class MyScene extends CGFscene {
         this.displayCylinder = false;
 
         //Part B
-        this.displayPartB=true;
+        this.displayPartB = true;
         this.displayMainFish = true;
+        this.displayNest = true;
+        this.displayFloor = true;
 
 
 
@@ -131,6 +133,8 @@ export class MyScene extends CGFscene {
     updatePart() {
         if (this.selectedPart == 1) {
             this.displayMainFish = true;
+            this.displayNest = true;
+            this.displayFloor = true;
             this.displayMovingObject = false;
             this.displaySphere = false;
             this.displayCubeMap = false;
@@ -142,6 +146,8 @@ export class MyScene extends CGFscene {
             this.displayCubeMap = true;
             this.displayCylinder = false;
             this.displayMainFish = false;
+            this.displayNest = false;
+            this.displayFloor = false;
         }
     }
 
@@ -224,16 +230,16 @@ export class MyScene extends CGFscene {
             this.cylinder.display();
 
         //Fish
-        if (this.displayMainFish) {
-           // this.setActiveShader(this.fishBodyShader);
+        if (this.displayMainFish) 
             this.mainFish.display();
-        }
 
         //Sanfloor
-        this.sandFloor.display();
+        if (this.displayFloor)
+            this.sandFloor.display();
 
         //Rock
-        this.rock.display();
+        if (this.displayNest)
+            this.rock.display();
 
         
         this.setActiveShader(this.defaultShader);
