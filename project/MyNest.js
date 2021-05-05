@@ -16,8 +16,7 @@ export class MyNest extends CGFobject {
 		this.createMaterials();
 		this.createShaders();
 		this.sphere = new MyElipseSphere(this.scene, 16, 10, this.nestMaterial,0.5,0.4,1.0);
-		this.xCenter = 5.0;
-		this.yCenter = -0.5;		
+		this.coords = [5.0, 0.0, -0.5];	
 	}
 	createMaterials() {
 		//Sand material
@@ -39,7 +38,7 @@ export class MyNest extends CGFobject {
 		this.rockTex.bind(11);
 		this.scene.pushMatrix();	
 		this.scene.setActiveShader(this.nestShader);
-        this.scene.translate(this.xCenter,this.yCenter,0)
+        this.scene.translate(this.coords[0],this.coords[1],this.coords[2]);
         this.scene.scale(2,2,2)
 		this.sphere.display();
 		this.scene.popMatrix();

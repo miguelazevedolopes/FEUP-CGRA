@@ -67,9 +67,9 @@ export class MyScene extends CGFscene {
         // Part B
         this.mainFish = new MyMovingFish(this);
         this.sandFloor = new MySandFloor(this);
-        this.nest = new MyNest(this);
+        this.nest = new MyNest(this); //TODO correct nest
         this.waterSurface = new MyWaterSurface(this);
-        this.rockSet = new MyRockSet(this);
+        this.rockSet = new MyRockSet(this, 10);
         this.pillarSet = new MyPillarSet(this, 8);
         
 
@@ -177,15 +177,14 @@ export class MyScene extends CGFscene {
             this.movingObject.accelerate(-0.01);
             this.mainFish.accelerate(-0.01);
         }
-        if (this.gui.isKeyPressed("KeyA")){ //Left seen from the back of the pyramid 
-            this.movingObject.turn(Math.PI/16);
-            this.mainFish.turn(Math.PI/16);
-        }
         if (this.gui.isKeyPressed("KeyP")){ //Up
             this.mainFish.up();
         }
         if (this.gui.isKeyPressed("KeyL")){ //Down
             this.mainFish.down();
+        }
+        if (this.gui.isKeyPressed("KeyC")){ //Down
+            this.mainFish.catchRock();
         }
     
     }
