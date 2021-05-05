@@ -8,13 +8,17 @@ export class MyFish extends CGFobject {
         this.createMaterials();
         this.createPieces();
         this.createShaders();
+
+        // Movement controlled
+        this.swingingSpeed = 0.2;
+        this.turningDirection = 0; // 0 for no turns, one for right, two for left
     }
     createMaterials() {
 
-        //Textures
+        // Textures
         this.fishBodyTex = new CGFtexture(this.scene ,'./images/fish-scales-pattern-purple2.jpg');
 
-        //Fins (and Body)
+        // Fins (and Body)
         this.finMaterial = new CGFappearance(this.scene);
         this.finMaterial.setAmbient(1.0, 0.0, 1.0, 1.0);
         this.finMaterial.setDiffuse(1.0, 0.0, 1.0, 1.0);
@@ -22,7 +26,7 @@ export class MyFish extends CGFobject {
         this.finMaterial.setShininess(10.0);
         this.finMaterial.setTexture(this.fishBodyTex);
         
-        //Eyes
+        // Eyes
         this.whiteMaterial = new CGFappearance(this.scene);
         this.whiteMaterial.setAmbient(1.0, 1.0, 1.0, 1.0);
         this.whiteMaterial.setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -37,7 +41,6 @@ export class MyFish extends CGFobject {
 
     }
     createShaders() {
-        //Body
         this.fishBodyShader = new CGFshader(this.scene.gl, "./Shaders/FishBodyPart.vert", "./Shaders/FishBodyPart.frag");
         this.fishBodyShader.setUniformsValues({ scalesSampler : 0})
     }
@@ -101,8 +104,9 @@ export class MyFish extends CGFobject {
         this.scene.rotate(-Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/4,0,0,1);
         this.scene.translate(-1.0, -1.0, 0.0);
-        this.scene.rotate(Math.sin(this.scene.time / 100 % 100) / 4.0, 1, 0, 0); // Animation
-        this.scene.rotate(-Math.sin(this.scene.time / 100 % 100) / 4.0, 0, 1, 0); // Animation
+        // Animations
+        this.scene.rotate(Math.sin(this.scene.time * this.swingingSpeed / 100 % 100) / 4.0, 1, 0, 0); // Animation
+        this.scene.rotate(-Math.sin(this.scene.time * this.swingingSpeed / 100 % 100) / 4.0, 0, 1, 0); // Animation
         this.scene.translate(1.0, 1.0, 0.0);
         this.fin.display();
         this.scene.popMatrix();
@@ -127,9 +131,12 @@ export class MyFish extends CGFobject {
         this.scene.rotate(-Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/2,0,0,1);
         this.scene.rotate(-Math.PI/4,1,1,0);
-        this.scene.translate(1.0, 0.0, 0.0);
-        this.scene.rotate(Math.sin(this.scene.time / 250 % 100) / 2.0, 0, 1, 0); // Animation
-        this.scene.translate(-1.0, 0.0, 0.0);
+        // Animation
+        if (this.direction != 2) {
+            this.scene.translate(1.0, 0.0, 0.0);
+            this.scene.rotate(Math.sin(this.scene.time / 250 % 100) / 2.0, 0, 1, 0); // Animation
+            this.scene.translate(-1.0, 0.0, 0.0);
+        }
         this.fin.display();
         this.scene.popMatrix();
 
@@ -140,9 +147,12 @@ export class MyFish extends CGFobject {
         this.scene.rotate(-Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/2,0,0,1);
         this.scene.rotate(-Math.PI/4,1,1,0);
-        this.scene.translate(1.0, 0.0, 0.0);
-        this.scene.rotate(Math.sin(this.scene.time / 250 % 100) / 2.0, 0, 1, 0); // Animation
-        this.scene.translate(-1.0, 0.0, 0.0);
+        // Animation
+        if (this.direction != 1) {
+            this.scene.translate(1.0, 0.0, 0.0);
+            this.scene.rotate(Math.sin(this.scene.time / 250 % 100) / 2.0, 0, 1, 0); // Animation
+            this.scene.translate(-1.0, 0.0, 0.0);
+        }
         this.fin.display();
         this.scene.popMatrix();
 
@@ -160,5 +170,9 @@ export class MyFish extends CGFobject {
         this.eye.disableNormalViz(); 
         this.eyeBlackPart.disableNormalViz();
         this.fin.disableNormalViz();
+    }
+    updateAnimations(newSwingingSpeed, newDirection) {
+        this.swingingSpeed = newSwingingSpeed;
+        this.direction = newDirection;
     }
 }
