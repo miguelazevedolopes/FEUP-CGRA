@@ -6,7 +6,7 @@ export class MyWaterSurface extends CGFobject {
     constructor(scene) {
         super(scene);
         //this.quad = new MyQuad(this.scene);
-        this.quad = new MyPlane(this.scene,16);
+        this.quad = new MyPlane(this.scene,200);
         this.createShaders();
     }
     createShaders() {
@@ -19,13 +19,12 @@ export class MyWaterSurface extends CGFobject {
     display() {
 
         this.waterSurfaceShader.setUniformsValues( { timeFactor : this.scene.time / 100 % 100})
-
         this.waterTex.bind(0);
         this.distortionTex.bind(1);
         this.scene.pushMatrix();
         this.scene.setActiveShader(this.waterSurfaceShader);
         this.scene.translate(0, 10, 0);
-        this.scene.scale(10, 10, 10);
+        this.scene.scale(10, 1, 10);
         //this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.rotate(Math.PI, 1, 0, 0);
         this.quad.display();

@@ -27,9 +27,9 @@ export class MyNest extends CGFobject {
         this.nestMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
         this.nestMaterial.setEmission(1.0, 1.0, 1.0, 1.0);
         this.nestMaterial.setShininess(10.0);
-        this.nestMaterial.loadTexture("./images/rock.png")
-		
+    
 		this.rockTex = new CGFtexture(this.scene,"./images/rock.png");
+		this.nestMaterial.setTexture(this.rockTex);
 	}
 	createShaders() {
 		this.nestShader = new CGFshader(this.scene.gl,"./Shaders/nest.vert","./Shaders/nest.frag");
