@@ -147,7 +147,7 @@ export class MyFish extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.popMatrix();
-        this.scene.defaultAppearance.apply();
+        this.scene.setDefaultAppearance();
     }
     enableNormalViz() {
         this.body.enableNormalViz();

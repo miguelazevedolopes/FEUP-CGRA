@@ -80,5 +80,6 @@ export class MySphere extends CGFobject {
   display() {
     this.material.apply();
     super.display();
+    this.scene.setDefaultAppearance();
   }
 }

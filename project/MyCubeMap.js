@@ -33,7 +33,7 @@ export class MyCubeMap extends CGFobject {
         //Expand and translate
         this.scene.pushMatrix();
         this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2]);
-        this.scene.scale(500, 500, 500);
+        this.scene.scale(50, 50, 50);
         
         //FRONT
         this.scene.pushMatrix();
@@ -97,6 +97,7 @@ export class MyCubeMap extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.popMatrix(); //From global scaling and translate
+        this.scene.setDefaultAppearance();
         
     }
     updateTextures(Ymais, Zmais, Xmais, Ymenos, Zmenos, Xmenos) {

@@ -86,6 +86,7 @@ export class MyPyramid extends CGFobject {
         //Coloring
         this.MaterialBlue.apply();
         super.display();
+        this.scene.setDefaultAppearance();
     }
 }
 

@@ -15,7 +15,7 @@ export class MyRockSet {
         for (let i = 0; i < this.numberRocks; i++) {
             this.rockSet.push(new MyRock(this.scene, 16, 10));
             this.rockPos.push((Math.floor(Math.random() * 101) - 50) / 10.0, 0.0, (Math.floor(Math.random() * 101) - 50) / 10.0);
-            this.rockDeform.push(Math.floor((Math.random() * 61) + 40) / 100, Math.floor((Math.random() * 41) + 20) / 100, Math.floor((Math.random() * 61) + 40)/ 100);
+            this.rockDeform.push(Math.floor((Math.random() * 51) + 50) / 100, Math.floor((Math.random() * 41) + 20) / 100, Math.floor((Math.random() * 51) + 50)/ 100);
         }
     }
     display() {

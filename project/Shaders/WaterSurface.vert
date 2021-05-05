@@ -19,8 +19,8 @@ varying vec2 offset;
 
 void main() {
 
-    vec4 map = texture2D(uSamplerDistortion, aTextureCoord);
-    offset = vec2(map.r - 0.5, map.g - 0.5) / 1.6 + vec2(timeFactor, timeFactor) / 850.0 ;
+    vec4 map = texture2D(uSamplerDistortion, aTextureCoord + timeFactor / 500.0);
+    offset = vec2(map.r - 0.5, map.g - 0.5) / 4.0;
     gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
 
 	vTextureCoord = aTextureCoord;

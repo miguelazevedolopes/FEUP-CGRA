@@ -37,5 +37,6 @@ export class MyTriangle extends CGFobject {
     display() {
         this.material.apply();
         super.display();
+        this.scene.setDefaultAppearance();
     }
 }

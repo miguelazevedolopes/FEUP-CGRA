@@ -18,14 +18,13 @@ export class MyWaterSurface extends CGFobject {
     }
     display() {
 
-        this.waterSurfaceShader.setUniformsValues( { timeFactor : this.scene.time / 100 % 100})
+        this.waterSurfaceShader.setUniformsValues( { timeFactor : this.scene.time / 100 % 500})
         this.waterTex.bind(0);
         this.distortionTex.bind(1);
         this.scene.pushMatrix();
         this.scene.setActiveShader(this.waterSurfaceShader);
         this.scene.translate(0, 10, 0);
-        this.scene.scale(10, 1, 10);
-        //this.scene.rotate(-Math.PI/2, 1, 0, 0);
+        this.scene.scale(50, 1, 50);
         this.scene.rotate(Math.PI, 1, 0, 0);
         this.quad.display();
         this.scene.popMatrix();

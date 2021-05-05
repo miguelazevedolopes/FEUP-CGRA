@@ -44,6 +44,6 @@ export class MyNest extends CGFobject {
 		this.sphere.display();
 		this.scene.popMatrix();
 		this.scene.setActiveShader(this.scene.defaultShader);
-		this.scene.defaultAppearance.apply();
+		this.scene.setDefaultAppearance();
 	}
 }

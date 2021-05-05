@@ -81,13 +81,15 @@ export class MyRock extends CGFobject {
     }
     createMaterial() {
         this.rockMaterial = new CGFappearance(this.scene);
-        this.rockMaterial.setAmbient(0.3, 0.3, 0.3, 1.0);
-        this.rockMaterial.setDiffuse(0.3, 0.3, 0.3, 1.0);
-        this.rockMaterial.setSpecular(0.3, 0.3, 0.3, 1.0);
+        this.rockMaterial.setAmbient(1.0, 1.0, 1.0, 1.0);
+        this.rockMaterial.setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.rockMaterial.setSpecular(1.0, 1.0, 1.0, 1.0);
         this.rockMaterial.setShininess(10.0);
+        this.rockMaterial.loadTexture("./images/rock.png");
     }
     display() {
         this.rockMaterial.apply();
         super.display();
+        this.scene.setDefaultAppearance();
     }
 }

@@ -34,6 +34,8 @@ export class MyInterface extends CGFinterface {
         objectsFolderB.add(this.scene, 'displayFloor').name('Display Floor');
         objectsFolderB.add(this.scene, 'displayNest').name('Display Nest');
         objectsFolderB.add(this.scene, 'displayWaterSurface').name('Display Water Surface');
+        objectsFolderB.add(this.scene, 'displayRocks').name('Display Rocks');
+        objectsFolderB.add(this.scene, 'displayPillars').name('Display Pillars');
 
         
         //Textures

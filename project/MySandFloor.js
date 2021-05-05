@@ -32,6 +32,6 @@ export class MySandFloor extends CGFobject {
 		this.plane.display();
 		this.scene.popMatrix();
 		this.scene.setActiveShader(this.scene.defaultShader);
-		this.scene.defaultAppearance.apply();
+		this.scene.setDefaultAppearance();
 	}
 }
