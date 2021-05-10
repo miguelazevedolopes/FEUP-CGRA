@@ -68,7 +68,7 @@ export class MyScene extends CGFscene {
         // Part B
         this.mainFish = new MyMovingFish(this);
         this.secondFish = new MySelfMovingFish(this,10);
-        this.thirdFish = new MySelfMovingFish(this,10);
+        //this.thirdFish = new MySelfMovingFish(this,10);
         this.sandFloor = new MySandFloor(this);
         this.nest = new MyNest(this); //TODO correct nest
         this.waterSurface = new MyWaterSurface(this);
