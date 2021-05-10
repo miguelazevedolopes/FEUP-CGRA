@@ -16,7 +16,7 @@ export class MyNest extends CGFobject {
 		this.createMaterials();
 		this.createShaders();
 		this.sphere = new MyElipseSphere(this.scene, 16, 10, this.nestMaterial,0.5,0.4,1.0);
-		this.coords = [5.0, 0.0, -0.5];	
+		this.coords = [5.0, -0.2, -0.5];	
 	}
 	createMaterials() {
 		//Sand material

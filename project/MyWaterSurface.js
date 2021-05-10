@@ -12,7 +12,7 @@ export class MyWaterSurface extends CGFobject {
     createShaders() {
         this.waterTex = new CGFtexture(this.scene, "./images/pier.jpg");
         this.distortionTex = new CGFtexture(this.scene, "./images/distortionmap.png");
-        this.waterSurfaceShader = new CGFshader(this.scene.gl, "./shaders/WaterSurface.vert", "./shaders/WaterSurface.frag");
+        this.waterSurfaceShader = new CGFshader(this.scene.gl, "./Shaders/WaterSurface.vert", "./Shaders/WaterSurface.frag");
         this.waterSurfaceShader.setUniformsValues( { uSamplerPier : 0 } );
         this.waterSurfaceShader.setUniformsValues( { uSamplerDistortion : 1 } );
     }

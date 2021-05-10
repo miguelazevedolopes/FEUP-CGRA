@@ -17,8 +17,8 @@ export class MySandFloor extends CGFobject {
 		this.createShaders();
 	}
 	createShaders() {
-		this.sandTex = new CGFtexture(this.scene,"./images/sandWithShell.png");
-        this.sandTexMap = new CGFtexture(this.scene,"./images/sandMap.png");
+		this.sandTex = new CGFtexture(this.scene,"./images/sand1.png");
+        this.sandTexMap = new CGFtexture(this.scene,"./images/sandMap1.png");
 		this.sandFloorShader = new CGFshader(this.scene.gl,"./Shaders/SandFloor.vert","./Shaders/SandFloor.frag");
 		this.sandFloorShader.setUniformsValues({ uSamplerSand : 0 });
 		this.sandFloorShader.setUniformsValues({ uSamplerSandMap : 1 });

@@ -10,6 +10,7 @@ import { MyNest } from "./MyNest.js";
 import { MyWaterSurface } from "./MyWaterSurface.js";
 import { MyRockSet } from "./MyRockSet.js";
 import { MyPillarSet } from "./MyPillarSet.js";
+import { MyAlgaeSet } from "./MyAlgaeSet.js";
 /**
 * MyScene
 * @constructor
@@ -70,6 +71,7 @@ export class MyScene extends CGFscene {
         this.nest = new MyNest(this); //TODO correct nest
         this.waterSurface = new MyWaterSurface(this);
         this.rockSet = new MyRockSet(this, 10);
+        this.algaeSet = new MyAlgaeSet(this,30);
         this.pillarSet = new MyPillarSet(this, 8);
         
 
@@ -219,7 +221,7 @@ export class MyScene extends CGFscene {
 
         // Cube Map
         if (this.displayCubeMap)
-            this.cubeMap.display();
+            //this.cubeMap.display();
 
         // Part A
         // Sphere
@@ -260,6 +262,7 @@ export class MyScene extends CGFscene {
         if (this.displayPillars)
             this.pillarSet.display();
 
+        this.algaeSet.display();
         this.setActiveShader(this.defaultShader);
         this.setDefaultAppearance();
         

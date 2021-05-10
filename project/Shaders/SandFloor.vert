@@ -17,8 +17,8 @@ varying float verticalOffset;
 
 void main() {
 	vec4 map = texture2D(uSamplerSandMap, aTextureCoord);
-    verticalOffset = 1.0/(map.r+map.g+map.b);
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition.x,1.0 - verticalOffset * 2.0, aVertexPosition.z,1.0);
+    verticalOffset = 1.0/(map.r);
+	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition.x,1.0 - verticalOffset * 0.5, aVertexPosition.z,1.0);
 
 	vTextureCoord = aTextureCoord;
 }
