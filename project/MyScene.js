@@ -10,6 +10,7 @@ import { MyNest } from "./MyNest.js";
 import { MyWaterSurface } from "./MyWaterSurface.js";
 import { MyRockSet } from "./MyRockSet.js";
 import { MyPillarSet } from "./MyPillarSet.js";
+import { MySelfMovingFish } from "./MySelfMovingFish.js";
 /**
 * MyScene
 * @constructor
@@ -66,6 +67,8 @@ export class MyScene extends CGFscene {
 
         // Part B
         this.mainFish = new MyMovingFish(this);
+        this.secondFish = new MySelfMovingFish(this,10);
+        this.thirdFish = new MySelfMovingFish(this,10);
         this.sandFloor = new MySandFloor(this);
         this.nest = new MyNest(this); //TODO correct nest
         this.waterSurface = new MyWaterSurface(this);
@@ -237,8 +240,9 @@ export class MyScene extends CGFscene {
 
         // Part B
         // Fish
-        if (this.displayMainFish) 
+        if (this.displayMainFish) {
             this.mainFish.display();
+        }
 
         // Sandfloor
         if (this.displayFloor)
@@ -260,6 +264,7 @@ export class MyScene extends CGFscene {
         if (this.displayPillars)
             this.pillarSet.display();
 
+        this.secondFish.display();
         this.setActiveShader(this.defaultShader);
         this.setDefaultAppearance();
         
