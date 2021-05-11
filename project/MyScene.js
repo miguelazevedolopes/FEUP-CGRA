@@ -11,6 +11,7 @@ import { MyWaterSurface } from "./MyWaterSurface.js";
 import { MyRockSet } from "./MyRockSet.js";
 import { MyPillarSet } from "./MyPillarSet.js";
 import { MySelfMovingFish } from "./MySelfMovingFish.js";
+import { MyAlgaeSet } from "./MyAlgaeSet.js";
 /**
 * MyScene
 * @constructor
@@ -74,6 +75,7 @@ export class MyScene extends CGFscene {
         this.waterSurface = new MyWaterSurface(this);
         this.rockSet = new MyRockSet(this, 10);
         this.pillarSet = new MyPillarSet(this, 8);
+        this.algaeSet = new MyAlgaeSet(this,2);
         
 
         //Objects connected to MyInterface
@@ -265,6 +267,7 @@ export class MyScene extends CGFscene {
             this.pillarSet.display();
 
         this.secondFish.display();
+        this.algaeSet.display();
         this.setActiveShader(this.defaultShader);
         this.setDefaultAppearance();
         
