@@ -7,14 +7,16 @@ import {CGFobject, CGFappearance} from '../lib/CGF.js';
  * @param stacks - number of divisions along the Y axis
 */
 export class MyAlgae extends CGFobject {
-    constructor(scene, slices, stacks,pos) {
+    constructor(scene, slices, stacks) {
         super(scene);
         this.slices = slices;
         this.stacks = stacks;
-        this.coords = pos;
+        this.coords = [Math.random() * 51 - 25, 0.0, Math.random() * 51 - 25]; 
+        this.noLeafs = Math.random() * 4 + 1;
         this.createMaterial();
+        this.createLeafs();
         this.initBuffers();
-        this.materialUse=Math.floor(Math.random()*10)%3;
+        this.materialUse = Math.floor(Math.random() * 3); // To activate different materials
     }
     createMaterial() {
         this.materials = [];
@@ -36,6 +38,18 @@ export class MyAlgae extends CGFobject {
         this.materials[2].setDiffuse(0.5, 0.91, 0.5, 1.0);
         this.materials[2].setSpecular(0.5, 0.91, 0.5, 1.0);
         this.materials[2].setShininess(10.0);
+    }
+    createLeafs() {
+        this.leafOffset = []; // For the position of the leaves
+        this.leafSize = []; // For the scalings
+        for (let i = 0; i < this.noLeafs; i++) {
+            this.leafOffset.push(Math.random() * 2 - 0.5);
+            this.leafOffset.push(0.0);
+            this.leafOffset.push(Math.random() * 2 - 0.5);
+            this.leafSize.push(Math.random() * 1 + 0.25);
+            this.leafSize.push(Math.random() * 1 + 0.5);
+            this.leafSize.push(Math.random() * 1 + 0.5);
+        }
     }
     initBuffers() {
         this.vertices = [];
@@ -95,11 +109,17 @@ export class MyAlgae extends CGFobject {
         this.initGLBuffers();
     }
     display() {
+        this.materials[this.materialUse].apply();
         this.scene.pushMatrix();
         this.scene.translate(this.coords[0], this.coords[1], this.coords[2]); 
-        this.scene.scale(0.4,1.0,0.4);
-        this.materials[this.materialUse].apply();
-        super.display();
+        this.scene.scale(0.3,0.6,0.3);
+        for (let i = 0; i < this.noLeafs; i++) { // For each leaf
+            this.scene.pushMatrix();
+            this.scene.translate(this.leafOffset[i*3], this.leafOffset[i*3 + 1], this.leafOffset[i*3 + 2]);
+            this.scene.scale(this.leafSize[i*3], this.leafSize[i*3 + 1], this.leafSize[i*3 + 2]);
+            super.display();
+            this.scene.popMatrix();
+        }
         this.scene.popMatrix();
     }
 }

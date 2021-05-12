@@ -3,26 +3,33 @@ import { MyElipseSphere } from './MyElipseSphere.js';
 import { MyTriangle } from './MyTriangle.js';
 
 export class MyFish extends CGFobject {
-    constructor(scene) {
+    constructor(scene, ratio, texture, color) {
         super(scene);
+
+        this.fishBodyTex = new CGFtexture(this.scene, texture);
+        this.color = color;
+        this.ratio = ratio; // Represents the percentage of body that is head
+
         this.createMaterials();
         this.createPieces();
         this.createShaders();
 
         // Movement controlled
+        this.posIncrementTail = true;
+        this.posIncrementFin = true;
         this.swingingSpeed = 0.2;
-        this.turningDirection = 0; // 0 for no turns, one for right, two for left
+        this.tailAngle = 0.0;
+        this.finAngle = 0.0;
+        this.lastT = 0.0;
+        this.turningDirection = 0; // 0 for not turning, one for right, two for left
     }
     createMaterials() {
 
         // Textures
-        this.fishBodyTex = new CGFtexture(this.scene ,'./images/fish-scales-pattern-purple2.jpg');
-
-        // Fins (and Body)
         this.finMaterial = new CGFappearance(this.scene);
-        this.finMaterial.setAmbient(1.0, 0.0, 1.0, 1.0);
-        this.finMaterial.setDiffuse(1.0, 0.0, 1.0, 1.0);
-        this.finMaterial.setSpecular(1.0, 0.0, 1.0, 1.0);
+        this.finMaterial.setAmbient(this.color[0], this.color[1], this.color[2], 1.0);
+        this.finMaterial.setSpecular(this.color[0], this.color[1], this.color[2], 1.0);
+        this.finMaterial.setDiffuse(this.color[0], this.color[1], this.color[2], 1.0);
         this.finMaterial.setShininess(10.0);
         this.finMaterial.setTexture(this.fishBodyTex);
         
@@ -42,7 +49,11 @@ export class MyFish extends CGFobject {
     }
     createShaders() {
         this.fishBodyShader = new CGFshader(this.scene.gl, "./Shaders/FishBodyPart.vert", "./Shaders/FishBodyPart.frag");
-        this.fishBodyShader.setUniformsValues({ scalesSampler : 0})
+        this.fishBodyShader.setUniformsValues({ scalesSampler : 0});
+        this.fishBodyShader.setUniformsValues({ ratio : this.ratio });
+        this.fishBodyShader.setUniformsValues({ r : this.color[0] });
+        this.fishBodyShader.setUniformsValues({ g : this.color[1] });
+        this.fishBodyShader.setUniformsValues({ b : this.color[2] });
     }
     createPieces() {
         this.body = new MyElipseSphere(this.scene, 16, 10, this.finMaterial,0.9,1.3,1.0);
@@ -57,6 +68,8 @@ export class MyFish extends CGFobject {
         this.fin.initBuffers();
     }
     display() {
+
+        this.updateAnimations();
 
         this.fishBodyTex.bind(0);
 
@@ -103,11 +116,12 @@ export class MyFish extends CGFobject {
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.rotate(-Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/4,0,0,1);
-        this.scene.translate(-1.0, -1.0, 0.0);
         // Animations
-        this.scene.rotate(Math.sin(this.scene.time * this.swingingSpeed / 100 % 100) / 4.0, 1, 0, 0); // Animation
-        this.scene.rotate(-Math.sin(this.scene.time * this.swingingSpeed / 100 % 100) / 4.0, 0, 1, 0); // Animation
+        this.scene.translate(-1.0, -1.0, 0.0);
+        this.scene.rotate(Math.sin(this.tailAngle) / 3, 1, 0, 0); // Animation
+        this.scene.rotate(-Math.sin(this.tailAngle) / 3, 0, 1, 0); // Animation
         this.scene.translate(1.0, 1.0, 0.0);
+
         this.fin.display();
         this.scene.popMatrix();
 
@@ -134,7 +148,8 @@ export class MyFish extends CGFobject {
         // Animation
         if (this.direction != 2) {
             this.scene.translate(1.0, 0.0, 0.0);
-            this.scene.rotate(Math.sin(this.scene.time / 250 % 100) / 2.0, 0, 1, 0); // Animation
+            this.scene.rotate(Math.sin(this.finAngle) / 1.5, 0, 1, 0);
+            //this.scene.rotate(Math.sin(this.scene.time / 250) / 2.0, 0, 1, 0); // Animation
             this.scene.translate(-1.0, 0.0, 0.0);
         }
         this.fin.display();
@@ -150,7 +165,8 @@ export class MyFish extends CGFobject {
         // Animation
         if (this.direction != 1) {
             this.scene.translate(1.0, 0.0, 0.0);
-            this.scene.rotate(Math.sin(this.scene.time / 250 % 100) / 2.0, 0, 1, 0); // Animation
+            this.scene.rotate(Math.sin(this.finAngle) / 1.5, 0, 1, 0);
+            //this.scene.rotate(Math.sin(this.scene.time / 250) / 2.0, 0, 1, 0); // Animation
             this.scene.translate(-1.0, 0.0, 0.0);
         }
         this.fin.display();
@@ -171,8 +187,33 @@ export class MyFish extends CGFobject {
         this.eyeBlackPart.disableNormalViz();
         this.fin.disableNormalViz();
     }
-    updateAnimations(newSwingingSpeed, newDirection) {
+    updateAnimationSpeeds(newSwingingSpeed, newDirection) {
         this.swingingSpeed = newSwingingSpeed;
-        this.direction = newDirection;
+        this.direction = newDirection; // Tells if the fish is going right or left
     }
+    updateAnimations() {
+        if (this.lastT == 0.0)
+            this.lastT = this.scene.time;
+        if (this.posIncrementTail)
+            this.tailAngle += this.swingingSpeed * (this.scene.time - this.lastT) / 100;
+        else
+            this.tailAngle -= this.swingingSpeed * (this.scene.time - this.lastT) / 100;
+    
+        /* if (this.tailAngle > Math.PI / 9)
+            this.posIncrementTail = false;
+        if (this.tailAngle < - Math.PI / 9)
+            this.posIncrementTail = true; */
+
+        if (this.posIncrementFin) //TODO provisório
+            this.finAngle += (this.scene.time - this.lastT) / 400;
+        else
+            this.finAngle -= (this.scene.time - this.lastT) / 1000;
+    
+        /* if (this.finAngle > Math.PI / 6)
+            this.posIncrementFin = false;
+        if (this.finAngle < - Math.PI / 6)
+            this.posIncrementFin = true; */
+
+        this.lastT = this.scene.time;
+    }   
 }

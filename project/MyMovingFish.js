@@ -2,8 +2,8 @@ import { MyFish } from "./MyFish.js";
 import { MyMovingObject } from "./MyMovingObject.js";
 
 export class MyMovingFish extends MyMovingObject {
-    constructor(scene) {
-        super(scene, new MyFish(scene));
+    constructor(scene, ratio, texture, material) {
+        super(scene, new MyFish(scene, ratio, texture, material));
         this.coordinates[1] = 5.0;
         this.turning = 0; // For animations
         this.hasRock = false;
@@ -28,9 +28,9 @@ export class MyMovingFish extends MyMovingObject {
     }
     updateAnimations() {
         if (this.speed < 0.1) 
-            this.object.updateAnimations(this.speed + 0.4, this.turning);
+            this.object.updateAnimationSpeeds(this.speed + 0.4, this.turning);
         else
-            this.object.updateAnimations(this.speed * 4.0, this.turning);
+            this.object.updateAnimationSpeeds(this.speed * 4.0, this.turning);
         this.turning = 0;
     }
     turn(val) {
@@ -52,6 +52,7 @@ export class MyMovingFish extends MyMovingObject {
     }
     reset() {
         super.reset();
+        this.coordinates[1] = 5.0;
         if (this.hasRock) {
             this.hasRock = false;
             this.rock.setPos(this.rock.startingCoords);

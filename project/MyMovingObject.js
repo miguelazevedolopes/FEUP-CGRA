@@ -72,10 +72,10 @@ export class MyMovingObject extends CGFobject {
         this.object.disableNormalViz();
     }
     setVelocity(speed){
-        this.speed=speed;
+        this.speed = speed;
     }
     setAngle(ang){
-        this.orientationAngle=ang;
+        this.orientationAngle = ang;
     }
 }
 

@@ -1,21 +1,25 @@
-import {MyMovingFish} from "./MyMovingFish.js";
-import { CGFobject} from '../lib/CGF.js';
+import { MyMovingFish } from "./MyMovingFish.js";
 
-export class MySelfMovingFish{
-    constructor(scene,period){
-        this.scene=scene;
-        this.period=10;
-        this.fish=new MyMovingFish(this.scene);
-        this.fish.setVelocity(1);
+export class MySelfMovingFish extends MyMovingFish {
+    constructor(scene, ratio, period, coords, texture, material){
+        super(scene, ratio, texture, material);
+        this.coordinates = coords;
+        this.coordinates[0] -= 5;
+        this.period = period;
+        this.material = material;
+        this.lastT = 0.0;
     }
-    update(){
-        this.fish.turn(Math.PI*2/10);
+    update() {
+        super.update();
+        if (this.lastT == 0.0)
+            this.lastT = this.scene.time - 1;
+        
+        super.setVelocity(2 * Math.PI * 5 / (this.period * (1000 / (this.scene.time - this.lastT))));
+        super.turn(2 * Math.PI / (this.period * (1000 / (this.scene.time - this.lastT))));
+        this.lastT = this.scene.time;
     }
-    display(){
-        this.update();
-        this.scene.pushMatrix();
-        this.scene.translate(0,-1,0);
-        this.fish.display();
-        this.scene.popMatrix();
+    display() {
+        super.display();
     }
+
 }

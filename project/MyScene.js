@@ -12,6 +12,7 @@ import { MyRockSet } from "./MyRockSet.js";
 import { MyPillarSet } from "./MyPillarSet.js";
 import { MySelfMovingFish } from "./MySelfMovingFish.js";
 import { MyAlgaeSet } from "./MyAlgaeSet.js";
+import { MyFishFleet } from "./MyFishFleet.js";
 /**
 * MyScene
 * @constructor
@@ -36,8 +37,8 @@ export class MyScene extends CGFscene {
         
         this.enableTextures(true);
         
-        //Materials for Part A
-        //Sphere
+        // Materials for Part A
+        // Sphere
         this.sphereMaterial = new CGFappearance(this);
         this.sphereMaterial.setAmbient(0.0, 0.0, 0.0, 0.0);
         this.sphereMaterial.setDiffuse(0.0, 0.0, 0.0, 0.0);
@@ -46,7 +47,7 @@ export class MyScene extends CGFscene {
         this.sphereMaterial.setShininess(10.0);
         this.sphereMaterial.loadTexture('images/earth.jpg');
 
-        //Cylinder
+        // Cylinder
         this.cylinderMaterial = new CGFappearance(this);
         this.cylinderMaterial.setAmbient(0.0, 0.0, 0.0, 0.0);
         this.cylinderMaterial.setDiffuse(0.0, 0.0, 0.0, 0.0);
@@ -55,6 +56,12 @@ export class MyScene extends CGFscene {
         this.cylinderMaterial.setShininess(10.0);
         this.cylinderMaterial.loadTexture('images/FEUP.jpg');
 
+        // MyMovingFish
+        this.fishMaterial = new CGFappearance(this);
+        this.fishMaterial.setAmbient(1.0, 0.0, 1.0, 1.0);
+        this.fishMaterial.setDiffuse(1.0, 0.0, 1.0, 1.0);
+        this.fishMaterial.setSpecular(1.0, 0.0, 1.0, 1.0);
+        this.fishMaterial.setShininess(10.0);
 
         // Initialize scene objects
         this.cubeMap = new MyCubeMap(this, 'images/underwater_cubemap/top.jpg', 'images/underwater_cubemap/front.jpg',
@@ -67,15 +74,14 @@ export class MyScene extends CGFscene {
         this.cylinder = new MyCylinder(this, 16, this.cylinderMaterial);
 
         // Part B
-        this.mainFish = new MyMovingFish(this);
-        this.secondFish = new MySelfMovingFish(this,10);
-        //this.thirdFish = new MySelfMovingFish(this,10);
+        this.mainFish = new MyMovingFish(this, 0.42, './images/fish-scales-pattern-purple2.jpg', [0.1, 0.3, 0.1]);
+        this.fishCrew = new MyFishFleet(this, 3);
         this.sandFloor = new MySandFloor(this);
         this.nest = new MyNest(this); //TODO correct nest
         this.waterSurface = new MyWaterSurface(this);
-        this.rockSet = new MyRockSet(this, 10);
+        this.rockSet = new MyRockSet(this, 20);
         this.pillarSet = new MyPillarSet(this, 8);
-        this.algaeSet = new MyAlgaeSet(this,2);
+        this.algaeSet = new MyAlgaeSet(this,10);
         
 
         //Objects connected to MyInterface
@@ -102,6 +108,8 @@ export class MyScene extends CGFscene {
         this.displayWaterSurface = true;
         this.displayRocks = true;
         this.displayPillars = true;
+        this.displayOtherFish = true;
+        this.displayAlgae = true;
 
     }
     initLights() {
@@ -266,8 +274,15 @@ export class MyScene extends CGFscene {
         if (this.displayPillars)
             this.pillarSet.display();
 
-        this.secondFish.display();
-        this.algaeSet.display();
+        // Other fish
+        if (this.displayOtherFish)
+            this.fishCrew.display();
+
+        // Algae
+        if (this.displayAlgae)
+            this.algaeSet.display();
+
+
         this.setActiveShader(this.defaultShader);
         this.setDefaultAppearance();
         
