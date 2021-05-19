@@ -38,11 +38,25 @@ export class MyMovingFish extends MyMovingObject {
         if (val > 0) this.turning = 2;
         else this.turning = 1;
     }
-    catchRock() {
-        if (this.coordinates[1] <= 0.40 && !this.hasRock) 
+    handleRock() {
+        if (this.coordinates[1] <= 0.40 && !this.hasRock){
             this.rock = this.scene.rockSet.rocksInRange(this.coordinates);
-        if (this.rock != null) this.hasRock = true;
+            if (this.rock != null) this.hasRock = true;
+        }
+        else if(this.coordinates[1] <= 0.40 && this.hasRock && this.scene.nest.distanceFromCenter(this.coordinates)<=this.scene.nest.radius){
+            this.rock.setPos([this.rock.coords[0],0,this.rock.coords[2]])
+            this.hasRock=false;
+            this.rock=null;
+        }
+        else if(this.hasRock && this.scene.nest.distanceFromCenter(this.coordinates)<=this.scene.nest.radius+5){
+            
+        }
     }
+
+    throwRock(){
+        
+    }
+    
     updateRockPos() {
         if (this.hasRock) {
             var rockNewPos = [];

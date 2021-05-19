@@ -77,7 +77,7 @@ export class MyScene extends CGFscene {
         this.mainFish = new MyMovingFish(this, 0.42, './images/fish-scales-pattern-purple2.jpg', [0.1, 0.3, 0.1]);
         this.fishCrew = new MyFishFleet(this, 3);
         this.sandFloor = new MySandFloor(this);
-        this.nest = new MyNest(this); //TODO correct nest
+        this.nest= new MyNest(this,[0,0,0],3)
         this.waterSurface = new MyWaterSurface(this);
         this.rockSet = new MyRockSet(this, 20);
         this.pillarSet = new MyPillarSet(this, 8);
@@ -197,7 +197,7 @@ export class MyScene extends CGFscene {
             this.mainFish.down();
         }
         if (this.gui.isKeyPressed("KeyC")){ //Down
-            this.mainFish.catchRock();
+            this.mainFish.handleRock();
         }
     
     }
