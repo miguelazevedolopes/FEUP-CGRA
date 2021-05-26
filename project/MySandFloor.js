@@ -13,12 +13,12 @@ import {MyPlane} from './MyPlane.js'
 export class MySandFloor extends CGFobject {
 	constructor(scene) {
 		super(scene);
-		this.plane = new MyPlane(this.scene,16);
+		this.plane = new MyPlane(this.scene,50);
 		this.createShaders();
 	}
 	createShaders() {
 		this.sandTex = new CGFtexture(this.scene,"./images/sandWithShell.png");
-        this.sandTexMap = new CGFtexture(this.scene,"./images/sandMap.png");
+        this.sandTexMap = new CGFtexture(this.scene,"./images/sandMap1.png");
 		this.sandFloorShader = new CGFshader(this.scene.gl,"./Shaders/SandFloor.vert","./Shaders/SandFloor.frag");
 		this.sandFloorShader.setUniformsValues({ uSamplerSand : 0 });
 		this.sandFloorShader.setUniformsValues({ uSamplerSandMap : 1 });

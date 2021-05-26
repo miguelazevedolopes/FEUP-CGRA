@@ -12,7 +12,7 @@ export class MySelfMovingFish extends MyMovingFish {
     update() {
         super.update();
         if (this.lastT == 0.0)
-            this.lastT = this.scene.time - 1;
+            this.lastT = this.scene.time;
         
         super.setVelocity(2 * Math.PI * 5 / (this.period * (1000 / (this.scene.time - this.lastT))));
         super.turn(2 * Math.PI / (this.period * (1000 / (this.scene.time - this.lastT))));

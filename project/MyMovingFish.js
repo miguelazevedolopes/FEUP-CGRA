@@ -8,6 +8,7 @@ export class MyMovingFish extends MyMovingObject {
         this.turning = 0; // For animations
         this.hasRock = false;
         this.rock = null;
+        this.throwing=false;
     }
     up() {
         if (this.coordinates[1] < 5.0) 
@@ -49,6 +50,10 @@ export class MyMovingFish extends MyMovingObject {
             this.rock=null;
         }
         else if(this.hasRock && this.scene.nest.distanceFromCenter(this.coordinates)<=this.scene.nest.radius+5){
+            /*this.throwing=true;
+            this.vx=distanceFromCenter(this.coordinates)/2.0;
+            this.vy=0;
+            this.ay=-2.5;*/
             
         }
     }
@@ -63,6 +68,11 @@ export class MyMovingFish extends MyMovingObject {
             rockNewPos.push(this.coordinates[0] + 0.75 * Math.sin(this.orientationAngle), this.coordinates[1], this.coordinates[2] + 0.75 * Math.cos(this.orientationAngle)); // Position moving
             this.rock.setPos(rockNewPos);
         }
+        /*else if(this.throwing){
+            //var rockNewPos = [];
+            //rockNewPos.push(this.rock.coordinates[0]+Math.cos(Math.atan2(this.rock.coordinates[2],this.rock.coordinates[0]))*this.vx,)
+        }*/
+
     }
     reset() {
         super.reset();
