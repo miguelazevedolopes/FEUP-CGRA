@@ -11,12 +11,18 @@ export class MyAlgae extends CGFobject {
         super(scene);
         this.slices = slices;
         this.stacks = stacks;
-        this.coords = [Math.random() * 51 - 25, 0.0, Math.random() * 51 - 25]; 
         this.noLeafs = Math.random() * 4 + 1;
+        this.createCoords();
         this.createMaterial();
         this.createLeafs();
         this.initBuffers();
         this.materialUse = Math.floor(Math.random() * 3); // To activate different materials
+    }
+    createCoords() {
+        this.coords = [Math.random() * 51 - 25, 0.0, Math.random() * 51 - 25]; 
+        while(this.scene.nest.distanceFromCenter(this.coords) <= this.scene.nest.radius + 0.5) {
+            this.coords = [Math.random() * 51 - 25, 0.0, Math.random() * 51 - 25]; 
+        }
     }
     createMaterial() {
         this.materials = [];

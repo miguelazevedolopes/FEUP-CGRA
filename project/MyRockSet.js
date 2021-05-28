@@ -14,6 +14,11 @@ export class MyRockSet {
             var rockPos = [];
             var rockDeform = [];
             rockPos.push((Math.floor(Math.random() * 51) - 25), 0.0, (Math.floor(Math.random() * 51) - 25));
+
+            // Checks if it is inside the nest, it can't be
+            while(this.scene.nest.distanceFromCenter(rockPos) <= this.scene.nest.radius + 0.5) {
+                rockPos = [(Math.floor(Math.random() * 51) - 25), 0.0, (Math.floor(Math.random() * 51) - 25)];
+            }
             rockDeform.push(Math.floor((Math.random() * 51) + 50) / 100, Math.floor((Math.random() * 41) + 20) / 100, Math.floor((Math.random() * 51) + 50)/ 100);
             this.rockSet.push(new MyRock(this.scene, 16, 10, rockPos, rockDeform));
         }

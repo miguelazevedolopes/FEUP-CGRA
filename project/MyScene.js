@@ -10,7 +10,7 @@ import { MyNest } from "./MyNest.js";
 import { MyWaterSurface } from "./MyWaterSurface.js";
 import { MyRockSet } from "./MyRockSet.js";
 import { MyPillarSet } from "./MyPillarSet.js";
-import { MySelfMovingFish } from "./MySelfMovingFish.js";
+import { CGFcamera2 } from "./CGFcamera2.js";
 import { MyAlgaeSet } from "./MyAlgaeSet.js";
 import { MyFishFleet } from "./MyFishFleet.js";
 /**
@@ -77,7 +77,7 @@ export class MyScene extends CGFscene {
         this.mainFish = new MyMovingFish(this, 0.42, './images/fish-scales-pattern-purple2.jpg', [0.1, 0.3, 0.1]);
         this.fishCrew = new MyFishFleet(this, 3);
         this.sandFloor = new MySandFloor(this);
-        this.nest= new MyNest(this,[0,0,0],3)
+        this.nest= new MyNest(this,[0,0,0],2,14);
         this.waterSurface = new MyWaterSurface(this);
         this.rockSet = new MyRockSet(this, 20);
         this.pillarSet = new MyPillarSet(this, 8);
@@ -121,7 +121,7 @@ export class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(1.5, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
+        this.camera = new CGFcamera2(1.5, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
     }
 
     updateAppliedTexture() {

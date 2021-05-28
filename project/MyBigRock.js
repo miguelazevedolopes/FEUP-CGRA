@@ -39,7 +39,8 @@ export class MyBigRock extends CGFobject {
 		this.scene.pushMatrix();	
 		this.scene.setActiveShader(this.nestShader);
         this.scene.translate(this.coords[0],this.coords[1],this.coords[2]);
-        //this.scene.scale(1.0,1.0,1.5)
+		this.scene.rotate(Math.PI / 2, 0, 1, 0);
+        this.scene.scale(0.75,0.75,0.75);
 		this.sphere.display();
 		this.scene.popMatrix();
 		this.scene.setActiveShader(this.scene.defaultShader);

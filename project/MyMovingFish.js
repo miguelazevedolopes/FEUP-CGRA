@@ -9,6 +9,7 @@ export class MyMovingFish extends MyMovingObject {
         this.hasRock = false;
         this.rock = null;
         this.throwing=false;
+        this.lastT = 0.0;
     }
     up() {
         if (this.coordinates[1] < 5.0) 
@@ -20,6 +21,11 @@ export class MyMovingFish extends MyMovingObject {
     }
     update() {
         super.update();
+
+        if (this.lastT == 0.0)
+            this.lastT == this.scene.time;
+
+        
 
         // Updates animations
         this.updateAnimations();
@@ -49,29 +55,25 @@ export class MyMovingFish extends MyMovingObject {
             this.hasRock=false;
             this.rock=null;
         }
-        else if(this.hasRock && this.scene.nest.distanceFromCenter(this.coordinates)<=this.scene.nest.radius+5){
-            /*this.throwing=true;
+        else if(this.coordinates[1] == 5.0 && this.hasRock && this.scene.nest.distanceFromCenter(this.coordinates)<=this.scene.nest.radius+5){
+            this.throwing=true;
             this.vx=distanceFromCenter(this.coordinates)/2.0;
             this.vy=0;
-            this.ay=-2.5;*/
+            this.ay=-2.5;
             
         }
-    }
-
-    throwRock(){
-        
-    }
-    
+    }  
     updateRockPos() {
         if (this.hasRock) {
-            var rockNewPos = [];
-            rockNewPos.push(this.coordinates[0] + 0.75 * Math.sin(this.orientationAngle), this.coordinates[1], this.coordinates[2] + 0.75 * Math.cos(this.orientationAngle)); // Position moving
-            this.rock.setPos(rockNewPos);
+            /* var rockNewPos = [];
+            rockNewPos.push(this.coordinates[0] + 0.75 * Math.sin(this.orientationAngle), this.coordinates[1], this.coordinates[2] + 0.75 * Math.cos(this.orientationAngle)); // Position moving */
+            this.rock.setPos([this.coordinates[0] + 0.75 * Math.sin(this.orientationAngle), this.coordinates[1], this.coordinates[2] + 0.75 * Math.cos(this.orientationAngle)]);
         }
-        /*else if(this.throwing){
-            //var rockNewPos = [];
-            //rockNewPos.push(this.rock.coordinates[0]+Math.cos(Math.atan2(this.rock.coordinates[2],this.rock.coordinates[0]))*this.vx,)
-        }*/
+        else if(this.throwing){
+            var rockNewPos = [];
+            /* let ratio = this.coordinates[0] / (this.coordinates[0] + this.coordinates[2]);
+            rockNewPos.push(this.rock.coordinates[0]+ this.vx * ratio,) */
+        }
 
     }
     reset() {

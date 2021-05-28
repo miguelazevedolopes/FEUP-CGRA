@@ -175,6 +175,113 @@ export class MyFish extends CGFobject {
         this.scene.popMatrix();
         this.scene.setDefaultAppearance();
     }
+    displayBody() { // To enhance performance on selfMovingFish
+
+        // Whole body transformations
+        this.scene.pushMatrix();
+        this.scene.scale(0.5/0.9, 0.5/0.9, 0.5/0.9);
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.body.display();
+        this.scene.popMatrix();
+    }
+    displayFins() { // To enhance performance on selfMovingFish
+
+        // Whole body transformations
+        this.scene.pushMatrix();
+        this.scene.scale(0.5/0.9, 0.5/0.9, 0.5/0.9);
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+
+        // Eyes
+        this.scene.pushMatrix();
+        this.scene.scale(0.2,0.2,0.2);
+        this.scene.translate(3.5,3.0,-1.0);
+        this.eye.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.scale(0.2,0.2,0.2);
+        this.scene.translate(-3.5,3.0,-1.0);
+        this.eye.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.scale(0.15,0.15,0.15);
+        this.scene.translate(-5.05,4.2,-1.35);
+        this.eyeBlackPart.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.scale(0.15,0.15,0.15);
+        this.scene.translate(5.05,4.2,-1.35);
+        this.eyeBlackPart.display();
+        this.scene.popMatrix();
+
+
+        // Tail
+        this.scene.pushMatrix();
+        this.scene.scale(0.8,0.8,0.8)
+        this.scene.translate(0,-3.0,0)
+        this.scene.rotate(Math.PI/2,1,0,0);
+        this.scene.rotate(-Math.PI/2,0,1,0);
+        this.scene.rotate(-Math.PI/4,0,0,1);
+        // Animations
+        this.scene.translate(-1.0, -1.0, 0.0);
+        this.scene.rotate(Math.sin(this.tailAngle) / 3, 1, 0, 0); // Animation
+        this.scene.rotate(-Math.sin(this.tailAngle) / 3, 0, 1, 0); // Animation
+        this.scene.translate(1.0, 1.0, 0.0);
+
+        this.fin.display();
+        this.scene.popMatrix();
+
+
+        // Top Fin
+        this.scene.pushMatrix();
+        this.scene.scale(0.6,0.6,0.6)
+        this.scene.translate(0,-0.5,-1.25)
+        this.scene.rotate(Math.PI/2,1,0,0);
+        this.scene.rotate(-Math.PI/2,0,1,0);
+        this.scene.rotate(-Math.PI/4,0,0,1);
+        this.fin.display();
+        this.scene.popMatrix();
+
+
+        // Bottom Fins
+        this.scene.pushMatrix();
+        this.scene.scale(0.3,0.3,0.3)
+        this.scene.translate(3.5,0.3,2)
+        this.scene.rotate(Math.PI/2,1,0,0);
+        this.scene.rotate(-Math.PI/2,0,1,0);
+        this.scene.rotate(-Math.PI/2,0,0,1);
+        this.scene.rotate(-Math.PI/4,1,1,0);
+        // Animation
+        if (this.direction != 2) {
+            this.scene.translate(1.0, 0.0, 0.0);
+            this.scene.rotate(Math.sin(this.finAngle) / 1.5, 0, 1, 0);
+            //this.scene.rotate(Math.sin(this.scene.time / 250) / 2.0, 0, 1, 0); // Animation
+            this.scene.translate(-1.0, 0.0, 0.0);
+        }
+        this.fin.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.scale(-0.3,0.3,0.3)
+        this.scene.translate(3.5,0.3,2)
+        this.scene.rotate(Math.PI/2,1,0,0);
+        this.scene.rotate(-Math.PI/2,0,1,0);
+        this.scene.rotate(-Math.PI/2,0,0,1);
+        this.scene.rotate(-Math.PI/4,1,1,0);
+        // Animation
+        if (this.direction != 1) {
+            this.scene.translate(1.0, 0.0, 0.0);
+            this.scene.rotate(Math.sin(this.finAngle) / 1.5, 0, 1, 0);
+            //this.scene.rotate(Math.sin(this.scene.time / 250) / 2.0, 0, 1, 0); // Animation
+            this.scene.translate(-1.0, 0.0, 0.0);
+        }
+        this.fin.display();
+        this.scene.popMatrix();
+
+        this.scene.popMatrix();
+    }
     enableNormalViz() {
         this.body.enableNormalViz();
         this.eye.enableNormalViz(); 
@@ -198,21 +305,11 @@ export class MyFish extends CGFobject {
             this.tailAngle += this.swingingSpeed * (this.scene.time - this.lastT) / 100;
         else
             this.tailAngle -= this.swingingSpeed * (this.scene.time - this.lastT) / 100;
-    
-        /* if (this.tailAngle > Math.PI / 9)
-            this.posIncrementTail = false;
-        if (this.tailAngle < - Math.PI / 9)
-            this.posIncrementTail = true; */
 
-        if (this.posIncrementFin) //TODO provisório
+        if (this.posIncrementFin)
             this.finAngle += (this.scene.time - this.lastT) / 400;
         else
             this.finAngle -= (this.scene.time - this.lastT) / 1000;
-    
-        /* if (this.finAngle > Math.PI / 6)
-            this.posIncrementFin = false;
-        if (this.finAngle < - Math.PI / 6)
-            this.posIncrementFin = true; */
 
         this.lastT = this.scene.time;
     }   
