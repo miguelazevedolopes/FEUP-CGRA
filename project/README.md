@@ -41,6 +41,10 @@
 Decidimos implementar as features 7.1 - Algas,
 7.4 - Lançamento das pedras para o alvo e 7.5 - MyAnimatedFish - Animação de outros peixes
 
+Para apanhar uma pedra o peixe tem de estar na posição o mais próxima da areia possivel (carregar L até não descer mais). Se cumprir esta condição e estiver próximo da pedra, basta carregar C para a apanhar.
+
+Para testar o lançamento da pedra o peixe tem de estar no ponto mais elevado que é permitido (carregar P até não subir mais) e estar a 5 unidade de distância do centro do ninho do peixe. Como tal, recomendamos que para testar, se comece a uma distância superior a 5 e que se vá carregando repetidamente na tecla C.
+
 Tal como foi sugerido pelo professor das aulas práticas, uma tentativa de melhorar a performance experimentamos reutilizar o mesmo shader para todos os peixes, no entanto, não verificamos nenhuma melhoria e como tal mantivemos as texturas dos peixes diferentes, como se pode verificar nos screenshots que se seguem:
 
 ![Screenshot 8a](screenshots/proj-t3g09-8a.png)
