@@ -38,4 +38,11 @@ export class MyRockSet {
         }  
         return null;
     }
+    reset(){
+        for (let i = 0; i < this.numberRocks; i++) {
+            this.rockSet[i].coords[0]=this.rockSet[i].startingCoords[0];
+            this.rockSet[i].coords[1]=this.rockSet[i].startingCoords[1];
+            this.rockSet[i].coords[2]=this.rockSet[i].startingCoords[2];
+        }
+    }
 }

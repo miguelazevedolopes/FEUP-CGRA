@@ -11,7 +11,6 @@ export class MyRock extends CGFobject {
         super(scene);
         this.latDivs = stacks * 2;
         this.longDivs = slices;
-
         this.coords = pos;
         this.startingCoords = pos;
         this.rockDeform = deform;
