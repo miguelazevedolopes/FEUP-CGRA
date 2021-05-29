@@ -30,8 +30,6 @@ export class MyMovingObject extends CGFobject {
         this.object.initBuffers();
     }
     display() {
-        this.update(); //Update position
-
         this.scene.pushMatrix();
 
         //Rotates and travels depending on its orientation and position
@@ -45,7 +43,7 @@ export class MyMovingObject extends CGFobject {
 
         this.scene.popMatrix();
     }
-    update() {
+    update(t) {
         //Update position with terms to speed and orientation
         this.coordinates[0] += this.speed * this.scene.movSpeedFactor * Math.sin(this.orientationAngle);
         this.coordinates[2] += this.speed * this.scene.movSpeedFactor * Math.cos(this.orientationAngle);

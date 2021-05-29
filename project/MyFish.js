@@ -69,8 +69,6 @@ export class MyFish extends CGFobject {
     }
     display() {
 
-        this.updateAnimations();
-
         this.fishBodyTex.bind(0);
 
         // Whole fish
@@ -298,19 +296,19 @@ export class MyFish extends CGFobject {
         this.swingingSpeed = newSwingingSpeed;
         this.direction = newDirection; // Tells if the fish is going right or left
     }
-    updateAnimations() {
+    updateAnimations(t) {
         if (this.lastT == 0.0)
-            this.lastT = this.scene.time;
+            this.lastT = t;
         if (this.posIncrementTail)
-            this.tailAngle += this.swingingSpeed * (this.scene.time - this.lastT) / 100;
+            this.tailAngle += this.swingingSpeed * (t - this.lastT) / 100;
         else
-            this.tailAngle -= this.swingingSpeed * (this.scene.time - this.lastT) / 100;
+            this.tailAngle -= this.swingingSpeed * (t - this.lastT) / 100;
 
         if (this.posIncrementFin)
-            this.finAngle += (this.scene.time - this.lastT) / 400;
+            this.finAngle += (t - this.lastT) / 400;
         else
-            this.finAngle -= (this.scene.time - this.lastT) / 1000;
+            this.finAngle -= (t - this.lastT) / 1000;
 
-        this.lastT = this.scene.time;
+        this.lastT = t;
     }   
 }

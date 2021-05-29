@@ -160,7 +160,10 @@ export class MyScene extends CGFscene {
      // called periodically (as per setUpdatePeriod() in init())
     update(t){
         this.checkKeys();
-        this.time = t; //For animations
+        this.movingObject.update(t);
+        this.mainFish.update(t);
+        this.fishCrew.update(t);
+        this.waterSurface.update(t);
     }
 
     checkKeys()  {
