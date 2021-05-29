@@ -77,19 +77,19 @@ export class MyScene extends CGFscene {
         this.mainFish = new MyMovingFish(this, 0.42, './images/fish-scales-pattern-purple2.jpg', [0.1, 0.3, 0.1]);
         this.fishCrew = new MyFishFleet(this, 3);
         this.sandFloor = new MySandFloor(this);
-        this.nest= new MyNest(this,[0,0,0],2,14);
+        this.nest = new MyNest(this,[0,0,0],2,14);
         this.waterSurface = new MyWaterSurface(this);
-        this.rockSet = new MyRockSet(this, 20);
+        this.rockSet = new MyRockSet(this, 40);
         this.pillarSet = new MyPillarSet(this, 8);
         this.algaeSet = new MyAlgaeSet(this,10);
         
 
         //Objects connected to MyInterface
-        this.displayAxis = true;
+        this.displayAxis = false;
         this.movScaleFactor = 1.0;
         this.movSpeedFactor = 1.0;
-        this.selectedTexture = 2;
-        this.selectedPart = 1;
+        this.selectedTexture = 2; // Textures of the cubemap
+        this.selectedPart = 1; // PART A or PART B
         this.textureIds = { 'View': 0, 'Test': 1, 'Underwater': 2 };
         this.parts = { 'Part A': 0, 'Part B': 1 };
         this.displayCubeMap = true;
@@ -108,7 +108,7 @@ export class MyScene extends CGFscene {
         this.displayWaterSurface = true;
         this.displayRocks = true;
         this.displayPillars = true;
-        this.displayOtherFish = false;
+        this.displayOtherFish = true;
         this.displayAlgae = true;
 
     }
@@ -123,8 +123,7 @@ export class MyScene extends CGFscene {
     initCameras() {
         this.camera = new CGFcamera2(1.5, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
     }
-
-    updateAppliedTexture() {
+    updateAppliedTexture() { // Texture for the envolving cubemap
         if (this.selectedTexture == 0) {
             this.cubeMap.updateTextures('images/demo_cubemap/top.png', 'images/demo_cubemap/front.png',
                 'images/demo_cubemap/right.png', 'images/demo_cubemap/bottom.png', 'images/demo_cubemap/back.png', 'images/demo_cubemap/left.png');
@@ -135,17 +134,24 @@ export class MyScene extends CGFscene {
             this.cubeMap.updateTextures('images/underwater_cubemap/top.jpg', 'images/underwater_cubemap/front.jpg',
     'images/underwater_cubemap/right.jpg', 'images/underwater_cubemap/bottom.jpg', 'images/underwater_cubemap/back.jpg', 'images/underwater_cubemap/left.jpg');
         }
-    
     }
-    updatePart() {
+    updatePart() { // Options in the interface to change the whole scene to part A or part B
         if (this.selectedPart == 1) {
             this.displayMainFish = true;
             this.displayNest = true;
             this.displayFloor = true;
             this.displayMovingObject = false;
             this.displaySphere = false;
-            this.displayCubeMap = false;
+            this.displayCubeMap = true;
             this.displayCylinder = false;
+            this.displaySphere = false;
+            this.displayWaterSurface = true;
+            this.displayAlgae = true;
+            this.displayRocks = true;
+            this.displayPillars = true;
+            this.displayOtherFish = true;
+            this.selectedTexture = 2;
+            this.updateAppliedTexture();
         } 
         else if (this.selectedPart == 0) {
             this.displayMovingObject = true;
@@ -153,8 +159,15 @@ export class MyScene extends CGFscene {
             this.displayCubeMap = true;
             this.displayCylinder = false;
             this.displayMainFish = false;
+            this.displayPillars = false;
             this.displayNest = false;
             this.displayFloor = false;
+            this.displayAlgae = false;
+            this.displayRocks = false;
+            this.displayWaterSurface = false;
+            this.displayOtherFish = false;
+            this.selectedTexture = 0;
+            this.updateAppliedTexture();
         }
     }
      // called periodically (as per setUpdatePeriod() in init())
@@ -169,42 +182,37 @@ export class MyScene extends CGFscene {
     checkKeys()  {
 
         // Check for key codes e.g. in https://keycode.info/
-        if (this.gui.isKeyPressed("KeyW")){ //Speed up
+        if (this.gui.isKeyPressed("KeyW")){ // Speed up
             this.movingObject.accelerate(0.01);
             this.mainFish.accelerate(0.01);
         }
-        if (this.gui.isKeyPressed("KeyS")){ //Speed down
+        if (this.gui.isKeyPressed("KeyS")){ // Speed down
             this.movingObject.accelerate(-0.01);
             this.mainFish.accelerate(-0.01);
         }
-        if (this.gui.isKeyPressed("KeyA")){ //Left seen from the back of the pyramid 
+        if (this.gui.isKeyPressed("KeyA")){ // Left seen from the back of the pyramid 
             this.movingObject.turn(Math.PI/16);
             this.mainFish.turn(Math.PI/16);
         }
-        if (this.gui.isKeyPressed("KeyD")){ //Right seen from the back of the pyramid 
+        if (this.gui.isKeyPressed("KeyD")){ // Right seen from the back of the pyramid 
             this.movingObject.turn(-Math.PI/16);
             this.mainFish.turn(-Math.PI/16);
         }
-        if (this.gui.isKeyPressed("KeyR")){ //Reset speed, orientation and position
+        if (this.gui.isKeyPressed("KeyR")){ // Reset speed, orientation and position
             this.movingObject.reset();
             this.mainFish.reset();
         }
-        if (this.gui.isKeyPressed("KeyS")){ //Speed down
-            this.movingObject.accelerate(-0.01);
-            this.mainFish.accelerate(-0.01);
-        }
-        if (this.gui.isKeyPressed("KeyP")){ //Up
+        if (this.gui.isKeyPressed("KeyP")){ // Up
             this.mainFish.up();
         }
-        if (this.gui.isKeyPressed("KeyL")){ //Down
+        if (this.gui.isKeyPressed("KeyL")){ // Down
             this.mainFish.down();
         }
-        if (this.gui.isKeyPressed("KeyC")){ //Down
+        if (this.gui.isKeyPressed("KeyC")){ // Rock interaction
             this.mainFish.handleRock();
         }
     
     }
-
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -212,7 +220,6 @@ export class MyScene extends CGFscene {
         this.setEmission(0,0,0,1);
         this.setShininess(10.0);
     }
-
     display() {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene

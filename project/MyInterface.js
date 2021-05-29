@@ -16,11 +16,12 @@ export class MyInterface extends CGFinterface {
         // http://workshop.chromeexperiments.com/examples/gui
         this.gui = new dat.GUI();
 
-        //Parts
+        //Parts (select all part A or all part B)
         this.gui.add(this.scene, 'selectedPart', this.scene.parts).name('Selected Part').onChange(this.scene.updatePart.bind(this.scene));
 
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
+        
         // Part A
         var objectsFolderA = this.gui.addFolder('Objects - Part A');
         objectsFolderA.add(this.scene, 'displayMovingObject').name('Display Moving Object');
@@ -40,13 +41,13 @@ export class MyInterface extends CGFinterface {
         objectsFolderB.add(this.scene, 'displayAlgae').name('Display Algae');
 
         
-        //Textures
+        //Textures for cubemap
         this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
         
-        //Scaling of the moving object
+        //Scaling of the moving objects
         this.gui.add(this.scene, 'movScaleFactor', 0.5, 3).name('Moving O. Scale Factor');
 
-        //Speed Factor 
+        //Speed Factor for the moving objects
         this.gui.add(this.scene, 'movSpeedFactor', 0.5, 3).name('Moving O. Speed Factor');
 
         //Initiate reading keyboard

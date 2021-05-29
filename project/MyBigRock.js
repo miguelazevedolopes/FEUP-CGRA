@@ -10,7 +10,7 @@ import {MyElipseSphere} from './MyElipseSphere.js'
  * @param minT - minimum texture coordinate in T
  * @param maxT - maximum texture coordinate in T
 */
-export class MyBigRock extends CGFobject {
+export class MyBigRock extends CGFobject { // USed to mark the nest
 	constructor(scene,position) {
 		super(scene);
 		this.createMaterials();
@@ -18,14 +18,13 @@ export class MyBigRock extends CGFobject {
 		this.coords = position;
 	}
 	createMaterials() {
-		//Sand material
+		// Rock material
 		this.nestMaterial = new CGFappearance(this.scene);
         this.nestMaterial.setAmbient(0.0, 0.0, 0.0, 0.0);
         this.nestMaterial.setDiffuse(0.0, 0.0, 0.0, 0.0);
         this.nestMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
         this.nestMaterial.setEmission(1.0, 1.0, 1.0, 1.0);
-        this.nestMaterial.setShininess(10.0);
-    
+        this.nestMaterial.setShininess(10.0);    
 		this.rockTex = new CGFtexture(this.scene,"./images/rock.png");
 		this.nestMaterial.setTexture(this.rockTex);
 	}
@@ -33,7 +32,7 @@ export class MyBigRock extends CGFobject {
 		this.scene.pushMatrix();	
         this.scene.translate(this.coords[0],this.coords[1],this.coords[2]);
 		this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.scene.scale(0.75,0.75,0.75);
+        this.scene.scale(0.75,0.75,0.75); // Make them a little smaller
 		this.sphere.display();
 		this.scene.popMatrix();
 		this.scene.setDefaultAppearance();

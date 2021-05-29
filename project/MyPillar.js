@@ -39,7 +39,7 @@ export class MyPillar extends CGFobject {
             this.vertices.push(cos1, -1.0, sin1); 
             this.vertices.push(cos2, -1.0, sin2);
             this.vertices.push(cos1, 10.0, sin1);
-            this.vertices.push(cos2, 10.0, sin2);
+            this.vertices.push(cos2, 10.0, sin2); // Tall cylinder
             this.vertices.push(cos1, -1.0, sin1); 
             this.vertices.push(cos2, -1.0, sin2);
             this.vertices.push(cos1, 10.0, sin1);
@@ -83,7 +83,7 @@ export class MyPillar extends CGFobject {
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.x, 0.0, this.z);
-        this.scene.scale(0.15, 1.0, 0.15);
+        this.scene.scale(0.15, 1.0, 0.15); // Thin the cylinder
         super.display();
         this.scene.popMatrix();
         this.scene.setDefaultAppearance();

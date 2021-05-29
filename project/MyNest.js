@@ -17,7 +17,8 @@ export class MyNest {
         }
         this.scene.popMatrix();
     }
-    distanceFromCenter(fishCoords){
+    // Distances of an object(used with rock/fish interaction) to the center of a nest
+    distanceFromCenter(fishCoords) {
         return Math.sqrt(Math.pow(fishCoords[0]-this.center[0],2)+Math.pow(fishCoords[2]-this.center[2],2));
     }
     distanceFromCenterCoords(fishCoords) {

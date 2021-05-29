@@ -96,13 +96,9 @@ export class MyRock extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(this.coords[0], this.coords[1], this.coords[2]); 
         this.scene.scale(this.rockDeform[0], this.rockDeform[1], this.rockDeform[2]);
-        this.scene.scale(0.1, 0.1, 0.1);
+        this.scene.scale(0.1, 0.1, 0.1); // Rocks are small
         super.display();
         this.scene.popMatrix();
         this.scene.setDefaultAppearance();
     }
-    setPos(coords) {
-        this.coords = coords;
-    }
-
 }

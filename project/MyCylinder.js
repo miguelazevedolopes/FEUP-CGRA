@@ -1,4 +1,4 @@
-import { CGFobject, CGFappearance, CGFtexture } from '../lib/CGF.js';
+import { CGFobject } from '../lib/CGF.js';
 
 export class MyCylinder extends CGFobject {
     constructor(scene, slices, material) {
@@ -63,7 +63,7 @@ export class MyCylinder extends CGFobject {
             this.texCoords.push(1.0 - (i)/this.slices, 0.0);
             this.texCoords.push(1.0 - (i + 1)/this.slices, 0.0);
 
-            ang += alphaAng;//Increment current degree(ang), going arround
+            ang += alphaAng; // Increment current degree(ang), going arround
         }
 
         this.primitiveType = this.scene.gl.TRIANGLES;

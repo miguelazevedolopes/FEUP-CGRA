@@ -9,9 +9,9 @@ export class MyAlgaeSet {
     createAlgae() {
         this.algSet = [];
 
-        for (let i = 0; i < this.numberAlgae; i++) {
+        // Algae are responsible to randomly sort their own position, colours and number of leafs
+        for (let i = 0; i < this.numberAlgae; i++) 
             this.algSet.push(new MyAlgae(this.scene, 3, 1));
-        }
     }
     display() {
         for (let i = 0; i < this.numberAlgae; i++) {

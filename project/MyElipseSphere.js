@@ -10,9 +10,10 @@ export class MyElipseSphere extends CGFobject {
   constructor(scene, slices, stacks, material,x,y,z) {
     super(scene);
     this.latDivs = stacks * 2;
-    this.flattenX=x;
-    this.flattenY=y;
-    this.flattenZ=z;
+    // Deforming factors
+    this.flattenX = x; 
+    this.flattenY = y;
+    this.flattenZ = z;
     this.longDivs = slices;
     this.material = material;
     this.initBuffers();
@@ -42,6 +43,7 @@ export class MyElipseSphere extends CGFobject {
       theta = 0;
       for (let longitude = 0; longitude <= this.longDivs; longitude++) {
         //--- Vertices coordinates
+        // Deforming to make sphere an elipseSphere
         var x = this.flattenX*Math.cos(theta) * sinPhi;
         var y = this.flattenY*cosPhi;
         var z = this.flattenZ*Math.sin(-theta) * sinPhi;

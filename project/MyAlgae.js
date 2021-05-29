@@ -20,7 +20,7 @@ export class MyAlgae extends CGFobject {
     }
     createCoords() {
         this.coords = [Math.random() * 51 - 25, 0.0, Math.random() * 51 - 25]; 
-        while(this.scene.nest.distanceFromCenter(this.coords) <= this.scene.nest.radius + 0.5) {
+        while(this.scene.nest.distanceFromCenter(this.coords) <= this.scene.nest.radius + 0.5) { // Algae can't be inside the nest
             this.coords = [Math.random() * 51 - 25, 0.0, Math.random() * 51 - 25]; 
         }
     }
@@ -47,7 +47,7 @@ export class MyAlgae extends CGFobject {
     }
     createLeafs() {
         this.leafOffset = []; // For the position of the leaves
-        this.leafSize = []; // For the scalings
+        this.leafSize = []; // For the scalings, leaves with different sizes
         for (let i = 0; i < this.noLeafs; i++) {
             this.leafOffset.push(Math.random() * 2 - 0.5);
             this.leafOffset.push(0.0);

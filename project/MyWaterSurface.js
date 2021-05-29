@@ -5,7 +5,6 @@ import { MyPlane } from "./MyPlane.js";
 export class MyWaterSurface extends CGFobject {
     constructor(scene) {
         super(scene);
-        //this.quad = new MyQuad(this.scene);
         this.quad = new MyPlane(this.scene,200);
         this.createShaders();
     }

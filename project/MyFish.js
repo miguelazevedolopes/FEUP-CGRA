@@ -20,7 +20,7 @@ export class MyFish extends CGFobject {
         this.swingingSpeed = 0.2;
         this.tailAngle = 0.0;
         this.finAngle = 0.0;
-        this.lastT = 0.0;
+        this.lastT = 0.0; // Last moment, to calculate the time intervals for the fins animation
         this.turningDirection = 0; // 0 for not turning, one for right, two for left
     }
     createMaterials() {
@@ -50,7 +50,7 @@ export class MyFish extends CGFobject {
     createShaders() {
         this.fishBodyShader = new CGFshader(this.scene.gl, "./Shaders/FishBodyPart.vert", "./Shaders/FishBodyPart.frag");
         this.fishBodyShader.setUniformsValues({ scalesSampler : 0});
-        this.fishBodyShader.setUniformsValues({ ratio : this.ratio });
+        this.fishBodyShader.setUniformsValues({ ratio : this.ratio }); // Head/body ratio
         this.fishBodyShader.setUniformsValues({ r : this.color[0] });
         this.fishBodyShader.setUniformsValues({ g : this.color[1] });
         this.fishBodyShader.setUniformsValues({ b : this.color[2] });
@@ -173,6 +173,7 @@ export class MyFish extends CGFobject {
         this.scene.popMatrix();
         this.scene.setDefaultAppearance();
     }
+    // Used to minimize shader activation, passing that responsability up the chain
     displayBody() { // To enhance performance on selfMovingFish
 
         // Whole body transformations
@@ -182,6 +183,7 @@ export class MyFish extends CGFobject {
         this.body.display();
         this.scene.popMatrix();
     }
+    // Used to minimize shader activation, passing that responsability up the chain
     displayFins() { // To enhance performance on selfMovingFish
 
         // Whole body transformations
@@ -293,10 +295,10 @@ export class MyFish extends CGFobject {
         this.fin.disableNormalViz();
     }
     updateAnimationSpeeds(newSwingingSpeed, newDirection) {
-        this.swingingSpeed = newSwingingSpeed;
+        this.swingingSpeed = newSwingingSpeed; // Speed of tail wagging
         this.direction = newDirection; // Tells if the fish is going right or left
     }
-    updateAnimations(t) {
+    updateAnimations(t) { // Sets the angles for the rotations of the fins and tail
         if (this.lastT == 0.0)
             this.lastT = t;
         if (this.posIncrementTail)
@@ -309,6 +311,6 @@ export class MyFish extends CGFobject {
         else
             this.finAngle -= (t - this.lastT) / 1000;
 
-        this.lastT = t;
+        this.lastT = t; // Reset last update moment
     }   
 }
