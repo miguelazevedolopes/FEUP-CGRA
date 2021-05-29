@@ -1,4 +1,4 @@
-import { CGFobject, CGFappearance, CGFtexture } from '../lib/CGF.js';
+import { CGFobject, CGFappearance } from '../lib/CGF.js';
 
 export class MyPillar extends CGFobject {
     constructor(scene, slices, x, z) {

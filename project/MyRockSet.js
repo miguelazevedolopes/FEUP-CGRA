@@ -1,4 +1,3 @@
-import { CGFappearance } from "../lib/CGF.js";
 import { MyRock } from "./MyRock.js";
 
 export class MyRockSet {

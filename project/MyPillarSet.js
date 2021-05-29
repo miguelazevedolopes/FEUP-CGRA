@@ -1,5 +1,4 @@
 import { MyPillar } from "./MyPillar.js";
-import { CGFappearance } from "../lib/CGF.js";
 
 export class MyPillarSet {
     constructor(scene, n) {

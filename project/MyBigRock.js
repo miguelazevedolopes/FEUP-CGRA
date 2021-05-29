@@ -1,4 +1,4 @@
-import {CGFobject,CGFtexture,CGFshader,CGFappearance} from '../lib/CGF.js';
+import {CGFobject,CGFtexture,CGFappearance} from '../lib/CGF.js';
 import {MyElipseSphere} from './MyElipseSphere.js'
 /**
 * MySandFloor

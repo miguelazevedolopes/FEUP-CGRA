@@ -1,4 +1,4 @@
-import {CGFobject, CGFappearance, CGFtexture} from '../lib/CGF.js';
+import {CGFobject, CGFappearance} from '../lib/CGF.js';
 
 export class MyRock extends CGFobject {
     /**
@@ -11,7 +11,6 @@ export class MyRock extends CGFobject {
         super(scene);
         this.latDivs = stacks * 2;
         this.longDivs = slices;
-
         this.coords = pos;
         this.startingCoords = pos;
         this.rockDeform = deform;
