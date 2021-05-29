@@ -188,7 +188,6 @@ export class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR")){ //Reset speed, orientation and position
             this.movingObject.reset();
             this.mainFish.reset();
-            this.rockSet.reset();
         }
         if (this.gui.isKeyPressed("KeyS")){ //Speed down
             this.movingObject.accelerate(-0.01);
