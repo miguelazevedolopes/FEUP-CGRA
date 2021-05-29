@@ -79,13 +79,13 @@ export class MyScene extends CGFscene {
         this.sandFloor = new MySandFloor(this);
         this.nest= new MyNest(this,[0,0,0],2,14);
         this.waterSurface = new MyWaterSurface(this);
-        this.rockSet = new MyRockSet(this, 20);
+        this.rockSet = new MyRockSet(this, 50);
         this.pillarSet = new MyPillarSet(this, 8);
         this.algaeSet = new MyAlgaeSet(this,10);
         
 
         //Objects connected to MyInterface
-        this.displayAxis = true;
+        this.displayAxis = false;
         this.movScaleFactor = 1.0;
         this.movSpeedFactor = 1.0;
         this.selectedTexture = 2;
