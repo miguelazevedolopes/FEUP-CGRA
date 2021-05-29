@@ -56,7 +56,7 @@ export class MyMovingFish extends MyMovingObject {
             this.rock = this.scene.rockSet.rocksInRange(this.coordinates);
             if (this.rock != null) this.hasRock = true;
         } else if (this.coordinates[1] <= 0.40 && this.hasRock && this.scene.nest.distanceFromCenter(this.coordinates) <= this.scene.nest.radius) { // Drop rock
-            this.rock.coords = [this.rock.coords[0],0,this.rock.coords[2]];
+            this.rock.coords = this.rock.nestCoords;
             this.hasRock = false;
             this.rock = null;
         } else if (this.coordinates[1] == 5.0 && this.hasRock && this.scene.nest.distanceFromCenter(this.coordinates) <= this.scene.nest.radius + 5){ // Throw rock
