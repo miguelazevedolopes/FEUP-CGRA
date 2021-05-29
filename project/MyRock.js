@@ -13,7 +13,7 @@ export class MyRock extends CGFobject {
         this.longDivs = slices;
         this.coords = pos;
         this.startingCoords = pos;
-        this.nestCoords=[Math.random()*4-2,0,Math.random()*4-2];
+        this.nestCoords=[Math.random()*4-2,0,Math.random()*4-2]; //Predefines a random position for the rock in the nest area
         this.rockDeform = deform;
         this.createMaterial();
         this.initBuffers();
