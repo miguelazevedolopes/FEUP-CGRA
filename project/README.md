@@ -1,10 +1,9 @@
 # CGRA 2020/2021
 
-## Group T0xG0y
+## Group T03G09
+| Name             | Number    | E-Mail             |
+| ---------------- | --------- | ------------------ |
+| Marcelo Couto    | 201906086 |up201906086@fe.up.pt|
+| Miguel Loopes    | 201704590 |up201704590@fe.up.pt|
 
-## Project Notes
-
-(add your main observations/remarks about your experiments here, in a bulleted list, and remove this line. Some examples below)
-
-- In exercise 1 we observed X
-- In exercise 2 we had difficulties in Y
+----
