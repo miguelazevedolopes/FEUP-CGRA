@@ -30,9 +30,9 @@ export class MyMovingFish extends MyMovingObject {
         this.object.updateAnimations(t);
 
         // Update speeds of the falling rock
-        this.vy += this.ay * (t - this.lastT) / 1000;
-        this.vx = this.baseSpeedx * (t - this.lastT) / 1000;
-        this.vz = this.baseSpeedz * (t - this.lastT) / 1000;
+        this.dy += this.ay * ((t - this.lastT) / 1000)* ((t - this.lastT) / 1000);
+        this.dx = this.baseSpeedx * (t - this.lastT) / 1000;
+        this.dz = this.baseSpeedz * (t - this.lastT) / 1000;
 
         this.lastT = t;
 
@@ -63,12 +63,12 @@ export class MyMovingFish extends MyMovingObject {
             this.throwing = true;
             this.hasRock = false;
             let distCoords = this.scene.nest.distanceFromCenterCoords(this.rock.coords);
-            this.vy = 0;
-            this.vx = 0;
-            this.vy = 0;
-            this.baseSpeedx = distCoords[0]; // Real speed in x
-            this.baseSpeedz = distCoords[2]; // Real speed in z
-            this.ay = -1.5; // Real acceleration
+            this.dy = 0;
+            this.dx = 0;
+            this.dy = 0;
+            this.baseSpeedx = distCoords[0]/2; // Real speed in x
+            this.baseSpeedz = distCoords[2]/2; // Real speed in z
+            this.ay = -2.5; // Real acceleration
         }
     }  
     updateRockPos() {
@@ -76,7 +76,7 @@ export class MyMovingFish extends MyMovingObject {
         if (this.hasRock) 
             this.rock.coords = [this.coordinates[0] + 0.75 * Math.sin(this.orientationAngle), this.coordinates[1], this.coordinates[2] + 0.75 * Math.cos(this.orientationAngle)];
         else if (this.throwing) { // Updates rock position in a parabollical trajectory until it lands the nest (horizontal throw style)
-            this.rock.coords = [this.rock.coords[0] + this.vx, this.rock.coords[1] + this.vy, this.rock.coords[2] + this.vz];
+            this.rock.coords = [this.rock.coords[0] + this.dx, this.rock.coords[1] + this.dy, this.rock.coords[2] + this.dz];
             if (this.rock.coords[1] <= 0.0) { // If it has hit the ground
                 this.throwing = false;
                 this.rock.coords[1] = 0.0;
