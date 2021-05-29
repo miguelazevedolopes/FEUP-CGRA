@@ -29,6 +29,10 @@ export class MyFishFleet {
              this.textures[i % 3], this.color[i % 3]));
         }
     }
+    update(t) {
+        for (let i = 0; i < this.noFish; i++)
+            this.fishes[i].update(t);
+    }
     display() {
         for (let i = 0; i < this.noFish; i++)
             this.fishes[i].display();

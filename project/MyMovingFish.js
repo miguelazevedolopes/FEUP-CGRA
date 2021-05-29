@@ -19,21 +19,22 @@ export class MyMovingFish extends MyMovingObject {
         if (this.coordinates[1] > 0.40)
             this.coordinates[1] -= 0.1;
     }
-    update() {
-        super.update();
+    update(t) {
+        super.update(t);
 
         if (this.lastT == 0.0)
-            this.lastT == this.scene.time;
+            this.lastT == t;
 
         // Updates animations
         this.updateAnimations();
+        this.object.updateAnimations(t);
 
         // Update speed of the falling rock
-        this.vy += this.ay * (this.scene.time - this.lastT) / 1000;
-        this.vx = this.baseSpeedx * (this.scene.time - this.lastT) / 1000;
-        this.vz = this.baseSpeedz * (this.scene.time - this.lastT) / 1000;
+        this.vy += this.ay * (t - this.lastT) / 1000;
+        this.vx = this.baseSpeedx * (t - this.lastT) / 1000;
+        this.vz = this.baseSpeedz * (t - this.lastT) / 1000;
 
-        this.lastT = this.scene.time;
+        this.lastT = t;
 
         // Updates the Rocks position
         this.updateRockPos();

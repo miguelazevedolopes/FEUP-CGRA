@@ -16,9 +16,10 @@ export class MyWaterSurface extends CGFobject {
         this.waterSurfaceShader.setUniformsValues( { uSamplerPier : 0 } );
         this.waterSurfaceShader.setUniformsValues( { uSamplerDistortion : 1 } );
     }
+    update(t) {
+        this.waterSurfaceShader.setUniformsValues( { timeFactor : t / 100 % 500})
+    }
     display() {
-
-        this.waterSurfaceShader.setUniformsValues( { timeFactor : this.scene.time / 100 % 500})
         this.waterTex.bind(0);
         this.distortionTex.bind(1);
         this.scene.pushMatrix();
