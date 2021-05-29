@@ -25,10 +25,15 @@ export class MyMovingFish extends MyMovingObject {
         if (this.lastT == 0.0)
             this.lastT == this.scene.time;
 
-        
-
         // Updates animations
         this.updateAnimations();
+
+        // Update speed of the falling rock
+        this.vy += this.ay * (this.scene.time - this.lastT) / 1000;
+        this.vx = this.baseSpeedx * (this.scene.time - this.lastT) / 1000;
+        this.vz = this.baseSpeedz * (this.scene.time - this.lastT) / 1000;
+
+        this.lastT = this.scene.time;
 
         // Updates the Rocks position
         this.updateRockPos();
@@ -49,39 +54,40 @@ export class MyMovingFish extends MyMovingObject {
         if (this.coordinates[1] <= 0.40 && !this.hasRock){
             this.rock = this.scene.rockSet.rocksInRange(this.coordinates);
             if (this.rock != null) this.hasRock = true;
-        }
-        else if(this.coordinates[1] <= 0.40 && this.hasRock && this.scene.nest.distanceFromCenter(this.coordinates)<=this.scene.nest.radius){
-            this.rock.setPos([this.rock.coords[0],0,this.rock.coords[2]])
-            this.hasRock=false;
-            this.rock=null;
-        }
-        else if(this.coordinates[1] == 5.0 && this.hasRock && this.scene.nest.distanceFromCenter(this.coordinates)<=this.scene.nest.radius+5){
-            this.throwing=true;
-            this.vx=distanceFromCenter(this.coordinates)/2.0;
-            this.vy=0;
-            this.ay=-2.5;
-            
+        } else if (this.coordinates[1] <= 0.40 && this.hasRock && this.scene.nest.distanceFromCenter(this.coordinates) <= this.scene.nest.radius){
+            this.rock.coords = [this.rock.coords[0],0,this.rock.coords[2]];
+            this.hasRock = false;
+            this.rock = null;
+        } else if (this.coordinates[1] == 5.0 && this.hasRock && this.scene.nest.distanceFromCenter(this.coordinates) <= this.scene.nest.radius + 5){
+            console.log("Yeeted\n");
+            this.throwing = true;
+            this.hasRock = false;
+            let distCoords = this.scene.nest.distanceFromCenterCoords(this.rock.coords);
+            this.vy = 0;
+            this.vx = 0;
+            this.vy = 0;
+            this.baseSpeedx = distCoords[0];
+            this.baseSpeedz = distCoords[2];
+            this.ay = -1.5; // Real acceleration
         }
     }  
     updateRockPos() {
-        if (this.hasRock) {
-            /* var rockNewPos = [];
-            rockNewPos.push(this.coordinates[0] + 0.75 * Math.sin(this.orientationAngle), this.coordinates[1], this.coordinates[2] + 0.75 * Math.cos(this.orientationAngle)); // Position moving */
-            this.rock.setPos([this.coordinates[0] + 0.75 * Math.sin(this.orientationAngle), this.coordinates[1], this.coordinates[2] + 0.75 * Math.cos(this.orientationAngle)]);
+        if (this.hasRock) 
+            this.rock.coords = [this.coordinates[0] + 0.75 * Math.sin(this.orientationAngle), this.coordinates[1], this.coordinates[2] + 0.75 * Math.cos(this.orientationAngle)];
+        else if (this.throwing){
+            this.rock.coords = [this.rock.coords[0] + this.vx, this.rock.coords[1] + this.vy, this.rock.coords[2] + this.vz];
+            if (this.rock.coords[1] <= 0.0) {
+                this.throwing = false;
+                this.rock.coords[1] = 0.0;
+            }
         }
-        else if(this.throwing){
-            var rockNewPos = [];
-            /* let ratio = this.coordinates[0] / (this.coordinates[0] + this.coordinates[2]);
-            rockNewPos.push(this.rock.coordinates[0]+ this.vx * ratio,) */
-        }
-
     }
     reset() {
         super.reset();
         this.coordinates[1] = 5.0;
         if (this.hasRock) {
             this.hasRock = false;
-            this.rock.setPos(this.rock.startingCoords);
+            this.rock.coords = this.rock.startingCoords;
             this.rock = null;
         }
     }

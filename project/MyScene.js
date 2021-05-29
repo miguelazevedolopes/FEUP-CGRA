@@ -108,7 +108,7 @@ export class MyScene extends CGFscene {
         this.displayWaterSurface = true;
         this.displayRocks = true;
         this.displayPillars = true;
-        this.displayOtherFish = true;
+        this.displayOtherFish = false;
         this.displayAlgae = true;
 
     }
