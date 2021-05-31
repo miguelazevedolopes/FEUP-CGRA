@@ -2,7 +2,7 @@
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
 | Marcelo Couto    | 201906086 |up201906086@fe.up.pt|
-| Miguel Loopes    | 201704590 |up201704590@fe.up.pt|
+| Miguel Lopes     | 201704590 |up201704590@fe.up.pt|
 
 ## My Fish
 ![Screenshot 1a](screenshots/proj-t3g09-1a.png)
@@ -38,14 +38,12 @@
 ![Screenshot 7b](screenshots/proj-t3g09-7b.png)
 
 ## Aditional Features
-Decidimos implementar as features 7.1 - Algas,
-7.4 - Lançamento das pedras para o alvo e 7.5 - MyAnimatedFish - Animação de outros peixes
 
-Para apanhar uma pedra o peixe tem de estar na posição o mais próxima da areia possivel (carregar L até não descer mais). Se cumprir esta condição e estiver próximo da pedra, basta carregar C para a apanhar.
+To catch a stone, the fish must be in the position as close to the sand as possible (press L until it doesn't move any further). when you are close to the stone, just press C to pick it up.
 
-Para testar o lançamento da pedra o peixe tem de estar no ponto mais elevado que é permitido (carregar P até não subir mais) e estar a 5 unidade de distância do centro do ninho do peixe. Como tal, recomendamos que para testar, se comece a uma distância superior a 5 e que se vá carregando repetidamente na tecla C.
+To throw a stone towards the nest (sea shell surrounded by rocks) you must be at the highest point that is allowed (press P until the fish doesn't move anymore) and be 5 units away from the center of the fish's nest. As such, we recommend that you start from a distance greater than 5 and press the C key repeatedly.
 
-Tal como foi sugerido pelo professor das aulas práticas, uma tentativa de melhorar a performance experimentamos reutilizar o mesmo shader para todos os peixes, no entanto, não verificamos nenhuma melhoria e como tal mantivemos as texturas dos peixes diferentes, como se pode verificar nos screenshots que se seguem:
+As suggested by the teacher of the practical classes, in an attempt to improve performance we tried to reuse the same shader for all the fish, however, we did not see any improvement and as such we kept the textures of the different fish, as you can see in the screenshots that follow: 
 
 ![Screenshot 8a](screenshots/proj-t3g09-8a.png)
 ![Screenshot 8b](screenshots/proj-t3g09-8b.png)
