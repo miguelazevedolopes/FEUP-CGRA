@@ -2,7 +2,7 @@
 
 ## Project
 
-For this course we created a scene that mimics the bottom of the sea. You can check the results [here](./project/README.md)).
+For this course we created a scene that mimics the bottom of the sea. You can check the results [here](./project/README.md).
 
 ## Group T03G09
 | Name             | Number    | E-Mail             |
